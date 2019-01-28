@@ -19,18 +19,15 @@ print (IP)
 class smtphoney:
     async def handle_RCPT(self, server, session, envelope, address, rcpt_options):
         loggingaddresses(session.peer[0], envelope.mail_from, address)
+        print("done logging address")
         envelope.rcpt_tos.append(address)
         return '250 OK'
         #straight out of documentation
 
     async def handle_DATA(self, server, session, envelope):
-
         print ('New Email \n')
-      
         inmemoryfile(envelope.content.decode('utf8', errors='replace')) #A function I made in memoryfile.py
-     
         print('End of message')
-
         return '250 Message accepted for delivery'
     
 
