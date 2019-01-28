@@ -31,6 +31,19 @@ pip3 install requests aiosmtpd
 
 python3 setup.py
 
+**Debian fresh install:**
+
+apt-get install python3-pip git
+
+pip3 install --upgrade pip
+
+pip3 install requests aiosmtpd # if you get some wierd 'main' error. Just reboot.
+
+git clone https://github.com/tbiens/icarus.git
+
+cd icarus
+
+python3 setup.py
 
 **Setup:**
 
