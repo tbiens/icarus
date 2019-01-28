@@ -26,7 +26,6 @@ def inmemoryfile(filecontents):
             filename = open("downloads/" + shahash,"w+") # open sha256 named file
             filename.write(attachment) #Reading the memoryfile into the actual file being written to disk.
             filename.close() #closing is important.
-    #        shutil.move(shahash, "downloads/" + shahash) #moving the file from . to ./downloads/
             virustotalfile(shahash) #Send the file to my virustotal script
             memoryfile.close() #closing is important.
     
@@ -37,10 +36,10 @@ def inmemoryfile(filecontents):
 def loggingaddresses(sessionpeer, mailfrom, mailto): #Logging connections to a csv file
     
     nowdate = datetime.now().strftime("%Y-%m-%d %H:%M:%S") #What date and time.
-
+    print(nowdate)
     loggingfile = open("logs/logging.csv","a+")
     #Opening logs/logging.csv in append mode. 
-    loggingfile.write(sessionpeer + "," + mailfrom + "," + mailto + "," +  nowdate + "\n")
+    loggingfile.write(sessionpeer + "," + mailfrom + "," + mailto + "," + nowdate + "\n")
     #Logging, IP, From, To, and the Date
     loggingfile.close()
 
