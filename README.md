@@ -34,7 +34,7 @@ python3 setup.py
 
 **Setup:**
 
-Minimum Python seems to be 3.5. I made this in 3.7. 
+Minimum Python seems to be 3.5 because of async and aiosmtpd. I made this in 3.7. 
 
 apt-get install python3-requests python3-aiosmtpd
 
