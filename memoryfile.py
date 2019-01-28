@@ -40,7 +40,7 @@ def loggingaddresses(sessionpeer, mailfrom, mailto): #Logging connections to a c
 
     loggingfile = open("logs/logging.csv","a+")
     #Opening logs/logging.csv in append mode. 
-    loggingfile.write(sessionpeer + "," + mailfrom + "," + mailto + "," nowdate + "\n")
+    loggingfile.write(sessionpeer + "," + mailfrom + "," + mailto + "," +  str(nowdate) + "\n")
     #Logging, IP, From, To, and the Date
     loggingfile.close()
 
