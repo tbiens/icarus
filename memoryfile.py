@@ -38,7 +38,7 @@ def loggingaddresses(sessionpeer, mailfrom, mailto): #Logging connections to a c
     nowdate = datetime.now().strftime("%Y-%m-%d %H:%M:%S") #What date and time.
     loggingfile = open("logs/logging.csv","a+")
     #Opening logs/logging.csv in append mode. 
-    loggingfile.write(sessionpeer + "," + mailfrom + "," + mailto + "," + nowdate + "\n")
+    loggingfile.write(sessionpeer + "," + mailfrom + "," + mailto + "," + str(nowdate) + "\n")
     #Logging, IP, From, To, and the Date
     loggingfile.close()
     
