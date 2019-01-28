@@ -8,14 +8,11 @@ There are many awesome SMTP honeypots but they are for spam. https://github.com/
 **Future Features:**
 
 1. Log to ELK or Splunk
-2. Log IP addresses.
-3. Log email addresses To and From
+
 3. Report IP addresses to an antispam api service.
 4. Improve my skills significantly in Git and Python. 
 5. More than 1 attachment at a time.
-6. Database statistics
-  6.1. Seen Count
-  6.2. Timestamps for longevity / lifetime tracking
+
 7. Cleanup process for logs and downloads.
 8. Cuckoo API?
 9. Config file the IP choice.
