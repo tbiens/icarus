@@ -1,6 +1,6 @@
 
-#import asyncio # https://aiosmtpd.readthedocs.io/en/latest/aiosmtpd/docs/controller.html
-#import aiosmtpd # the smtp library
+import asyncio # https://aiosmtpd.readthedocs.io/en/latest/aiosmtpd/docs/controller.html
+import aiosmtpd # the smtp library
 import socket #To get your IP address for the server to run on.
 #from sha256 import sha256temp #My sha256.py file.
 from aiosmtpd.controller import Controller #the controller that handles async smtp?
