@@ -12,6 +12,7 @@ def inmemoryfile(filecontents):
     memoryfile.write(filecontents)
     #This stores the file in memory. We limit email size to 30MB or so.
     email = memoryfile.getvalue()
+    print (email)
     #Checking if there's an attachment
     if 'Content-Disposition: attachment;' in filecontents: 
         beforeboundary = email.split('Content-Disposition: attachment;')[1]
