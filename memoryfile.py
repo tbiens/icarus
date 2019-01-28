@@ -34,7 +34,6 @@ def inmemoryfile(filecontents):
   
 
 def loggingaddresses(sessionpeer, mailfrom, mailto): #Logging connections to a csv file
-    
     nowdate = datetime.now().strftime("%Y-%m-%d %H:%M:%S") #What date and time.
     loggingfile = open("logs/logging.csv","a+")
     #Opening logs/logging.csv in append mode. 
