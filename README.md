@@ -15,7 +15,7 @@ There are many awesome SMTP honeypots but they are for spam. https://github.com/
 6. Cuckoo API?
 7. Config file the IP choice.
 8. Chroot or nobody:nobody.
-9. 
+9. Docker?
 10. 
 
 **Raspbian from scratch:**
@@ -33,7 +33,9 @@ nano icarus.config  #Enter your virustotal API Key in.
 
 python3 setup.py
 
-**Debian fresh install:**
+**Debian 9 fresh install:**
+
+apt-get update;apt-get dist-upgrade
 
 apt-get install python3-pip git
 
@@ -48,6 +50,7 @@ cd icarus
 nano icarus.config  #Enter your virustotal API Key in.
 
 python3 setup.py
+
 
 **Setup:**
 
