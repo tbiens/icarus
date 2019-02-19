@@ -18,7 +18,8 @@ def abuseipdb(sessionpeer, mailfrom, mailto):
             print ("This is your currently configured APIKEY in smtp.config:\n" + config['IPDBAPI']['IPDBAPI'])
         else:
             abusepost = requests.post(url, data={'ip': sessionpeer, 'comment': 'SMTP honeypot', 'Key': apikey, 'categories': '11', 'Accept': 'application/json'})
-            print (abusepost.text)
+            print (abusepost.json())
             if abusepost.status_code != 200:
                 print ("HTTP code isn't 200")
+
 
