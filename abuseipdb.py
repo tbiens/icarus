@@ -1,6 +1,6 @@
 import configparser #https://docs.python.org/3/library/configparser.html
 import requests #https://developers.virustotal.com/v2.0/reference#file-scan
-
+import json
 
 def abuseipdb(sessionpeer, mailfrom, mailto):
     config = configparser.ConfigParser()
@@ -18,7 +18,7 @@ def abuseipdb(sessionpeer, mailfrom, mailto):
             print ("This is your currently configured APIKEY in smtp.config:\n" + config['IPDBAPI']['IPDBAPI'])
         else:
             abusepost = requests.post(url, data={'ip': sessionpeer, 'comment': 'SMTP honeypot', 'Key': apikey, 'categories': '11'})
-            print (abusepost)
+            print (json.loads(abusepost.text))
             if abusepost.status_code != 200:
                 print ("HTTP code isn't 200")
 
