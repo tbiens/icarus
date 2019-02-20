@@ -64,13 +64,14 @@ class smtphoney:
         #straight out of documentation
 
     async def handle_DATA(self, server, session, envelope):
-        box = curses.newwin(100,100,3,0)
-        box.box()
+        box1 = curses.newwin(100,50,3,0)
+        box1.box()
+        box2 = curses.newwwin(90,45,4,1)
         box.refresh()
-        box.addstr(4,1,"New Email\n")
+        box2.addstr(4,1,"New Email\n")
         #print ('New Email \n')
         inmemoryfile(envelope.content.decode('utf8', errors='replace')) #A function I made in memoryfile.py
-        box.addstr(6,1,"End of Message\n")
+        box2.addstr(6,1,"End of Message\n")
         #print('End of message')
         return '250 Message accepted for delivery'
     
