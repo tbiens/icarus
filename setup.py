@@ -23,6 +23,11 @@ def main(window):
     curses.curs_set(0)
     stdscr = curses.initscr()
     curses.noecho()
+    controller = Controller(smtphoney(), hostname = IP,port=25)
+#It calls the class above as my handler, the hostname sets the ip, I set the SMTP port to 25 obviously
+    controller.start()
+    input("Server started. Press Return to quit.")
+    controller.stop()
     while True:
         #window.clear()
         print ("Listening on:" + IP)
@@ -32,13 +37,9 @@ def main(window):
             break
         elif c == ord('p'):
             print ("You pressed P")
-        controller = Controller(smtphoney(), hostname = IP,port=25)
-#It calls the class above as my handler, the hostname sets the ip, I set the SMTP port to 25 obviously
-        controller.start()
-        input("Server started. Press Return to quit.")
-        controller.stop()
+
         window.refresh()
-        time.sleep(0.2)
+       # time.sleep(0.2)
 
 
 
