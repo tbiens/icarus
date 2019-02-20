@@ -1,7 +1,7 @@
 # Icarus
 **Goal:**
 
-SMTP honeypot for collecting malware and automatically uploading to virustotal.
+SMTP honeypot for collecting malware and automatically uploading to virustotal and report spammers to abuseipdb
 
 There are many awesome SMTP honeypots but they are for spam. https://github.com/paralax/awesome-honeypots
 
@@ -9,14 +9,14 @@ There are many awesome SMTP honeypots but they are for spam. https://github.com/
 
 1. Improve my skills significantly in Git and Python.
 2. Log to ELK or Splunk
-3. Report IP addresses to an antispam api service.
+3. Report IP addresses to an antispam api service. done?
 4. More than 1 attachment at a time.
 5. Cleanup process for logs and downloads.
 6. Cuckoo API?
 7. Config file the IP choice.
 8. Chroot or nobody:nobody.
 9. Docker?
-10. 
+10. Fancy cli interface
 
 **Raspbian from scratch:**
 Raspbian 9 has Python 3.5.3 by default. Which should work.
