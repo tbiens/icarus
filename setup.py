@@ -69,12 +69,7 @@ class smtphoney:
         box2 = curses.newwin(45,95,4,1)
         box1.refresh()
         box2position = 1
-        if box2posinc == 1:
-            box2.addstr(box2position,1,"New Email\n")
-            box2posinc += 1
-        else:
-            box2.addstr(box2posinc,1,"New Email\n")
-            box2posinc += 1
+        box2.addstr(1,1,"New Email\n")
         #print ('New Email \n')
         inmemoryfile(envelope.content.decode('utf8', errors='replace')) #A function I made in memoryfile.py
         box2.refresh()
