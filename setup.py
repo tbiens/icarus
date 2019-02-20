@@ -70,7 +70,7 @@ class smtphoney:
         box1.refresh()
         box2.scrollok(True)
         box2.scroll()
-        box2.addstr(1,1,"New Email\n")
+        box2.addstr(10,1,"New Email\n")
         #print ('New Email \n')
         inmemoryfile(envelope.content.decode('utf8', errors='replace')) #A function I made in memoryfile.py
         box2.refresh()
