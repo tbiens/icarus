@@ -64,14 +64,11 @@ class smtphoney:
         #straight out of documentation
 
     async def handle_DATA(self, server, session, envelope):
-        box1 = curses.newpad(50,100,3,0)
-        box1.border()
-        box2 = curses.newpad(45,95,4,1)
-        box1.refresh()
+        box1 = curses.newpad(50,100)
+
        # box2position = 4
-        
-        
-        box2.addstr(4,1,"New Email\n")
+        box1.addstr(4,1,"New Email\n")
+        box1.refresh()
         #print ('New Email \n')
         inmemoryfile(envelope.content.decode('utf8', errors='replace')) #A function I made in memoryfile.py
         #box2.refresh()
