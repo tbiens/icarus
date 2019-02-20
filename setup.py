@@ -17,31 +17,40 @@ IP = get_ip_address()
 
 #Found socket at https://docs.python.org/3/library/socket.html mostly just their code.
 
+s = curses.initscr()
+curses.curs_set(0)
+curses.noecho()
+sh, sw = s.getmaxyx()
+w = curses.newwin(sh, sw, 0, 0)
+w.keypad(1)
+w.timeout(100)
 
 
 def main(window):
-    curses.curs_set(0)
-    stdscr = curses.initscr()
-    curses.noecho()
+    next_key = w.getch()
+    key = key if next_key == -1 else next_key
+
     controller = Controller(smtphoney(), hostname = IP,port=25)
 #It calls the class above as my handler, the hostname sets the ip, I set the SMTP port to 25 obviously
     controller.start()
-    input("Server started. Press Return to quit.")
-    controller.stop()
+
     while True:
-        #window.clear()
+
         print ("Listening on:" + IP)
         print ("Server started. Press Q to quit.")
-        c = stdscr.getch()
-        if c == ord('q'):
+        
+        
+        
+        if key == ord('q'):
             break
-        elif c == ord('p'):
+        elif key == ord('p'):
             print ("You pressed P")
 
         window.refresh()
        # time.sleep(0.2)
 
-
+#    input("Server started. Press Return to quit.")
+    controller.stop()
 
 
 class smtphoney:
