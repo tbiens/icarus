@@ -24,7 +24,7 @@ def main(window):
     stdscr = curses.initscr()
     curses.noecho()
     while True:
-        window.clear()
+        #window.clear()
         print ("Listening on:" + IP)
         print ("Server started. Press Q to quit.")
         c = stdscr.getch()
