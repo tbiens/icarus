@@ -72,7 +72,7 @@ class smtphoney:
         box2posinc = 1
         if box2posinc == 1:
             box2.addstr(box2position,1,"New Email\n")
-            pox2posinc += 1
+            box2posinc += 1
         else:
             box2.addstr(box2posinc,1,"New Email\n")
         #print ('New Email \n')
