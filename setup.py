@@ -30,6 +30,8 @@ def main(window):
     s = curses.initscr()
     curses.curs_set(0)
     curses.noecho()
+    curses.start_color()
+    init_pair(1, COLOR_RED, COLOR_BLACK);
     sh, sw = s.getmaxyx()
     w = curses.newwin(sh, sw, 0, 0)
     w.keypad(1)
@@ -38,8 +40,8 @@ def main(window):
     while True:
 
         window.refresh()
-        window.addstr(0,0,"Listening on: " + IP + "\n" + "Server started. Press Q to quit.\n")
-        
+        window.addstr(0,0,"Listening on: " + IP)
+        window.addstr(1,0,"Server started. Press Q to quit.",curses.color_pair(1))
         
         key = w.getch()
         if key == ord('q'):
