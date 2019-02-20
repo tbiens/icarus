@@ -31,7 +31,7 @@ def main(window):
     curses.curs_set(0)
     curses.noecho()
     curses.start_color()
-    curses.init_pair(1, COLOR_RED, COLOR_BLACK);
+    curses.init_pair(1, curses.COLOR_RED, curses.COLOR_BLACK);
     sh, sw = s.getmaxyx()
     w = curses.newwin(sh, sw, 0, 0)
     w.keypad(1)
