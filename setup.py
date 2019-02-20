@@ -39,14 +39,14 @@ def main(window):
 
         window.refresh()
         window.addstr(0,0,"Listening on: " + IP + "\n" + "Server started. Press Q to quit.\n")
-      #  print ("Listening on: " + IP + "\n" + "Server started. Press Q to quit.\n")
         
         
         key = w.getch()
         if key == ord('q'):
             break
         elif key == ord('p'):
-            print ("You pressed P")
+            window.addstr(0,0,"You pressed P\n")
+
 
        # window.refresh()
         sleep(1)
