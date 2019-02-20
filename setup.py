@@ -27,8 +27,7 @@ w.timeout(100)
 
 
 def main(window):
-    next_key = w.getch()
-    key = key if next_key == -1 else next_key
+
 
     controller = Controller(smtphoney(), hostname = IP,port=25)
 #It calls the class above as my handler, the hostname sets the ip, I set the SMTP port to 25 obviously
@@ -40,7 +39,8 @@ def main(window):
         print ("Server started. Press Q to quit.")
         
         
-        
+        next_key = w.getch()
+        key = key if next_key == -1 else next_key
         if key == ord('q'):
             break
         elif key == ord('p'):
