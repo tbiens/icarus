@@ -65,12 +65,12 @@ class smtphoney:
 
     async def handle_DATA(self, server, session, envelope):
         box1 = curses.newwin(50,100,3,0)
-        box1.border()
+      #  box1.border()
         box2 = curses.newwin(45,95,4,1)
         box1.refresh()
         box2.addstr(1,1,"New Email\n")
-        box2.addstr(2,1,session.peer[0])
-        box2.addstr(3,1,envelope.mail_from)
+        box2.addstr(2,1,"IP Address: " + session.peer[0])
+        box2.addstr(3,1,"From: " + envelope.mail_from)
         #print ('New Email \n')
         inmemoryfile(envelope.content.decode('utf8', errors='replace')) #A function I made in memoryfile.py
         box2.refresh()
