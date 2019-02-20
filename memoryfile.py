@@ -23,7 +23,7 @@ def inmemoryfile(filecontents):
     #there was a tiny bit of text after the attachment that was screwing up the sha256
         shahash = hashlib.sha256(attachment.encode()).hexdigest() # read() the file, then you need to convert it to bytes with encode, then hexdigest cleans up
         if os.path.isfile("./downloads/" + shahash):
-            print("Already have this attachment") #checking if I have already received that file
+           # print("Already have this attachment") #checking if I have already received that file
         else:
             filename = open("downloads/" + shahash,"w+") # open sha256 named file
             filename.write(attachment) #Reading the memoryfile into the actual file being written to disk.
