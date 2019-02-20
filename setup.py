@@ -73,7 +73,7 @@ class smtphoney:
         if box2posinc == 1:
             box2.addstr(box2position,1,"New Email\n")
             pox2posinc += 1
-        elif:
+        else:
             box2.addstr(box2posinc,1,"New Email\n")
         #print ('New Email \n')
         inmemoryfile(envelope.content.decode('utf8', errors='replace')) #A function I made in memoryfile.py
