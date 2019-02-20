@@ -21,6 +21,8 @@ IP = get_ip_address()
 
 def main(window):
     curses.curs_set(0)
+    stdscr = curses.initscr()
+    curses.noecho()
     while True:
         window.clear()
         print ("Listening on:" + IP)
