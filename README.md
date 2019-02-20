@@ -16,7 +16,7 @@ There are many awesome SMTP honeypots but they are for spam. https://github.com/
 7. Config file the IP choice.
 8. Chroot or nobody:nobody.
 9. Docker?
-10. Fancy cli interface? Curses?
+10. Fancy cli interface? I started using Curses.
 
 **Raspbian from scratch:**
 Raspbian 9 has Python 3.5.3 by default. Which should work.
