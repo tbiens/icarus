@@ -31,8 +31,8 @@ def inmemoryfile(filecontents):
             virustotalfile(shahash) #Send the file to my virustotal script
             memoryfile.close() #closing is important.
     
-    else:
-        print("No attachment?")
+  #  else:
+   #     print("No attachment?")
   
 
 def loggingaddresses(sessionpeer, mailfrom, mailto): #Logging connections to a csv file
