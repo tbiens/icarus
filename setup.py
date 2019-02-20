@@ -3,6 +3,7 @@ import asyncio # https://aiosmtpd.readthedocs.io/en/latest/aiosmtpd/docs/control
 import aiosmtpd # the smtp library
 import socket #To get your IP address for the server to run on.
 import curses
+from time import sleep
 from aiosmtpd.controller import Controller #the controller that handles async smtp?
 from memoryfile import inmemoryfile
 from memoryfile import loggingaddresses
