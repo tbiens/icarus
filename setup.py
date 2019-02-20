@@ -2,7 +2,7 @@
 import asyncio # https://aiosmtpd.readthedocs.io/en/latest/aiosmtpd/docs/controller.html
 import aiosmtpd # the smtp library
 import socket #To get your IP address for the server to run on.
-#from sha256 import sha256temp #My sha256.py file.
+import curses
 from aiosmtpd.controller import Controller #the controller that handles async smtp?
 from memoryfile import inmemoryfile
 from memoryfile import loggingaddresses
@@ -16,6 +16,21 @@ def get_ip_address():
 IP = get_ip_address()
 print (IP)
 #Found socket at https://docs.python.org/3/library/socket.html mostly just their code.
+
+
+
+def main(window):
+    
+    
+    controller = Controller(smtphoney(), hostname = IP,port=25)
+#It calls the class above as my handler, the hostname sets the ip, I set the SMTP port to 25 obviously 
+
+    controller.start()
+    input("Server started. Press Return to quit.")
+    controller.stop()
+
+
+
 
 class smtphoney:
     async def handle_RCPT(self, server, session, envelope, address, rcpt_options):
@@ -31,13 +46,8 @@ class smtphoney:
         print('End of message')
         return '250 Message accepted for delivery'
     
-
-controller = Controller(smtphoney(), hostname = IP,port=25)
-#It calls the class above as my handler, the hostname sets the ip, I set the SMTP port to 25 obviously 
-
-controller.start()
-input("Server started. Press Return to quit.")
-controller.stop()
+if __name__ == '__main__':
+    curses.wrapper(main)
 
 
 
