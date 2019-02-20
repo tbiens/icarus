@@ -34,9 +34,9 @@ def main(window):
     w = curses.newwin(sh, sw, 0, 0)
     w.keypad(1)
     w.timeout(100)
-    
+    window.clear()
     while True:
-        window.clear()
+
         window.refresh()
         
         print ("Listening on: " + IP + "\n" + "Server started. Press Q to quit.\n")
