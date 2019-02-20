@@ -45,7 +45,7 @@ def main(window):
         if key == ord('q'):
             break
         elif key == ord('p'):
-            window.addstr(3,0,"You pressed P\n")
+            window.addstr(2,0,"You pressed P\n")
 
 
        # window.refresh()
