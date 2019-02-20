@@ -42,12 +42,8 @@ def main(window):
         
         next_key = w.getch()
         key = key if next_key == -1 else next_key
-        if key == curses.KEY_DOWN:
-
        
-       
-       
-       if key == ord('q'):
+        if key == ord('q'):
             break
         elif key == ord('p'):
             print ("You pressed P")
