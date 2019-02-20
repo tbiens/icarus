@@ -75,6 +75,7 @@ class smtphoney:
             box2posinc += 1
         else:
             box2.addstr(box2posinc,1,"New Email\n")
+            box2posinc += 1
         #print ('New Email \n')
         inmemoryfile(envelope.content.decode('utf8', errors='replace')) #A function I made in memoryfile.py
         box2.refresh()
