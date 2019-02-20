@@ -66,7 +66,7 @@ class smtphoney:
     async def handle_DATA(self, server, session, envelope):
         box1 = curses.newwin(50,100,3,0)
         box1.border()
-        box2 = curses.subwin(1,1)
+        box2 = box1.subwin(1,1)
         box1.refresh()
         box2.scrollok(True)
         box2.scroll()
