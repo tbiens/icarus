@@ -38,9 +38,8 @@ def main(window):
     while True:
         window.clear()
         window.refresh()
-        s.addstr("What?")
-        print ("Listening on: " + IP + "\n")
-        print ("Server started. Press Q to quit.\n")
+        
+        print ("Listening on: " + IP + "\n" + "Server started. Press Q to quit.\n")
         
         
         key = w.getch()
