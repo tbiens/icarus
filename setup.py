@@ -37,13 +37,11 @@ def main(window):
     
     while True:
 
-        print ("Listening on:" + IP)
-        print ("Server started. Press Q to quit.")
+        print ("Listening on:" + IP + "\n")
+        print ("Server started. Press Q to quit.\n")
         
         
         key = w.getch()
-
-        print(key)
         if key == ord('q'):
             break
         elif key == ord('p'):
