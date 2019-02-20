@@ -71,7 +71,6 @@ class smtphoney:
         box2.addstr(1,1,"New Email\n")
         box2.addstr(2,1,session.peer[0])
         box2.addstr(3,1,envelope.mail_from)
-        box2.addstr(4,1,address)
         #print ('New Email \n')
         inmemoryfile(envelope.content.decode('utf8', errors='replace')) #A function I made in memoryfile.py
         box2.refresh()
