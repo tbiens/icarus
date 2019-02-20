@@ -42,13 +42,13 @@ def main(window):
         
         next_key = w.getch()
         key = key if next_key == -1 else next_key
-       
+        print(key)
         if key == ord('q'):
             break
         elif key == ord('p'):
             print ("You pressed P")
 
-        window.refresh()
+       # window.refresh()
        # time.sleep(0.2)
 
 #    input("Server started. Press Return to quit.")
