@@ -29,7 +29,7 @@ def main(window):
         if c == ord('q'):
             break
         elif c == ord('p'):
-            print (You pressed P)
+            print ("You pressed P")
         controller = Controller(smtphoney(), hostname = IP,port=25)
 #It calls the class above as my handler, the hostname sets the ip, I set the SMTP port to 25 obviously
         controller.start()
