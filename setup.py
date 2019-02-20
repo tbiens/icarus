@@ -38,7 +38,8 @@ def main(window):
     while True:
         window.clear()
         window.refresh()
-        print ("Listening on:" + IP + "\n")
+        s.addstr("What?")
+        print ("Listening on: " + IP + "\n")
         print ("Server started. Press Q to quit.\n")
         
         
