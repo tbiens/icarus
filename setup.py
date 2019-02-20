@@ -36,6 +36,7 @@ def main(window):
     w.timeout(100)
     
     while True:
+        window.clear()
         window.refresh()
         print ("Listening on:" + IP + "\n")
         print ("Server started. Press Q to quit.\n")
