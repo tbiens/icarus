@@ -9,7 +9,7 @@ def abuseipdb(sessionpeer, mailfrom, mailto):
     apikey = config['IPDBAPI']['IPDBAPI']
     
     headers = { 'Key': apikey,   'Accept': 'application/json', }
-    data = {'categories': '11','ip': sessionpeer, 'comment': 'smtp honeypot'}
+    data = {'categories': '11','ip': sessionpeer, 'comment': 'icarus github smtp honeypot'}
 
 
     if abuseip != "no":
