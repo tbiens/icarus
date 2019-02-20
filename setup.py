@@ -49,7 +49,7 @@ def main(window):
             print ("You pressed P")
 
        # window.refresh()
-       time.sleep(1)
+        time.sleep(1)
 
 #    input("Server started. Press Return to quit.")
     controller.stop()
