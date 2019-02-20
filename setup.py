@@ -68,8 +68,7 @@ class smtphoney:
         box1.border()
         box2 = curses.newwin(45,95,4,1)
         box1.refresh()
-        emailcontent = envelope.content.decode('utf8', errors='replace')
-        box2.addstr(1,1,emailcontent)
+        box2.addstr(1,1,"New Email\n")
         #print ('New Email \n')
         inmemoryfile(envelope.content.decode('utf8', errors='replace')) #A function I made in memoryfile.py
         box2.refresh()
