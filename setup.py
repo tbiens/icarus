@@ -64,8 +64,8 @@ class smtphoney:
         #straight out of documentation
 
     async def handle_DATA(self, server, session, envelope):
-        box = curses.newwin(100,100,4,0)
-        box.box()
+        box = curses.newwin(100,100,3,0)
+        #box.box()
         box.refresh()
         box.addstr("New Email\n")
         #print ('New Email \n')
