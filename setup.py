@@ -40,8 +40,8 @@ def main(window):
         print ("Server started. Press Q to quit.")
         
         
-        next_key = w.getch()
-        key = key if next_key == -1 else next_key
+        key = w.getch()
+
         print(key)
         if key == ord('q'):
             break
