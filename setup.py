@@ -46,7 +46,9 @@ def main(window):
             break
         elif key == ord('p'):
             window.addstr(2,0,"You pressed P\n")
-
+        box = curses.newwin(10,10,3,0)
+        box.box()
+        box.refresh()
 
        # window.refresh()
         sleep(1)
@@ -64,9 +66,11 @@ class smtphoney:
         #straight out of documentation
 
     async def handle_DATA(self, server, session, envelope):
-        print ('New Email \n')
+        box.addstr("New Email")
+        #print ('New Email \n')
         inmemoryfile(envelope.content.decode('utf8', errors='replace')) #A function I made in memoryfile.py
-        print('End of message')
+        box.addstr("End of Message")
+        #print('End of message')
         return '250 Message accepted for delivery'
     
 if __name__ == '__main__':
