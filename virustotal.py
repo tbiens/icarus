@@ -20,9 +20,10 @@ def virustotalfile(filename):
     files = {"file": open("downloads/" + filename, 'rb')}
     viruspost = requests.post(url, data=attr, files=files)
     #pretty much just the API
-    if virustotal != 'no':
+    if virustotal != 'no': #virustotal disabled by default.
         if apikey == "PUT API KEY HERE":
             print ("This is your currently configured APIKEY in smtp.config:\n" + config['APIKEY']['apikey'])
+            #I want to convert this to curses at some point.
         else:
 
             if viruspost.status_code == 200:
