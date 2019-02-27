@@ -8,7 +8,7 @@ There are many awesome SMTP honeypots but they are for spam. https://github.com/
 **Future Features:**
 
 1. Improve my skills significantly in Git and Python.
-2. Log to ELK or Splunk
+2. 
 3. 
 4. More than 1 attachment at a time.
 5. Cleanup process for logs and downloads.
@@ -16,7 +16,7 @@ There are many awesome SMTP honeypots but they are for spam. https://github.com/
 7. Config file the IP choice.
 8. Chroot or nobody:nobody.
 9. Docker?
-10. Fancy cli interface? I started using Curses; advancing the use of this. 
+10. 
 
 **Raspbian from scratch:**
 Raspbian 9 has Python 3.5.3 by default. Which should work.
