@@ -93,7 +93,7 @@ class smtphoney:
         box1.refresh()
         #above box1 code is to show 'last email details' on the screen. 
         inmemoryfile(envelope.content.decode('utf8', errors='replace')) #A function I made in memoryfile.py
-        syslogout("Icarus: IP:" + session.peer[0])
+        syslogout("Attack: IP:" + session.peer[0])
         return '250 Message accepted for delivery'
     
 if __name__ == '__main__':
