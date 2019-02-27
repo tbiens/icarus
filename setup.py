@@ -51,6 +51,7 @@ def main(window):
     
     while True:
         keysbox = curses.newwin(50,100,0,51)
+        keysbox.addstr(0,1,"Icarus.config")
         keysbox.addstr(1,1,"Virustotal:")
         keysbox.addstr(2,1,"Enabled: " + virustotal)
         keysbox.addstr(3,1,"APIKEY: " + vtapikey)
