@@ -21,15 +21,10 @@ def virustotalfile(filename):
     viruspost = requests.post(url, data=attr, files=files)
     #pretty much just the API
     if virustotal != 'no': #virustotal disabled by default.
-        if apikey == "PUT API KEY HERE":
-            print ("This is your currently configured APIKEY in smtp.config:\n" + config['APIKEY']['apikey'])
-            #I want to convert this to curses at some point.
-        else:
-
+        if apikey != "PUT API KEY HERE":
             if viruspost.status_code == 200:
                 request = json.loads(viruspost.text)#The code on the virustotal page is python2, this was a pain to figure out for python3
                 print(request["verbose_msg"])#especially difficult when I didn't know there would be code differences between 2 and 3.
                 logging.warning(request["permalink"])#yaay debugging
                 print (request["permalink"]) 
-            else:
-                print ("HTTP code isn't 200")
+

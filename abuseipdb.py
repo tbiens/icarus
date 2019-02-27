@@ -16,14 +16,8 @@ def abuseipdb(sessionpeer, mailfrom, mailto):
         url = "https://api.abuseipdb.com/api/v2/report"
 
     
-        if apikey == "PUT API KEY HERE":
-            print ("This is your currently configured APIKEY in smtp.config:\n" + config['IPDBAPI']['IPDBAPI'])
-            #I want to convert this to Curses 
-        else:
+        if apikey != "PUT API KEY HERE":
             abusepost = requests.post('https://api.abuseipdb.com/api/v2/report', headers=headers, data=data)
             
-          #  print (abusepost)
-            if abusepost.status_code != 200:
-                print ("HTTP code isn't 200")
 
 
