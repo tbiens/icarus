@@ -9,14 +9,14 @@ There are many awesome SMTP honeypots but they are for spam. https://github.com/
 
 1. Improve my skills significantly in Git and Python.
 2. Log to ELK or Splunk
-3. Report IP addresses to an antispam api service. done?
+3. 
 4. More than 1 attachment at a time.
 5. Cleanup process for logs and downloads.
 6. Cuckoo API?
 7. Config file the IP choice.
 8. Chroot or nobody:nobody.
 9. Docker?
-10. Fancy cli interface? I started using Curses.
+10. Fancy cli interface? I started using Curses; advancing the use of this. 
 
 **Raspbian from scratch:**
 Raspbian 9 has Python 3.5.3 by default. Which should work.
