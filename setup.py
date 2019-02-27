@@ -9,6 +9,7 @@ from aiosmtpd.controller import Controller #the controller that handles async sm
 from memoryfile import inmemoryfile
 from memoryfile import loggingaddresses
 from abuseipdb import abuseipdb
+from icarussylog import syslogout
 
 def get_ip_address():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -92,7 +93,7 @@ class smtphoney:
         box1.refresh()
         #above box1 code is to show 'last email details' on the screen. 
         inmemoryfile(envelope.content.decode('utf8', errors='replace')) #A function I made in memoryfile.py
-
+        syslogout("Icarus: IP:" + session.peer[0])
         return '250 Message accepted for delivery'
     
 if __name__ == '__main__':
