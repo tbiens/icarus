@@ -3,6 +3,7 @@ import asyncio # https://aiosmtpd.readthedocs.io/en/latest/aiosmtpd/docs/control
 import aiosmtpd # the smtp library
 import socket #To get your IP address for the server to run on.
 import curses
+import configparser #https://docs.python.org/3/library/configparser.html
 from time import sleep
 from aiosmtpd.controller import Controller #the controller that handles async smtp?
 from memoryfile import inmemoryfile
@@ -18,7 +19,12 @@ IP = get_ip_address()
 
 #Found socket at https://docs.python.org/3/library/socket.html mostly just their code.
 
-
+config = configparser.ConfigParser()
+config.read('icarus.config')
+abuseip = config['IPDBAPI']['AbuseIPDB']
+abuseapikey = config['IPDBAPI']['IPDBAPI']
+vtapikey = config['APIKEY']['apikey']
+virustotal = config['APIKEY']['Virustotal']
 
 
 def main(window):
@@ -39,7 +45,17 @@ def main(window):
     w.keypad(1)
     w.timeout(100)
     window.clear()
-    #the above 5 are just standard curses commands. 
+    #the above 5 are just standard curses commands.
+    keysbox = curses.newwin(50,100,30,0)
+    keysbox.addstr(1,1,"Virustotal:")
+    keysbox.addstr(2,1,"Enabled: " + virustotal)
+    keysbox.addstr(3,1,"APIKEY: " + vtapikey)
+    keysbox.addstr(5,1,"AbuseIPDB:")
+    keysbox.addstr(6,1,"Enabled: " + abuseip)
+    keysbox.addstr(7,1,"APIKEY: " + abuseapikey)
+    keysbox.refresh()
+    
+    
     while True:
 
         window.refresh()
