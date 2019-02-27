@@ -12,7 +12,7 @@ syslogport = config['SYSLOG']['PORT']
 def syslogout(message):
     
     if syslogenable != 'no':
-        syslog = logging.handlers.SysLogHandler(address=(syslogip,syslogport),facility=LOG_SYSLOG, socktype=socket.SOCK_DGRAM)
+        syslog = logging.handlers.SysLogHandler(address=(syslogip,syslogport))
         log = logging.getLogger(__name__)
         log.addHandler(syslog)
         log.info(message)
