@@ -57,8 +57,7 @@ def main(window):
         keysbox.addstr(5,1,"AbuseIPDB:")
         keysbox.addstr(6,1,"Enabled: " + abuseip)
         keysbox.addstr(7,1,"APIKEY: " + abuseapikey)
-        if keysbox.is_wintouched()
-            keysbox.refresh()
+        keysbox.refresh()
         
         window.refresh()
         window.addstr(0,0,"Listening on: " + IP)
