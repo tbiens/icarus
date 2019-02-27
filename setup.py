@@ -46,18 +46,19 @@ def main(window):
     w.timeout(100)
     window.clear()
     #the above 5 are just standard curses commands.
-    keysbox = curses.newwin(50,100,30,0)
-    keysbox.addstr(1,1,"Virustotal:")
-    keysbox.addstr(2,1,"Enabled: " + virustotal)
-    keysbox.addstr(3,1,"APIKEY: " + vtapikey)
-    keysbox.addstr(5,1,"AbuseIPDB:")
-    keysbox.addstr(6,1,"Enabled: " + abuseip)
-    keysbox.addstr(7,1,"APIKEY: " + abuseapikey)
-    keysbox.refresh()
+
     
     
     while True:
-
+        keysbox = curses.newwin(50,100,30,0)
+        keysbox.addstr(1,1,"Virustotal:")
+        keysbox.addstr(2,1,"Enabled: " + virustotal)
+        keysbox.addstr(3,1,"APIKEY: " + vtapikey)
+        keysbox.addstr(5,1,"AbuseIPDB:")
+        keysbox.addstr(6,1,"Enabled: " + abuseip)
+        keysbox.addstr(7,1,"APIKEY: " + abuseapikey)
+        keysbox.refresh()
+        
         window.refresh()
         window.addstr(0,0,"Listening on: " + IP)
         window.addstr(1,0,"Server started. Press Q to quit.",curses.color_pair(1))
