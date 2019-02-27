@@ -9,7 +9,7 @@ from aiosmtpd.controller import Controller #the controller that handles async sm
 from memoryfile import inmemoryfile
 from memoryfile import loggingaddresses
 from abuseipdb import abuseipdb
-from icarussylog import syslogout
+from icarussyslog import syslogout
 
 def get_ip_address():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
