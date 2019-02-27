@@ -26,6 +26,10 @@ abuseip = config['IPDBAPI']['AbuseIPDB']
 abuseapikey = config['IPDBAPI']['IPDBAPI']
 vtapikey = config['APIKEY']['apikey']
 virustotal = config['APIKEY']['Virustotal']
+syslogenable = config['SYSLOG']['Syslog']
+syslogip = config['SYSLOG']['IP']
+syslogport = config['SYSLOG']['PORT']
+
 
 
 def main(window):
@@ -59,6 +63,9 @@ def main(window):
         keysbox.addstr(5,1,"AbuseIPDB:")
         keysbox.addstr(6,1,"Enabled: " + abuseip)
         keysbox.addstr(7,1,"APIKEY: " + abuseapikey)
+        keysbox.addstr(8,1,"Syslog:")
+        keysbox.addstr(9,1,"Enabled: " + syslogenable)
+        keysbox.addstr(10,1,"Syslog Server: " + syslogip + syslogport)
         keysbox.refresh()
         
         window.refresh()
