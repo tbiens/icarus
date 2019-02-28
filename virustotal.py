@@ -1,9 +1,9 @@
-import requests # https://developers.virustotal.com/v2.0/reference#file-scan
+import requests  # https://developers.virustotal.com/v2.0/reference#file-scan
 import json
-import logging # https://docs.python.org/3.7/howto/logging.html
-import configparser # https://docs.python.org/3/library/configparser.html
+import logging  # https://docs.python.org/3.7/howto/logging.html
+import configparser  # https://docs.python.org/3/library/configparser.html
 
-logging.basicConfig(filename='logs/virustotal.log',level=logging.WARNING)
+logging.basicConfig(filename='logs/virustotal.log', level=logging.WARNING)
 
 
 def virustotalfile(filename):
