@@ -87,7 +87,7 @@ def main(window):
 class smtphoney:
     async def handle_RCPT(self, server, session, envelope, address, rcpt_options):
         loggingaddresses(session.peer[0], envelope.mail_from, address)  # check memoryfile.py for this function
-        abuseipdb(session.peer[0], envelope.mail_from, address  # check abuseipdb.py for this function.
+        abuseipdb(session.peer[0], envelope.mail_from, address)  # check abuseipdb.py for this function.
         envelope.rcpt_tos.append(address)
         return '250 OK'
         # straight out of documentation
