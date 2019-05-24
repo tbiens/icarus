@@ -18,4 +18,6 @@ RUN touch /icarus/logs/virustotal.log
 
 # running command
 
+WORKDIR /icarus/
+
 CMD [ "python3", "/icarus/setup.py" ]
