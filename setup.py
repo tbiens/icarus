@@ -6,6 +6,7 @@ import curses
 import configparser #https://docs.python.org/3/library/configparser.html
 from time import sleep
 from aiosmtpd.controller import Controller #the controller that handles async smtp?
+import aiosmtpd.smtp
 from memoryfile import inmemoryfile
 from memoryfile import loggingaddresses
 from abuseipdb import abuseipdb
@@ -32,11 +33,12 @@ syslogenable = config['SYSLOG']['Syslog']
 syslogip = config['SYSLOG']['IP']
 syslogport = config['SYSLOG']['PORT']
 
+aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
 
 def main(window):
 
 
-    controller = Controller(smtphoney(), hostname = IP,port=25, factory(ident="Microsoft ESMTP MAIL Service"))
+    controller = Controller(smtphoney(), hostname = IP,port=25)
 # It calls the class above as my handler, the hostname sets the ip, I set the SMTP port to 25 obviously
     controller.start()
     s = curses.initscr()
