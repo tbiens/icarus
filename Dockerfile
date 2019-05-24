@@ -24,4 +24,4 @@ ENV TERM=xterm
 
 ENV TERMINFO=/etc/terminfo
 
-CMD [ "python3", "/icarus/setup.py" ]
+CMD [ "screen", "-d -m python3 /icarus/setup.py" ]
