@@ -20,7 +20,7 @@ RUN touch /icarus/logs/virustotal.log
 
 WORKDIR /icarus/
 
-ENV TERM=linux
+ENV TERM=xterm
 
 ENV TERMINFO=/etc/terminfo
 
