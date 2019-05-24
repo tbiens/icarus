@@ -14,8 +14,8 @@ RUN pip3 install requests aiosmtpd
 
 RUN git clone https://github.com/tbiens/icarus.git
 
-# running command
+RUN touch /icarus/logs/virustotal.log
 
-CMD [ "mkdir", "/icarus/logs" ]
+# running command
 
 CMD [ "python3", "/icarus/setup.py" ]
