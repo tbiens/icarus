@@ -14,6 +14,4 @@ RUN pip3 install requests aiosmtpd
 
 RUN git clone https://github.com/tbiens/icarus.git
 
-RUN cd icarus/
-
-RUN ls
+RUN python3 icarus/setup.py
