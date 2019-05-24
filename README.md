@@ -17,8 +17,11 @@ There are many awesome SMTP honeypots but they are for spam. https://github.com/
 **Docker**
 
 git clone https://github.com/tbiens/icarus.git
+
 nano icarus.config #change this config with your API keys
+
 docker build -t icarus .
+
 docker run -a stdin -a stdout -it -p 25:25/tcp icarus  
  
 
