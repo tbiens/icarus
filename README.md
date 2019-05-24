@@ -8,15 +8,19 @@ There are many awesome SMTP honeypots but they are for spam. https://github.com/
 **Future Features:**
 
 1. Improve my skills significantly in Git and Python.
-2. 
-3. 
-4. More than 1 attachment at a time.
-5. Cleanup process for logs and downloads.
-6. Cuckoo API?
-7. Config file the IP choice.
-8. Chroot or nobody:nobody.
-9. Docker?
-10. 
+2. More than 1 attachment at a time.
+3. Cleanup process for logs and downloads.
+4. Cuckoo API?
+5. Config file the IP choice.
+6. Chroot or nobody:nobody.
+
+**Docker**
+
+git clone https://github.com/tbiens/icarus.git
+nano icarus.config #change this config with your API keys
+docker build -t icarus .
+docker run -a stdin -a stdout -it icarus
+ 
 
 **Raspbian from scratch:**
 Raspbian 9 has Python 3.5.3 by default. Which should work.
