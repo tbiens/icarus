@@ -1,4 +1,4 @@
-FROM 3.7.3-stretch
+FROM debian
 
 # Update aptitude with new repo
 RUN apt-get update
