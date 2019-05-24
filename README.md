@@ -13,6 +13,7 @@ There are many awesome SMTP honeypots but they are for spam. https://github.com/
 4. Cuckoo API?
 5. Config file the IP choice.
 6. Chroot or nobody:nobody.
+7. Configure icarus.config from within curses cli. 
 
 **Docker**
 
