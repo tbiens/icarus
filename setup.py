@@ -34,7 +34,6 @@ syslogip = config['SYSLOG']['IP']
 syslogport = config['SYSLOG']['PORT']
 
 aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
-aiosmtpd.smtp.__hostname__ = "localhost"
 
 def main(window):
 
