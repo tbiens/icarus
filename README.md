@@ -19,7 +19,7 @@ There are many awesome SMTP honeypots but they are for spam. https://github.com/
 git clone https://github.com/tbiens/icarus.git
 nano icarus.config #change this config with your API keys
 docker build -t icarus .
-docker run -a stdin -a stdout -it -p 127.0.0.1:25:25/tcp icarus # change 127.0.0.1 to your ip. 
+docker run -a stdin -a stdout -it -p 25:25/tcp icarus  
  
 
 **Raspbian from scratch:**
