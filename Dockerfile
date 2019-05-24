@@ -16,6 +16,14 @@ RUN git clone https://github.com/tbiens/icarus.git
 
 RUN touch /icarus/logs/virustotal.log
 
+# config copy
+
+COPY icarus.config /icarus/
+
+# opening port
+
+EXPOSE 25/tcp
+
 # running command
 
 WORKDIR /icarus/
