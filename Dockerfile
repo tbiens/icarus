@@ -16,4 +16,6 @@ RUN git clone https://github.com/tbiens/icarus.git
 
 # running command
 
+CMD [ "ls", "/icarus"
+
 CMD [ "python3", "/icarus/setup.py" ]
