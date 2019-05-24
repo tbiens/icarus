@@ -16,3 +16,4 @@ RUN git clone https://github.com/tbiens/icarus.git
 
 RUN cd icarus/
 
+RUN ls
