@@ -20,4 +20,8 @@ RUN touch /icarus/logs/virustotal.log
 
 WORKDIR /icarus/
 
+ENV TERM=linux
+
+ENV TERMINFO=/etc/terminfo
+
 CMD [ "python3", "/icarus/setup.py" ]
