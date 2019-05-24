@@ -14,4 +14,6 @@ RUN pip3 install requests aiosmtpd
 
 RUN git clone https://github.com/tbiens/icarus.git
 
-RUN python3 icarus/setup.py
+# running command
+
+CMD [ "python3", "/icarus/setup.py" ]
