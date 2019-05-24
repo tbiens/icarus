@@ -36,7 +36,7 @@ syslogport = config['SYSLOG']['PORT']
 def main(window):
 
 
-    controller = Controller(smtphoney(), hostname = IP,port=25, ident="Microsoft ESMTP MAIL Service")
+    controller = Controller(smtphoney(), hostname = IP,port=25, factory(ident="Microsoft ESMTP MAIL Service"))
 # It calls the class above as my handler, the hostname sets the ip, I set the SMTP port to 25 obviously
     controller.start()
     s = curses.initscr()
