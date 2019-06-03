@@ -69,11 +69,12 @@ def main(window):
         keysbox.addstr(9,1,"Syslog:")
         keysbox.addstr(10,1,"Enabled: " + syslogenable)
         keysbox.addstr(11,1,"Syslog Server: " + syslogip + ":" + syslogport)
+        keysbox.addstr(13,1,"Press P to change values.", curses.COLOR_BLUE)
         keysbox.refresh()
         
         window.refresh()
         window.addstr(0,0,"Listening on: " + IP)
-        window.addstr(1,0,"Server started. Press Q to quit.",curses.color_pair(1))
+        window.addstr(1,0,"Server started. Press Q to quit.", curses.color_pair(1))
         # It always shows IP address it's listening on and showing you can hit Q to quit.
         
         key = w.getch()
