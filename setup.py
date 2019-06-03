@@ -81,6 +81,7 @@ def main(window):
             break
         elif key == ord('p'):
             editor()
+            window.refresh()
             #window.addstr(2,0,"You pressed P\n") # Just a place holder for new commands in the future.
 
         sleep(1) # So that the screen isn't refreshing at crazy rates unnecessarily.
