@@ -11,6 +11,7 @@ from memoryfile import inmemoryfile
 from memoryfile import loggingaddresses
 from abuseipdb import abuseipdb
 from icarussyslog import syslogout
+from editor import editor
 
 
 def get_ip_address():
@@ -79,7 +80,8 @@ def main(window):
         if key == ord('q'):
             break
         elif key == ord('p'):
-            window.addstr(2,0,"You pressed P\n") # Just a place holder for new commands in the future. 
+            editor()
+            #window.addstr(2,0,"You pressed P\n") # Just a place holder for new commands in the future.
 
         sleep(1) # So that the screen isn't refreshing at crazy rates unnecessarily.
 
