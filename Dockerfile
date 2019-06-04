@@ -6,7 +6,7 @@ RUN apt-get update
 RUN apt-get dist-upgrade
 
 # Install software
-RUN apt-get install -y git python3-pip python-virtualenv screen
+RUN apt-get install -y git python3-pip python-virtualenv screen vi
 
 RUN pip3 install --upgrade pip
 
