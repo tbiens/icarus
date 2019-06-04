@@ -12,8 +12,7 @@ There are many awesome SMTP honeypots but they are for spam. https://github.com/
 3. Cleanup process for logs and downloads.
 4. Cuckoo API?
 5. Config file the IP choice.
-6. Chroot or nobody:nobody.
-7. Configure icarus.config from within curses cli. 
+6. Chroot or nobody:nobody. 
 
 **Docker**
 
@@ -71,3 +70,5 @@ python3 setup.py
 A copy of the attachments are kept in the ./downloads/ folder.
 
 The virustotal links are stored in ./logs/virustotal.log
+
+All attacks are logged to ./logs/logging.csv
