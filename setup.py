@@ -12,7 +12,7 @@ from abuseipdb import abuseipdb
 from icarussyslog import syslogout
 from editor import editor
 from snmp import runsnmp
-from multiprocessing import Process
+from multiprocessing import Process, Lock
 
 
 def get_ip_address():
