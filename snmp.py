@@ -19,7 +19,7 @@ class icarus:
 
 def runsnmp():
     loop = asyncio.get_event_loop()
-
+    asyncio.set_event_loop(loop)
     listen = loop.create_datagram_endpoint(icarus, local_addr=('0.0.0.0', 161))
     transport, protocol = loop.run_until_complete(listen)
 
