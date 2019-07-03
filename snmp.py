@@ -1,5 +1,6 @@
 import asyncio
 from abuseipdb import snmpabuseipdb
+from threading import Thread
 
 
 class icarus:
@@ -21,7 +22,10 @@ loop = asyncio.get_event_loop()
 listen = loop.create_datagram_endpoint(icarus, local_addr=('0.0.0.0', 161))
 transport, protocol = loop.run_until_complete(listen)
 
-loop.run_forever()
+t1 = Thread(loop.run_forever())
+t1.start()
+
+
 
 print ("does this run")
 #try:
