@@ -29,14 +29,3 @@ def runsnmp():
     loop.close()
 
 
-print("before p1")
-p1 = Process(target= runsnmp())
-p1.start()
-#p2 = Process(target= func2)
-#p2.start()
-
-print("before t1")
-#t1 = Thread(target=runsnmp(), daemon=True)
-print("what")
-#t1.start()
-print("after t1")
