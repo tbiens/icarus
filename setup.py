@@ -77,7 +77,7 @@ def guiloop(window):
 
         key = w.getch()
         if key == ord('q'):
-            sys.exit()
+            sys.exit(0)
         elif key == ord('p'):
             editor()  # from editor.py, opens your system editor.
             window.erase()
