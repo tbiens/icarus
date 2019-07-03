@@ -16,7 +16,7 @@ class icarus:
 #        self.transport.sendto(data, addr)
 
 
-async def runsnmp():
+def runsnmp():
     loop = asyncio.get_event_loop()
 
     listen = loop.create_datagram_endpoint(icarus, local_addr=('0.0.0.0', 161))
