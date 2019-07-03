@@ -91,9 +91,9 @@ def main(window):
     # It calls the class below as my handler, the hostname sets the ip, I set the SMTP port to 25 obviously
     controller.start()
     lock = Lock()
-    p1 = Process(target=runsnmp, args=(lock,))
+    p1 = Process(target=runsnmp)
     p1.start()
-    #guiloop(window)
+    guiloop(window)
     # threading just wouldnt work. Process does seem to work.
     controller.stop()
 
