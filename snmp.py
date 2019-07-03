@@ -6,8 +6,10 @@ class icarus:
         self.transport = transport
 
     async def datagram_received(self, data, addr):
+        await addr
         #print(data)
-        snmpabuseipdb(addr[0])
+        print(addr[0])
+        #snmpabuseipdb(addr[0])
         #message = data.decode()
         #print('Received %r from %s' % (message, addr))
 #        print('Send %r to %s' % (message, addr))
