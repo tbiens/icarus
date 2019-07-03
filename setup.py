@@ -2,6 +2,7 @@
 
 import socket #To get your IP address for the server to run on.
 import curses
+import sys
 import configparser #https://docs.python.org/3/library/configparser.html
 from time import sleep
 from aiosmtpd.controller import Controller #the controller that handles async smtp?
@@ -13,7 +14,7 @@ from icarussyslog import syslogout
 from editor import editor
 from snmp import runsnmp
 from multiprocessing import Process, Lock
-import os
+
 
 
 def get_ip_address():
@@ -77,7 +78,7 @@ def guiloop(window):
 
         key = w.getch()
         if key == ord('q'):
-            os.exit(0)
+            sys.exit(0)
         elif key == ord('p'):
             editor()  # from editor.py, opens your system editor.
             window.erase()
