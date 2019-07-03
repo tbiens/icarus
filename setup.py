@@ -43,6 +43,7 @@ def main(window):
     controller = Controller(smtphoney(), hostname = IP,port=25)
 # It calls the class below as my handler, the hostname sets the ip, I set the SMTP port to 25 obviously
     controller.start()
+    Thread(target=runsnmp()).start()
     s = curses.initscr()
     curses.curs_set(0)
     curses.noecho()
@@ -57,7 +58,7 @@ def main(window):
     w.timeout(100)
     window.clear()
     # the above 5 are just standard curses commands.
-    Thread(target=runsnmp()).start()
+
     Thread(target=guiloop(window)).start()
     # threading for
     controller.stop()

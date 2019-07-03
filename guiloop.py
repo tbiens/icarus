@@ -1,5 +1,6 @@
 import curses
 
+
 def guiloop(window):
     while True:
         keysbox = curses.newwin(50, 100, 0, 51)
