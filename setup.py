@@ -94,8 +94,7 @@ def main(window):
     lock = Lock()
     p1 = Process(target=runsnmp)
     p1.start()
-    while True:
-        guiloop(window)
+    guiloop(window)
     # threading just wouldnt work. Process does seem to work.
     controller.stop()
 
