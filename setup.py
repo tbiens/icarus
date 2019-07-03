@@ -13,7 +13,7 @@ from icarussyslog import syslogout
 from editor import editor
 from snmp import runsnmp
 from multiprocessing import Process, Lock
-import sys
+import os
 
 
 def get_ip_address():
@@ -77,7 +77,7 @@ def guiloop(window):
 
         key = w.getch()
         if key == ord('q'):
-            sys.exit(0)
+            os.exit(0)
         elif key == ord('p'):
             editor()  # from editor.py, opens your system editor.
             window.erase()
