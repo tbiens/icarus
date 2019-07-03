@@ -6,7 +6,7 @@ class EchoServerProtocol:
 
     def datagram_received(self, data, addr):
         print(data)
-        print(addr)
+        print(addr[0])
         #message = data.decode()
         #print('Received %r from %s' % (message, addr))
 #        print('Send %r to %s' % (message, addr))
