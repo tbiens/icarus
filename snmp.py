@@ -25,3 +25,5 @@ async def runsnmp():
     loop.run_forever()
     transport.close()
     loop.close()
+
+runsnmp()
