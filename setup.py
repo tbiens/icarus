@@ -37,10 +37,8 @@ syslogport = config['SYSLOG']['PORT']
 aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
 
 def main(window):
-
-
     controller = Controller(smtphoney(), hostname = IP,port=25)
-# It calls the class above as my handler, the hostname sets the ip, I set the SMTP port to 25 obviously
+# It calls the class below as my handler, the hostname sets the ip, I set the SMTP port to 25 obviously
     controller.start()
     s = curses.initscr()
     curses.curs_set(0)

@@ -1,22 +1,22 @@
 import asyncio
+from abuseipdb import snmpabuseipdb
 
-class EchoServerProtocol:
+class icarus:
     def connection_made(self, transport):
         self.transport = transport
 
     def datagram_received(self, data, addr):
-        print(data)
-        print(addr[0])
+        #print(data)
+        snmpabuseipdb(addr[0])
         #message = data.decode()
         #print('Received %r from %s' % (message, addr))
 #        print('Send %r to %s' % (message, addr))
 #        self.transport.sendto(data, addr)
 
 loop = asyncio.get_event_loop()
-print("Starting UDP server")
-# One protocol instance will be created to serve all client requests
+
 listen = loop.create_datagram_endpoint(
-    EchoServerProtocol, local_addr=('0.0.0.0', 161))
+    icarus, local_addr=('0.0.0.0', 161))
 transport, protocol = loop.run_until_complete(listen)
 
 try:
