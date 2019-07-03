@@ -11,5 +11,5 @@ class snmpd(socketserver.BaseRequestHandler):
 
 if __name__ == "__main__":
     HOST, PORT = "localhost", 9999
-    with socketserver.UDPServer((HOST, PORT), MyUDPHandler) as server:
+    with socketserver.UDPServer((HOST, PORT), snmpd) as server:
         server.serve_forever()
