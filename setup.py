@@ -54,7 +54,7 @@ def guiloop(window):
     window.clear()
     # the above 5 are just standard curses commands.
     while True:
-        window.erase()
+
         keysbox = curses.newwin(50, 100, 0, 51)
         keysbox.addstr(0, 1, "Icarus.config")
         keysbox.addstr(1, 1, "Virustotal:")
