@@ -40,6 +40,20 @@ aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
 
 
 def guiloop(window):
+    s = curses.initscr()
+    curses.curs_set(0)
+    curses.noecho()
+    # the above 3 items for curse are just standard config.
+    curses.start_color()
+    curses.init_pair(1, curses.COLOR_RED, curses.COLOR_BLACK);
+    curses.init_pair(2, curses.COLOR_BLUE, curses.COLOR_BLACK);
+    # I want the 'press Q to quit' to be red
+    sh, sw = s.getmaxyx()
+    w = curses.newwin(sh, sw, 0, 0)
+    w.keypad(1)
+    w.timeout(100)
+    window.clear()
+    # the above 5 are just standard curses commands.
     while True:
         keysbox = curses.newwin(50, 100, 0, 51)
         keysbox.addstr(0, 1, "Icarus.config")
@@ -77,20 +91,6 @@ def main(window):
 # It calls the class below as my handler, the hostname sets the ip, I set the SMTP port to 25 obviously
     controller.start()
 #    Thread(target=runsnmp()).start()
-    s = curses.initscr()
-    curses.curs_set(0)
-    curses.noecho()
-    # the above 3 items for curse are just standard config.
-    curses.start_color()
-    curses.init_pair(1, curses.COLOR_RED, curses.COLOR_BLACK);
-    curses.init_pair(2, curses.COLOR_BLUE, curses.COLOR_BLACK);
-    # I want the 'press Q to quit' to be red
-    sh, sw = s.getmaxyx()
-    w = curses.newwin(sh, sw, 0, 0)
-    w.keypad(1)
-    w.timeout(100)
-    window.clear()
-    # the above 5 are just standard curses commands.
 
     Thread(target=guiloop(window)).start()
     # threading for
