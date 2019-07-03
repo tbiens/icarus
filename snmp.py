@@ -5,9 +5,9 @@ class snmpd(socketserver.BaseRequestHandler):
     def handle(self):
         data = self.request[0].strip()
         socket = self.request[1]
-        print ("{} wrote:".format(self.client_address[0]))
+        print (self.client_address[0])
         print (data)
-        socket.sendto("bob", self.client_address)
+#        socket.sendto("bob", self.client_address)
 
 
 if __name__ == "__main__":
