@@ -25,4 +25,5 @@ class Snmpd(socketserver.DatagramRequestHandler):
 #if __name__ == "__main__":
 
 
-UDPServerObject = socketserver.ThreadingUDPServer(ServerAddress, Snmpd)
+SnmpdServerObject = socketserver.ThreadingUDPServer(ServerAddress, Snmpd)
+SnmpdServerObject.serve_forever()
