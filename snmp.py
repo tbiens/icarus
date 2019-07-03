@@ -26,4 +26,4 @@ def runsnmp():
     transport.close()
     loop.close()
 
-runsnmp()
+#runsnmp()
