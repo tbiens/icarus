@@ -1,5 +1,6 @@
 import asyncio
 from abuseipdb import snmpabuseipdb
+from threading import Thread
 
 
 class icarus:
@@ -26,4 +27,6 @@ def runsnmp():
     transport.close()
     loop.close()
 
-#runsnmp()
+
+Thread(target=runsnmp()).start()
+print("what")
