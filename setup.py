@@ -12,6 +12,8 @@ from memoryfile import loggingaddresses
 from abuseipdb import abuseipdb
 from icarussyslog import syslogout
 from editor import editor
+from snmp import runsnmp
+from threading import Thread
 
 
 def get_ip_address():
@@ -54,6 +56,7 @@ def main(window):
     w.timeout(100)
     window.clear()
     # the above 5 are just standard curses commands.
+    Thread(target=runsnmp()).start()
 
 
     while True:
