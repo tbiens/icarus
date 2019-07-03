@@ -1,7 +1,5 @@
 import asyncio
 from abuseipdb import snmpabuseipdb
-from threading import Thread
-from multiprocessing import Process
 
 
 class icarus:
