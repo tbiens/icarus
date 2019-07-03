@@ -1,6 +1,6 @@
 import curses
 
-def guiloop():
+def guiloop(window):
     while True:
         keysbox = curses.newwin(50, 100, 0, 51)
         keysbox.addstr(0, 1, "Icarus.config")

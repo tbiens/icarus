@@ -58,10 +58,8 @@ def main(window):
     window.clear()
     # the above 5 are just standard curses commands.
     Thread(target=runsnmp()).start()
-    Thread(target=guiloop()).start()
-
-
-
+    Thread(target=guiloop(window)).start()
+    # threading for
     controller.stop()
 
 
