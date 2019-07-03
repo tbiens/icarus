@@ -90,8 +90,10 @@ def main(window):
     controller = Controller(smtphoney(), hostname = IP,port=25)
 # It calls the class below as my handler, the hostname sets the ip, I set the SMTP port to 25 obviously
     controller.start()
-    Thread(target=runsnmp()).start()
-    Thread(target=guiloop(window)).start()
+    t1 = Thread(target=runsnmp())
+    t2 = Thread(target=guiloop(window))
+    t1.start()
+    t2.start()
 
     # threading for
     controller.stop()
