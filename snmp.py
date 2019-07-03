@@ -7,6 +7,7 @@ class icarus:
         self.transport = transport
 
     async def datagram_received(self, data, addr):
+        await data
         await addr
         #print(data)
         print(addr[0])
