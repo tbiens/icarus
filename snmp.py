@@ -1,16 +1,28 @@
 import socketserver
+import threading
+
+
+ServerAddress = ("0.0.0.0", 161)
 
 
 class snmpd(socketserver.BaseRequestHandler):
     def handle(self):
-        data = self.request[0].strip()
-        socket = self.request[1]
-        print (self.client_address[0])
-  #      print (data)
+        #  data = self.request[0].strip()
+        #  socket = self.request[1]
+        #  placeholders incase I want them back.
+        print(self.client_address[0])
+#      print (data)
 #        socket.sendto("bob", self.client_address)
 
 
-if __name__ == "__main__":
-    HOST, PORT = "0.0.0.0", 161
-    with socketserver.UDPServer((HOST, PORT), snmpd) as server:
-        server.serve_forever()
+class Snmpd(socketserver.DatagramRequestHandler):
+    def handle(self):
+        print(self.client_address[0])
+        #  future proof
+        #  self.wfile.write("Message from Server! Hello Client".encode())
+
+
+#if __name__ == "__main__":
+
+
+UDPServerObject = socketserver.ThreadingUDPServer(ServerAddress, Snmpd)
