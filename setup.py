@@ -14,6 +14,7 @@ from icarussyslog import syslogout
 from editor import editor
 from snmp import runsnmp
 from threading import Thread
+from multiprocessing import Process
 
 
 def get_ip_address():
@@ -90,8 +91,8 @@ def main(window):
     controller = Controller(smtphoney(), hostname=IP, port=25)
     # It calls the class below as my handler, the hostname sets the ip, I set the SMTP port to 25 obviously
     controller.start()
-    t1 = Thread(target=runsnmp())
-    t1.start()
+    p1 = Process(target=runsnmp)
+    p1.start()
     guiloop(window)
 
 
