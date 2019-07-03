@@ -5,10 +5,11 @@ class EchoServerProtocol:
         self.transport = transport
 
     def datagram_received(self, data, addr):
-        message = data.decode()
+        print (data)
+        #message = data.decode()
         print('Received %r from %s' % (message, addr))
-        print('Send %r to %s' % (message, addr))
-        self.transport.sendto(data, addr)
+#        print('Send %r to %s' % (message, addr))
+#        self.transport.sendto(data, addr)
 
 loop = asyncio.get_event_loop()
 print("Starting UDP server")
