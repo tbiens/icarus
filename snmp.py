@@ -3,6 +3,7 @@ from abuseipdb import snmpabuseipdb
 
 class icarus:
     async def connection_made(self, transport):
+        await transport
         self.transport = transport
 
     async def datagram_received(self, data, addr):
