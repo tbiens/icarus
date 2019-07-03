@@ -28,6 +28,7 @@ def runsnmp():
     loop.close()
 
 
+print("before t1")
 t1 = Thread(target=runsnmp(), name="t1")
 print("what")
 t1.start()
