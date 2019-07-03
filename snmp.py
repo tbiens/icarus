@@ -29,7 +29,7 @@ def runsnmp():
 
 
 print("before t1")
-t1 = Thread(target=runsnmp(), name="t1")
+t1 = Thread(target=runsnmp(), daemon=True)
 print("what")
 t1.start()
 print("after t1")
