@@ -28,5 +28,7 @@ def runsnmp():
     loop.close()
 
 
-Thread(target=runsnmp()).start()
+t1 = Thread(target=runsnmp)
 print("what")
+t1.start()
+print("after t1")
