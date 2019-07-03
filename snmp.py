@@ -10,6 +10,6 @@ class snmpd(socketserver.BaseRequestHandler):
         socket.sendto(data.upper(), self.client_address)
 
 if __name__ == "__main__":
-    HOST, PORT = "localhost", 9999
+    HOST, PORT = "0.0.0.0", 161
     with socketserver.UDPServer((HOST, PORT), snmpd) as server:
         server.serve_forever()
