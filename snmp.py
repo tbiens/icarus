@@ -2,10 +2,10 @@ import asyncio
 from abuseipdb import snmpabuseipdb
 
 class icarus:
-    def connection_made(self, transport):
+    async def connection_made(self, transport):
         self.transport = transport
 
-    def datagram_received(self, data, addr):
+    async def datagram_received(self, data, addr):
         #print(data)
         snmpabuseipdb(addr[0])
         #message = data.decode()
