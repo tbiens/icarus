@@ -6,7 +6,7 @@ class snmpd(socketserver.BaseRequestHandler):
         data = self.request[0].strip()
         socket = self.request[1]
         print (self.client_address[0])
-        print (data)
+  #      print (data)
 #        socket.sendto("bob", self.client_address)
 
 
