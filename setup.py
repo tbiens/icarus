@@ -1,6 +1,5 @@
 
-import asyncio # https://aiosmtpd.readthedocs.io/en/latest/aiosmtpd/docs/controller.html
-import aiosmtpd # the smtp library
+
 import socket #To get your IP address for the server to run on.
 import curses
 import configparser #https://docs.python.org/3/library/configparser.html
@@ -13,7 +12,6 @@ from abuseipdb import abuseipdb
 from icarussyslog import syslogout
 from editor import editor
 from snmp import runsnmp
-from threading import Thread
 from multiprocessing import Process
 
 
@@ -94,9 +92,7 @@ def main(window):
     p1 = Process(target=runsnmp)
     p1.start()
     guiloop(window)
-
-
-    # threading for
+    # threading just wouldnt work. Process does seem to work.
     controller.stop()
 
 
