@@ -82,7 +82,7 @@ def main(window):
         if key == ord('q'):
             break
         elif key == ord('p'):
-            editor()
+            editor()  # from editor.py, opens your system editor.
             window.erase()
             window.refresh()
             #window.addstr(2,0,"You pressed P\n") # Just a place holder for new commands in the future.
