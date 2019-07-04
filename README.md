@@ -2,7 +2,7 @@
 **Goal:**
 
 SMTP honeypot for collecting malware and automatically uploading to virustotal and report spammers to abuseipdb. 
-Also added an SNMP honeypot to report attackers to abuseipdb as well. 
+Also added an SNMP honeypot to report attackers to abuseipdb as well.  
 
 There are many awesome honeypots. https://github.com/paralax/awesome-honeypots
 
