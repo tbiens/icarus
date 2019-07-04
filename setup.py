@@ -1,8 +1,8 @@
 
-import asyncio # https://aiosmtpd.readthedocs.io/en/latest/aiosmtpd/docs/controller.html
-import aiosmtpd # the smtp library
+
 import socket #To get your IP address for the server to run on.
 import curses
+import sys
 import configparser #https://docs.python.org/3/library/configparser.html
 from time import sleep
 from aiosmtpd.controller import Controller #the controller that handles async smtp?
@@ -12,6 +12,9 @@ from memoryfile import loggingaddresses
 from abuseipdb import abuseipdb
 from icarussyslog import syslogout
 from editor import editor
+from snmp import runsnmp
+from multiprocessing import Process, Lock
+
 
 
 def get_ip_address():
@@ -36,12 +39,8 @@ syslogport = config['SYSLOG']['PORT']
 
 aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
 
-def main(window):
 
-
-    controller = Controller(smtphoney(), hostname = IP,port=25)
-# It calls the class above as my handler, the hostname sets the ip, I set the SMTP port to 25 obviously
-    controller.start()
+def guiloop(window):
     s = curses.initscr()
     curses.curs_set(0)
     curses.noecho()
@@ -56,39 +55,48 @@ def main(window):
     w.timeout(100)
     window.clear()
     # the above 5 are just standard curses commands.
-
-
     while True:
-        keysbox = curses.newwin(50,100,0,51)
-        keysbox.addstr(0,1,"Icarus.config")
-        keysbox.addstr(1,1,"Virustotal:")
-        keysbox.addstr(2,1,"Enabled: " + virustotal)
-        keysbox.addstr(3,1,"APIKEY: " + vtapikey)
-        keysbox.addstr(5,1,"AbuseIPDB:")
-        keysbox.addstr(6,1,"Enabled: " + abuseip)
-        keysbox.addstr(7,1,"APIKEY: " + abuseapikey)
-        keysbox.addstr(9,1,"Syslog:")
-        keysbox.addstr(10,1,"Enabled: " + syslogenable)
-        keysbox.addstr(11,1,"Syslog Server: " + syslogip + ":" + syslogport)
-        keysbox.addstr(13,1,"Press P to change values.", curses.color_pair(2))
+
+        keysbox = curses.newwin(50, 100, 0, 51)
+        keysbox.addstr(0, 1, "Icarus.config")
+        keysbox.addstr(1, 1, "Virustotal:")
+        keysbox.addstr(2, 1, "Enabled: " + virustotal)
+        keysbox.addstr(3, 1, "APIKEY: " + vtapikey)
+        keysbox.addstr(5, 1, "AbuseIPDB:")
+        keysbox.addstr(6, 1, "Enabled: " + abuseip)
+        keysbox.addstr(7, 1, "APIKEY: " + abuseapikey)
+        keysbox.addstr(9, 1, "Syslog:")
+        keysbox.addstr(10, 1, "Enabled: " + syslogenable)
+        keysbox.addstr(11, 1, "Syslog Server: " + syslogip + ":" + syslogport)
+        keysbox.addstr(13, 1, "Press P to change values.", curses.color_pair(2))
         keysbox.refresh()
-        
+
         window.refresh()
-        window.addstr(0,0,"Listening on: " + IP)
-        window.addstr(1,0,"Server started. Press Q to quit.", curses.color_pair(1))
+        window.addstr(0, 0, "Listening on: " + IP)
+        window.addstr(1, 0, "Server started. Press Q to quit.", curses.color_pair(1))
         # It always shows IP address it's listening on and showing you can hit Q to quit.
-        
+
         key = w.getch()
         if key == ord('q'):
-            break
+            sys.exit(0)
         elif key == ord('p'):
-            editor()
+            editor()  # from editor.py, opens your system editor.
             window.erase()
             window.refresh()
-            #window.addstr(2,0,"You pressed P\n") # Just a place holder for new commands in the future.
+            # window.addstr(2,0,"You pressed P\n") # Just a place holder for new commands in the future.
 
-        sleep(1) # So that the screen isn't refreshing at crazy rates unnecessarily.
+        sleep(1)  # So that the screen isn't refreshing at crazy rates unnecessarily.
 
+
+def main(window):
+    controller = Controller(smtphoney(), hostname=IP, port=25)
+    # It calls the class below as my handler, the hostname sets the ip, I set the SMTP port to 25 obviously
+    controller.start()
+    lock = Lock()
+    p1 = Process(target=runsnmp)
+    p1.start()
+    guiloop(window)
+    # threading just wouldnt work. Process does seem to work.
     controller.stop()
 
 
