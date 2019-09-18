@@ -105,6 +105,7 @@ def main(window):
     guiloop(window)
     # threading just wouldnt work. Process does seem to work.
     controller.stop()
+    sys.exit()
 
 
 class smtphoney:
