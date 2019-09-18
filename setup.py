@@ -48,6 +48,7 @@ def guiloop(window):
     curses.start_color()
     curses.init_pair(1, curses.COLOR_RED, curses.COLOR_BLACK);
     curses.init_pair(2, curses.COLOR_BLUE, curses.COLOR_BLACK);
+    curses.init_pair(3, curses.COLOR_GREEN, curses.COLOR_BLACK);
     # I want the 'press Q to quit' to be red
     sh, sw = s.getmaxyx()
     w = curses.newwin(sh, sw, 0, 0)
@@ -69,6 +70,7 @@ def guiloop(window):
         keysbox.addstr(10, 1, "Enabled: " + syslogenable)
         keysbox.addstr(11, 1, "Syslog Server: " + syslogip + ":" + syslogport)
         keysbox.addstr(13, 1, "Press P to change values.", curses.color_pair(2))
+        keysbox.addstr(14, 1, "Press R to reset screen.", curses.color_pair(3))
         keysbox.refresh()
 
         window.refresh()
@@ -79,6 +81,11 @@ def guiloop(window):
         key = w.getch()
         if key == ord('q'):
             sys.exit(0)
+        elif key == ord('r'):
+            window.erase()
+            window.refresh()
+            keysbox.erase()
+            keysbox.refresh()
         elif key == ord('p'):
             editor()  # from editor.py, opens your system editor.
             window.erase()
