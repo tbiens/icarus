@@ -69,10 +69,8 @@ def guiloop(window):
         keysbox.addstr(10, 1, "Enabled: " + syslogenable)
         keysbox.addstr(11, 1, "Syslog Server: " + syslogip + ":" + syslogport)
         keysbox.addstr(13, 1, "Press P to change values.", curses.color_pair(2))
-        keysbox.erase()
         keysbox.refresh()
 
-        window.erase()
         window.refresh()
         window.addstr(0, 0, "Listening on: " + IP)
         window.addstr(1, 0, "Server started. Press Q to quit.", curses.color_pair(1))
