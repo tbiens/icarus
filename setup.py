@@ -80,7 +80,7 @@ def guiloop(window):
 
         key = w.getch()
         if key == ord('q'):
-            sys.exit()
+            break
         elif key == ord('r'):
             window.erase()
             window.refresh()
