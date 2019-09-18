@@ -2,7 +2,7 @@
 
 import socket #To get your IP address for the server to run on.
 import curses
-import os
+import sys
 import configparser #https://docs.python.org/3/library/configparser.html
 from time import sleep
 from aiosmtpd.controller import Controller #the controller that handles async smtp?
@@ -80,7 +80,7 @@ def guiloop(window):
 
         key = w.getch()
         if key == ord('q'):
-            os.exit()
+            sys.exit()
         elif key == ord('r'):
             window.erase()
             window.refresh()
