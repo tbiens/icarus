@@ -30,14 +30,14 @@ def runsnmp():
 
 def runsmb(ip='0.0.0.0', port=445):
     loop = asyncio.get_event_loop()
-    coro = asyncio.start_server(icarus, ip, port)
-    server = loop.run_until_complete(coro)
+    smb = asyncio.start_server(icarus, ip, port)
+    server = loop.run_until_complete(smb)
     logging.info('Looking for connections on {}'.format(
         server.sockets[0].getsockname()))
 
     try:
         logging.info("Press Control-C to stop the server.")
-        loop.run_until_complete(do_nothing())
+        loop.run_until_complete(server)
     except KeyboardInterrupt:
         logging.info("KeyboardInterrupt received: closing the server.")
     finally:
