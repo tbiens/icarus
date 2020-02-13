@@ -17,6 +17,7 @@ def runsmb():
         data = conn.recv(1024)
         if not data: break
         print(data)
-        conn.close()
+
+    conn.close()
 
 runsmb()
