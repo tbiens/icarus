@@ -10,7 +10,7 @@ def runsmb():
     s.listen()
 
     conn, addr = s.accept()
-    print(conn)
+    # print(conn)
     print(addr)
 
     while 1:
@@ -18,6 +18,8 @@ def runsmb():
         if not data: break
         print(data)
 
-    #conn.close()
+    conn.close()
 
-runsmb()
+
+while 1:
+    runsmb()
