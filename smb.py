@@ -5,7 +5,7 @@ from abuseipdb import snmpabuseipdb
 def runsmb():
     s = socket.socket()
     host = '0.0.0.0'
-    port = '445'
+    port = 445
     s.bind((host, port))
     s.listen()
 
