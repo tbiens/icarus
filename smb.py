@@ -16,7 +16,7 @@ def runsmb():
     while 1:
         data = conn.recv(1024)
         if not data: break
-        print("Received Data:" + data)
+        print(data)
         conn.close()
 
 runsmb()
