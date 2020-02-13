@@ -11,12 +11,12 @@ def runsmb():
 
     conn, addr = s.accept()
     # print(conn)
-    print(addr)
+    print(addr[0])
 
     while 1:
         data = conn.recv(1024)
         if not data: break
-        print(data)
+        #print(data)
 
     conn.close()
 
