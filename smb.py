@@ -19,7 +19,7 @@ class icarus:
 def runsmb():
     loop = asyncio.get_event_loop()
     asyncio.set_event_loop(loop)
-    listen = loop.Transport(icarus, local_addr=('0.0.0.0', 445))
+    listen = loop.create_server(icarus, '0.0.0.0', 445)
     transport, protocol = loop.run_until_complete(listen)
 
     loop.run_forever()
