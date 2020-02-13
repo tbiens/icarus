@@ -1,4 +1,5 @@
 import socket
+import time
 from abuseipdb import hackingabuseipdb
 
 
@@ -20,3 +21,4 @@ def runsmb():
             #print(data)
 
         conn.close()
+        time.sleep(30)
