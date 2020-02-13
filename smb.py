@@ -10,7 +10,8 @@ def runsmb():
     s.listen()
 
     conn, addr = s.accept()
-    print(conn, "<- Conn & Addr ->" + addr)
+    print(conn)
+    print(addr)
 
     while 1:
         data = conn.recv(1024)
