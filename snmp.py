@@ -1,5 +1,5 @@
 import asyncio
-from abuseipdb import snmpabuseipdb
+from abuseipdb import hackingabuseipdb
 
 
 class icarus:
@@ -7,13 +7,8 @@ class icarus:
         self.transport = transport
 
     def datagram_received(self, data, addr):
-        #print(data)
-        #print(addr[0])
-        snmpabuseipdb(addr[0])
-        #message = data.decode()
-        #print('Received %r from %s' % (message, addr))
-#        print('Send %r to %s' % (message, addr))
-#        self.transport.sendto(data, addr)
+        hackingabuseipdb(addr[0])
+
 
 
 def runsnmp():

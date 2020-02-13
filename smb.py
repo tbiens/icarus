@@ -1,5 +1,5 @@
 import socket
-from abuseipdb import snmpabuseipdb
+from abuseipdb import hackingabuseipdb
 
 
 def runsmb():
@@ -11,7 +11,7 @@ def runsmb():
 
     conn, addr = s.accept()
     # print(conn)
-    print(addr[0])
+    hackingabuseipdb(addr[0])
 
     while 1:
         data = conn.recv(1024)

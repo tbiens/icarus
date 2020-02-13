@@ -9,7 +9,7 @@ def abuseipdb(sessionpeer, mailfrom, mailto):
     apikey = config['IPDBAPI']['IPDBAPI']
     # using configparser to pull the apikey details for abuseipdb.
     headers = { 'Key': apikey,   'Accept': 'application/json', }
-    data = {'categories': '11','ip': sessionpeer, 'comment': 'icarus github smtp honeypot'}
+    data = {'categories': '11','ip': sessionpeer, 'comment': 'Icarus Smtp honeypot github'}
     # this is the API. https://docs.abuseipdb.com/#report-endpoint
 
     if abuseip != "no":  # checking if abuseipdb is enabled. Disabled by default.
@@ -19,14 +19,14 @@ def abuseipdb(sessionpeer, mailfrom, mailto):
             abusepost = requests.post(url, headers=headers, data=data)
             
 
-def snmpabuseipdb(snmpip):
+def hackingabuseipdb(ip):
     config = configparser.ConfigParser()
     config.read('icarus.config')
     abuseip = config['IPDBAPI']['AbuseIPDB']
     apikey = config['IPDBAPI']['IPDBAPI']
     # using configparser to pull the apikey details for abuseipdb.
     headers = { 'Key': apikey,   'Accept': 'application/json', }
-    data = {'categories': '14','ip': snmpip, 'comment': 'icarus github snmp honeypot'}
+    data = {'categories': '15','ip': ip, 'comment': 'Icarus honeypot on github'}
     # this is the API. https://docs.abuseipdb.com/#report-endpoint
 
     if abuseip != "no":  # checking if abuseipdb is enabled. Disabled by default.
