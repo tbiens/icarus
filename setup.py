@@ -13,6 +13,7 @@ from abuseipdb import abuseipdb
 from icarussyslog import syslogout
 from editor import editor
 from snmp import runsnmp
+from smb import runsmb
 from multiprocessing import Process, Lock
 
 
@@ -102,6 +103,8 @@ def main(window):
     lock = Lock()
     p1 = Process(target=runsnmp)
     p1.start()
+    p2 = Process(target=runsmb)
+    p2.start()
     guiloop(window)
     # threading just wouldnt work. Process does seem to work.
     controller.stop()
