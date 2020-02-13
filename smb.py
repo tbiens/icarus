@@ -1,4 +1,5 @@
 import asyncio
+import logging
 from abuseipdb import snmpabuseipdb
 
 
@@ -31,14 +32,14 @@ def runsmb(ip='0.0.0.0', port=445):
     loop = asyncio.get_event_loop()
     coro = asyncio.start_server(icarus, ip, port)
     server = loop.run_until_complete(coro)
-    logger.info('Looking for connections on {}'.format(
+    logging.info('Looking for connections on {}'.format(
         server.sockets[0].getsockname()))
 
     try:
-        logger.info("Press Control-C to stop the server.")
+        logging.info("Press Control-C to stop the server.")
         loop.run_until_complete(do_nothing())
     except KeyboardInterrupt:
-        logger.info("KeyboardInterrupt received: closing the server.")
+        logging.info("KeyboardInterrupt received: closing the server.")
     finally:
         server.close()
         loop.run_until_complete(server.wait_closed())
