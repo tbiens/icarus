@@ -16,10 +16,10 @@ class icarus:
 #        self.transport.sendto(data, addr)
 
 
-def runsmb():
+def runsnmp():
     loop = asyncio.get_event_loop()
     asyncio.set_event_loop(loop)
-    listen = loop.create_server(icarus, '0.0.0.0', 445)
+    listen = loop.create_datagram_endpoint(icarus, local_addr=('0.0.0.0', 161))
     transport, protocol = loop.run_until_complete(listen)
 
     loop.run_forever()
@@ -27,4 +27,21 @@ def runsmb():
     loop.close()
 
 
+def runsmb(ip='0.0.0.0', port=445):
+    loop = asyncio.get_event_loop()
+    coro = asyncio.start_server(icarus, ip, port)
+    server = loop.run_until_complete(coro)
+    logger.info('Looking for connections on {}'.format(
+        server.sockets[0].getsockname()))
 
+    try:
+        logger.info("Press Control-C to stop the server.")
+        loop.run_until_complete(do_nothing())
+    except KeyboardInterrupt:
+        logger.info("KeyboardInterrupt received: closing the server.")
+    finally:
+        server.close()
+        loop.run_until_complete(server.wait_closed())
+        loop.close()
+
+runsmb()
