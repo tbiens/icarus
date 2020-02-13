@@ -1,36 +1,18 @@
-import asyncio
-import logging
+import socket
 from abuseipdb import snmpabuseipdb
 
+runsmb():
+    s = socket.socket()
+    host = '0.0.0.0'
+    port = '445'
+    s.bind((host, port))
+    s.listen()
 
-class EchoServerProtocol(asyncio.Protocol):
-    def connection_made(self, transport):
-        peername = transport.get_extra_info('peername')
-        print('Connection from {}'.format(peername))
-        self.transport = transport
+    conn, addr = s.accept()
+    print (conn + "<- Conn & Addr ->" + addr)
 
-    def data_received(self, data):
-        message = data.decode()
-        print('Data received: {!r}'.format(message))
-
-        print('Send: {!r}'.format(message))
-        self.transport.write(data)
-
-        print('Close the client socket')
-        self.transport.close()
-
-
-async def main():
-    # Get a reference to the event loop as we plan to use
-    # low-level APIs.
-    loop = asyncio.get_running_loop()
-
-    server = await loop.create_server(
-        lambda: EchoServerProtocol(),
-        '0.0.0.0', 445)
-
-    async with server:
-        await server.serve_forever()
-
-
-asyncio.run(main())
+    while 1:
+        data = conn.recv(1024)
+        if not data: break
+        print ("Received Data:" + data)
+        conn.close()
