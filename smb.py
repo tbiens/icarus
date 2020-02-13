@@ -37,7 +37,7 @@ def runsmb(ip='0.0.0.0', port=445):
 
     try:
         logging.info("Press Control-C to stop the server.")
-        loop.run_until_complete(server)
+        loop.run_until_complete(smb)
     except KeyboardInterrupt:
         logging.info("KeyboardInterrupt received: closing the server.")
     finally:
