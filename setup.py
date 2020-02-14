@@ -102,9 +102,9 @@ def main(window):
     # It calls the class below as my handler, the hostname sets the ip, I set the SMTP port to 25 obviously
     controller.start()
     lock = Lock()
-    p1 = Process(name='Snmp', target=runsnmp, daemon=true)
+    p1 = Process(name='Snmp', target=runsnmp, daemon=True)
     p1.start()
-    p2 = Process(name='Smb', target=runsmb, daemon=true)
+    p2 = Process(name='Smb', target=runsmb, daemon=True)
     p2.start()
 
     guiloop(window)
