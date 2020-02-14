@@ -62,24 +62,24 @@ def guiloop(window):
         # the above 5 are just standard curses commands.
 
         keysbox = curses.newwin(50, 100, 0, 51)
-        w.addstr(0, 1, "Icarus.config")
-        w.addstr(1, 1, "Virustotal:")
-        w.addstr(2, 1, "Enabled: " + virustotal)
-        w.addstr(3, 1, "APIKEY: " + vtapikey)
-        w.addstr(5, 1, "AbuseIPDB:")
-        w.addstr(6, 1, "Enabled: " + abuseip)
-        w.addstr(7, 1, "APIKEY: " + abuseapikey)
-        w.addstr(9, 1, "Syslog:")
-        w.addstr(10, 1, "Enabled: " + syslogenable)
-        w.addstr(11, 1, "Syslog Server: " + syslogip + ":" + syslogport)
-        w.addstr(13, 1, "Press P to change values.", curses.color_pair(2))
-        w.addstr(14, 1, "Press R to reset screen.", curses.color_pair(3))
-        w.refresh()
+        w.addstr(50, 1, "Icarus.config")
+        w.addstr(51, 1, "Virustotal:")
+        w.addstr(52, 1, "Enabled: " + virustotal)
+        w.addstr(53, 1, "APIKEY: " + vtapikey)
+        w.addstr(55, 1, "AbuseIPDB:")
+        w.addstr(56, 1, "Enabled: " + abuseip)
+        w.addstr(57, 1, "APIKEY: " + abuseapikey)
+        w.addstr(59, 1, "Syslog:")
+        w.addstr(60, 1, "Enabled: " + syslogenable)
+        w.addstr(61, 1, "Syslog Server: " + syslogip + ":" + syslogport)
+        w.addstr(63, 1, "Press P to change values.", curses.color_pair(2))
+        w.addstr(64, 1, "Press R to reset screen.", curses.color_pair(3))
 
-        window.refresh()
-        window.addstr(0, 0, "Listening on: " + IP)
-        window.addstr(1, 0, "Server started. Press Q to quit.", curses.color_pair(1))
+        w.addstr(0, 0, "Listening on: " + IP)
+        w.addstr(1, 0, "Server started. Press Q to quit.", curses.color_pair(1))
         # It always shows IP address it's listening on and showing you can hit Q to quit.
+
+        w.refresh()
 
         key = w.getch()
         if key == ord('q'):
