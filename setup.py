@@ -42,37 +42,39 @@ aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
 
 
 def guiloop(window):
-    s = curses.initscr()
-    curses.curs_set(0)
-    curses.noecho()
-    # the above 3 items for curse are just standard config.
-    curses.start_color()
-    curses.init_pair(1, curses.COLOR_RED, curses.COLOR_BLACK);
-    curses.init_pair(2, curses.COLOR_BLUE, curses.COLOR_BLACK);
-    curses.init_pair(3, curses.COLOR_GREEN, curses.COLOR_BLACK);
-    # I want the 'press Q to quit' to be red
-    sh, sw = s.getmaxyx()
-    w = curses.newwin(sh, sw, 0, 0)
-    w.keypad(1)
-    w.timeout(100)
-    window.clear()
-    # the above 5 are just standard curses commands.
+
     while True:
 
+        s = curses.initscr()
+        curses.curs_set(0)
+        curses.noecho()
+        # the above 3 items for curse are just standard config.
+        curses.start_color()
+        curses.init_pair(1, curses.COLOR_RED, curses.COLOR_BLACK);
+        curses.init_pair(2, curses.COLOR_BLUE, curses.COLOR_BLACK);
+        curses.init_pair(3, curses.COLOR_GREEN, curses.COLOR_BLACK);
+        # I want the 'press Q to quit' to be red
+        sh, sw = s.getmaxyx()
+        w = curses.newwin(sh, sw, 0, 0)
+        w.keypad(1)
+        w.timeout(100)
+        window.clear()
+        # the above 5 are just standard curses commands.
+
         keysbox = curses.newwin(50, 100, 0, 51)
-        keysbox.addstr(0, 1, "Icarus.config")
-        keysbox.addstr(1, 1, "Virustotal:")
-        keysbox.addstr(2, 1, "Enabled: " + virustotal)
-        keysbox.addstr(3, 1, "APIKEY: " + vtapikey)
-        keysbox.addstr(5, 1, "AbuseIPDB:")
-        keysbox.addstr(6, 1, "Enabled: " + abuseip)
-        keysbox.addstr(7, 1, "APIKEY: " + abuseapikey)
-        keysbox.addstr(9, 1, "Syslog:")
-        keysbox.addstr(10, 1, "Enabled: " + syslogenable)
-        keysbox.addstr(11, 1, "Syslog Server: " + syslogip + ":" + syslogport)
-        keysbox.addstr(13, 1, "Press P to change values.", curses.color_pair(2))
-        keysbox.addstr(14, 1, "Press R to reset screen.", curses.color_pair(3))
-        keysbox.refresh()
+        s.addstr(0, 1, "Icarus.config")
+        s.addstr(1, 1, "Virustotal:")
+        s.addstr(2, 1, "Enabled: " + virustotal)
+        s.addstr(3, 1, "APIKEY: " + vtapikey)
+        s.addstr(5, 1, "AbuseIPDB:")
+        s.addstr(6, 1, "Enabled: " + abuseip)
+        s.addstr(7, 1, "APIKEY: " + abuseapikey)
+        s.addstr(9, 1, "Syslog:")
+        s.addstr(10, 1, "Enabled: " + syslogenable)
+        s.addstr(11, 1, "Syslog Server: " + syslogip + ":" + syslogport)
+        s.addstr(13, 1, "Press P to change values.", curses.color_pair(2))
+        s.addstr(14, 1, "Press R to reset screen.", curses.color_pair(3))
+        s.refresh()
 
         window.refresh()
         window.addstr(0, 0, "Listening on: " + IP)
@@ -83,6 +85,7 @@ def guiloop(window):
         if key == ord('q'):
             break
         elif key == ord('r'):
+
             window.erase()
             window.refresh()
             keysbox.erase()
