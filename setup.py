@@ -55,10 +55,11 @@ def guiloop(window):
         curses.init_pair(3, curses.COLOR_GREEN, curses.COLOR_BLACK);
         # I want the 'press Q to quit' to be red
         sh, sw = s.getmaxyx()
+        print(sh + sw)
         w = curses.newwin(sh, sw, 0, 0)
         w.keypad(1)
         w.timeout(100)
-        
+
         # the above 5 are just standard curses commands.
 
         w.addstr(50, 1, "Icarus.config")
