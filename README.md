@@ -1,8 +1,7 @@
 # Icarus
 **Goal:**
 
-SMTP honeypot for collecting malware and automatically uploading to virustotal and report spammers to abuseipdb. 
-Also added an SNMP honeypot to report attackers to abuseipdb as well.  
+SMTP, SNMP, SMB honeypot for collecting malware and automatically uploading to virustotal and report abusive IPs to abuseipdb. 
 
 There are many awesome honeypots. https://github.com/paralax/awesome-honeypots
 
@@ -10,7 +9,7 @@ There are many awesome honeypots. https://github.com/paralax/awesome-honeypots
 
 1. Improve my skills significantly in Git and Python.
 2. More than 1 attachment at a time.
-3. Cleanup process for logs and downloads.
+3. Add File collection to SMB
 4. Cuckoo API?
 5. Config file the IP choice.
 6. Chroot or nobody:nobody. 

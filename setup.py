@@ -57,7 +57,7 @@ def guiloop(window):
         sh, sw = s.getmaxyx()
         w = curses.newwin(sh, sw, 0, 0)
         w.keypad(1)
-        # w.timeout(1000)
+
 
         # the above 5 are just standard curses commands.
         # First number is vertical, 51 is horizontal
@@ -102,9 +102,9 @@ def main(window):
     # It calls the class below as my handler, the hostname sets the ip, I set the SMTP port to 25 obviously
     controller.start()
     lock = Lock()
-    p1 = Process(target=runsnmp)
+    p1 = Process(name='Snmp', target=runsnmp)
     p1.start()
-    p2 = Process(target=runsmb)
+    p2 = Process(name='Smb', target=runsmb)
     p2.start()
 
     guiloop(window)
