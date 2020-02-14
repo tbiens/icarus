@@ -21,4 +21,4 @@ def runsmb():
             #print(data)
 
         conn.close()
-        time.sleep(30)
+        #time.sleep(30)
