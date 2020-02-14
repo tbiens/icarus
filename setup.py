@@ -94,6 +94,9 @@ def main(window):
             w.erase()
             w.refresh()
         elif key == ord('a'):
+            controller.stop()
+            p1.terminate()
+            p2.terminate()
             import os
             os.execv(sys.executable, ['python'] + sys.argv)
         elif key == ord('p'):
