@@ -58,10 +58,9 @@ def guiloop(window):
         w = curses.newwin(sh, sw, 0, 0)
         w.keypad(1)
         w.timeout(100)
-        #window.clear()
+        
         # the above 5 are just standard curses commands.
 
-        keysbox = curses.newwin(50, 100, 0, 51)
         w.addstr(50, 1, "Icarus.config")
         w.addstr(51, 1, "Virustotal:")
         w.addstr(52, 1, "Enabled: " + virustotal)
