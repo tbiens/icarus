@@ -93,7 +93,7 @@ def main(window):
         elif key == ord('r'):
             w.erase()
             w.refresh()
-        elif key == ord('a')
+        elif key == ord('a'):
             p1.terminate()
             p2.terminate()
             p1.start()
