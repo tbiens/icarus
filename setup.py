@@ -95,8 +95,6 @@ def main(window):
             w.refresh()
         elif key == ord('a'):
             import os
-            print(sys.executable)
-            print(sys.argv)
             os.execv(sys.executable, ['python'] + sys.argv)
         elif key == ord('p'):
             editor()  # from editor.py, opens your system editor.
