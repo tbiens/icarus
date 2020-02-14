@@ -108,7 +108,7 @@ def main(window):
     p2 = Process(target=runsmb)
     p2.start()
 
-    curses.wrapper(guiloop(window))
+    guiloop(window)
 
     # threading just wouldnt work. Process does seem to work.
     controller.stop()
