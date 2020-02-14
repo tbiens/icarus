@@ -40,6 +40,7 @@ syslogport = config['SYSLOG']['PORT']
 
 aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
 
+p2status = 0
 
 def guiloop(window):
     s = curses.initscr()
@@ -77,7 +78,7 @@ def guiloop(window):
         window.refresh()
         window.addstr(0, 0, "Listening on: " + IP)
         window.addstr(1, 0, "Server started. Press Q to quit.", curses.color_pair(1))
-        window.addstr(2, 0, print(p2.is_alive()))
+        window.addstr(2, 0, print(p2status))
         # It always shows IP address it's listening on and showing you can hit Q to quit.
 
         key = w.getch()
@@ -106,7 +107,11 @@ def main(window):
     p1.start()
     p2 = Process(target=runsmb)
     p2.start()
+    global p2status
+    p2status = p2.is_alive()
+
     curses.wrapper(guiloop(window))
+
     # threading just wouldnt work. Process does seem to work.
     controller.stop()
     p1.terminate()
