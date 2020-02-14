@@ -94,12 +94,8 @@ def main(window):
             w.erase()
             w.refresh()
         elif key == ord('a'):
-            p1.terminate()
-            p2.terminate()
-            p1 = Process(name='Snmp', target=runsnmp, daemon=True)
-            p1.start()
-            p2 = Process(name='Smb', target=runsmb, daemon=True)
-            p2.start()
+            import os
+            os.execv(sys.executable, ['python' + sys.argv])
         elif key == ord('p'):
             editor()  # from editor.py, opens your system editor.
             w.erase()
