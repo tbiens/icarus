@@ -78,7 +78,7 @@ def guiloop(window):
         window.refresh()
         window.addstr(0, 0, "Listening on: " + IP)
         window.addstr(1, 0, "Server started. Press Q to quit.", curses.color_pair(1))
-        window.addstr(2, 0, str(p2status))
+        window.addstr(2, 0, "SMB running: " + str(p2status))
         # It always shows IP address it's listening on and showing you can hit Q to quit.
 
         key = w.getch()
