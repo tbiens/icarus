@@ -41,7 +41,20 @@ syslogport = config['SYSLOG']['PORT']
 aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
 
 
-def guiloop(window):
+#def guiloop(window):
+
+
+
+
+def main(window):
+    controller = Controller(smtphoney(), hostname=IP, port=25)
+    # It calls the class below as my handler, the hostname sets the ip, I set the SMTP port to 25 obviously
+    controller.start()
+    lock = Lock()
+    p1 = Process(name='Snmp', target=runsnmp, daemon=True)
+    p1.start()
+    p2 = Process(name='Smb', target=runsmb, daemon=True)
+    p2.start()
 
     while True:
 
@@ -95,19 +108,6 @@ def guiloop(window):
             # window.addstr(2,0,"You pressed P\n") # Just a place holder for new commands in the future.
 
         sleep(1)  # So that the screen isn't refreshing at crazy rates unnecessarily.
-
-
-def main(window):
-    controller = Controller(smtphoney(), hostname=IP, port=25)
-    # It calls the class below as my handler, the hostname sets the ip, I set the SMTP port to 25 obviously
-    controller.start()
-    lock = Lock()
-    p1 = Process(name='Snmp', target=runsnmp, daemon=True)
-    p1.start()
-    p2 = Process(name='Smb', target=runsmb, daemon=True)
-    p2.start()
-
-    guiloop(window)
 
     # threading just wouldnt work. Process does seem to work.
     controller.stop()
