@@ -89,7 +89,8 @@ def main(window):
 
         w.addstr(0, 0, "Listening on: " + IP)
         w.addstr(1, 0, "Server started. Press Q to quit.", curses.color_pair(1))
-        w.addstr(2, 0, "P2 Status:" + str(p2.is_alive()))
+        w.addstr(2, 0, "SNMP Service:" + str(p1.is_alive()))
+        w.addstr(3, 0, "SMB Status:" + str(p2.is_alive()))
         # It always shows IP address it's listening on and showing you can hit Q to quit.
 
         w.refresh()
