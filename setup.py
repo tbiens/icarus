@@ -63,7 +63,6 @@ def main(window):
         w = curses.newwin(sh, sw, 0, 0)
         w.keypad(1)
 
-
         # the above 5 are just standard curses commands.
         # First number is vertical, 51 is horizontal
         w.addstr(0, 51, "Icarus.config")
@@ -78,6 +77,7 @@ def main(window):
         w.addstr(11, 51, "Syslog Server: " + syslogip + ":" + syslogport)
         w.addstr(13, 51, "Press P to change values.", curses.color_pair(2))
         w.addstr(14, 51, "Press R to reset screen.", curses.color_pair(3))
+        w.addstr(15, 51, "Press A to restart services.", curses.color_pair(1))
 
         w.addstr(0, 0, "Listening on: " + IP)
         w.addstr(1, 0, "Server started. Press Q to quit.", curses.color_pair(1))
@@ -91,10 +91,13 @@ def main(window):
         if key == ord('q'):
             break
         elif key == ord('r'):
-
             w.erase()
             w.refresh()
-
+        elif key == ord('a')
+            p1.terminate()
+            p2.terminate()
+            p1.start()
+            p2.start()
         elif key == ord('p'):
             editor()  # from editor.py, opens your system editor.
             w.erase()
