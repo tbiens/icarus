@@ -1,5 +1,3 @@
-
-
 import socket #To get your IP address for the server to run on.
 import curses
 import sys
@@ -15,7 +13,6 @@ from editor import editor
 from snmp import runsnmp
 from smb import runsmb
 from multiprocessing import Process, Lock
-
 
 
 def get_ip_address():
@@ -39,11 +36,6 @@ syslogip = config['SYSLOG']['IP']
 syslogport = config['SYSLOG']['PORT']
 
 aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
-
-
-#def guiloop(window):
-
-
 
 
 def main(window):
