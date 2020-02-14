@@ -126,7 +126,7 @@ class smtphoney:
         # straight out of documentation
 
     async def handle_DATA(self, server, session, envelope):
-        box1 = curses.newwin(50,100,4,0)
+        box1 = curses.newwin(40,40,5,0)
         box1.addstr(1,1,"Last Email:")
         box1.addstr(2,1,"IP Address: " + session.peer[0])
         box1.addstr(3,1,"From: " + envelope.mail_from)
