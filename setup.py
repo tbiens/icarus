@@ -96,6 +96,7 @@ def main(window):
         elif key == ord('a'):
             p1.terminate()
             p2.terminate()
+            sleep(10)
             p1.start()
             p2.start()
         elif key == ord('p'):
