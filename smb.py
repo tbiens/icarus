@@ -18,7 +18,7 @@ def runsmb():
         while 1:
             data = conn.recv(1024)
             if not data: break
-            #print(data)
+            # print(data)
 
         conn.close()
-        #time.sleep(30)
+        # time.sleep(30)
