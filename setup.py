@@ -94,8 +94,8 @@ def main(window):
             w.erase()
             w.refresh()
         elif key == ord('a'):
-            p1.kill()
-            p2.kill()
+            p1.close()
+            p2.close()
             p1 = Process(name='Snmp', target=runsnmp, daemon=True)
             p1.start()
             p2 = Process(name='Smb', target=runsmb, daemon=True)
