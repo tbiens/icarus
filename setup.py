@@ -58,7 +58,7 @@ def guiloop(window):
         w = curses.newwin(sh, sw, 0, 0)
         w.keypad(1)
         w.timeout(100)
-        window.clear()
+        #window.clear()
         # the above 5 are just standard curses commands.
 
         keysbox = curses.newwin(50, 100, 0, 51)
