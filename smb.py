@@ -5,8 +5,9 @@ from abuseipdb import hackingabuseipdb
 
 
 def runsmb():
-    try:
+    while 1:
 
+    try:
         while 1:
             s = socket.socket()
             host = '0.0.0.0'
