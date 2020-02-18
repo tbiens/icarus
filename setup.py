@@ -50,7 +50,6 @@ def main(window):
 
     while True:
         lastattacker = open("/dev/shm/attacker", 'r')
-        lastattacker.close()
         s = curses.initscr()
         curses.curs_set(0)
         curses.noecho()
