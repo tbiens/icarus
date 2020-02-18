@@ -1,8 +1,8 @@
-import socket #To get your IP address for the server to run on.
+import socket  # To get your IP address for the server to run on.
 import curses
 import sys
-import configparser #https://docs.python.org/3/library/configparser.html
-from aiosmtpd.controller import Controller #the controller that handles async smtp?
+import configparser  # https://docs.python.org/3/library/configparser.html
+from aiosmtpd.controller import Controller  # the controller that handles async smtp?
 import aiosmtpd.smtp
 from memoryfile import inmemoryfile
 from memoryfile import loggingaddresses
@@ -44,25 +44,29 @@ def main(window):
     p1.start()
     p2 = Process(name='Smb', target=runsmb, daemon=True)
     p2.start()
+    # Keeping track of attackers. Simple in memory file. Below is making sure the file exists.
     createattacker = open("/dev/shm/attacker", "a")
     createattacker.close()
 
     while True:
+        # Opening the Last Attacker record from memory.
         lastattacker = open("/dev/shm/attacker", 'r')
         s = curses.initscr()
         curses.curs_set(0)
         curses.noecho()
         curses.napms(3000)
-        # the above 3 items for curse are just standard config.
+        # Pretty standard configs. I have the curses refresh set to 3 seconds.
+        # https://docs.python.org/3.5/library/curses.html#module-curses
         curses.start_color()
-        curses.init_pair(1, curses.COLOR_RED, curses.COLOR_BLACK);
-        curses.init_pair(2, curses.COLOR_BLUE, curses.COLOR_BLACK);
-        curses.init_pair(3, curses.COLOR_GREEN, curses.COLOR_BLACK);
+        curses.init_pair(1, curses.COLOR_RED, curses.COLOR_BLACK)
+        curses.init_pair(2, curses.COLOR_BLUE, curses.COLOR_BLACK)
+        curses.init_pair(3, curses.COLOR_GREEN, curses.COLOR_BLACK)
         # I want the 'press Q to quit' to be red
         sh, sw = s.getmaxyx()
         w = curses.newwin(sh, sw, 0, 0)
         w.keypad(1)
         w.nodelay(1)
+        # No delay fixes a problem of the screen not updating properly.
 
         # the above 5 are just standard curses commands.
         # First number is vertical, 51 is horizontal
@@ -86,7 +90,7 @@ def main(window):
         w.addstr(3, 0, "CIFS Running: " + str(p2.is_alive()))
         w.addstr(4, 0, "Last Attacker: " + lastattacker.read())
         lastattacker.close()
-        # It always shows IP address it's listening on and showing you can hit Q to quit.
+        # Pretty standard menu above.
 
         w.refresh()
 
@@ -99,15 +103,14 @@ def main(window):
             p2.terminate()
             import os
             os.execv(sys.executable, ['python'] + sys.argv)
+            # Nice little thing that restarts a python script.
         elif key == ord('p'):
             editor()  # from editor.py, opens your system editor.
             w.erase()
             w.refresh()
             # window.addstr(2,0,"You pressed P\n") # Just a place holder for new commands in the future.
 
-
-
-    # threading just wouldnt work. Process does seem to work.
+    # Threading just wouldnt work. MultiProcessing is the new  beauty.
     controller.stop()
     p1.terminate()
     p2.terminate()
@@ -122,10 +125,10 @@ class smtphoney:
         # straight out of documentation
 
     async def handle_DATA(self, server, session, envelope):
-        box1 = curses.newwin(40,40,5,0)
-        box1.addstr(1,1,"Last Email:")
-        box1.addstr(2,1,"IP Address: " + session.peer[0])
-        box1.addstr(3,1,"From: " + envelope.mail_from)
+        box1 = curses.newwin(40, 40, 5, 0)
+        box1.addstr(1, 1, "Last Email:")
+        box1.addstr(2, 1, "IP Address: " + session.peer[0])
+        box1.addstr(3, 1, "From: " + envelope.mail_from)
         box1.refresh()
         # above box1 code is to show 'last email details' on the screen.
         inmemoryfile(envelope.content.decode('utf8', errors='replace'))  # A function I made in memoryfile.py
@@ -135,7 +138,3 @@ class smtphoney:
 
 if __name__ == '__main__':
     curses.wrapper(main)
-
-
-
-
