@@ -53,6 +53,7 @@ def main(window):
         s = curses.initscr()
         curses.curs_set(0)
         curses.noecho()
+        curses.napms(3000)
         # the above 3 items for curse are just standard config.
         curses.start_color()
         curses.init_pair(1, curses.COLOR_RED, curses.COLOR_BLACK);
@@ -105,7 +106,7 @@ def main(window):
             w.refresh()
             # window.addstr(2,0,"You pressed P\n") # Just a place holder for new commands in the future.
 
-        w.napms(3000)  # So that the screen isn't refreshing at crazy rates unnecessarily.
+        #sleep(3)  # So that the screen isn't refreshing at crazy rates unnecessarily.
 
     # threading just wouldnt work. Process does seem to work.
     controller.stop()
