@@ -12,7 +12,7 @@ from icarussyslog import syslogout
 from editor import editor
 from snmp import runsnmp
 from smb import runsmb
-from multiprocessing import Process, Lock
+from multiprocessing import Process, Queue
 
 
 def get_ip_address():
@@ -22,7 +22,6 @@ def get_ip_address():
 
 
 IP = get_ip_address()
-
 # Found socket at https://docs.python.org/3/library/socket.html mostly just their code.
 
 config = configparser.ConfigParser()
@@ -39,13 +38,13 @@ aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
 
 
 def main(window):
+    q = Queue()
     controller = Controller(smtphoney(), hostname=IP, port=25)
     # It calls the class below as my handler, the hostname sets the ip, I set the SMTP port to 25 obviously
     controller.start()
-    lock = Lock()
     p1 = Process(name='Snmp', target=runsnmp, daemon=True)
     p1.start()
-    p2 = Process(name='Smb', target=runsmb, daemon=True)
+    p2 = Process(name='Smb', target=runsmb, daemon=True, args=(q,))
     p2.start()
 
     while True:
@@ -83,6 +82,8 @@ def main(window):
         w.addstr(1, 0, "SMTP running: True")
         w.addstr(2, 0, "SNMP Running: " + str(p1.is_alive()))
         w.addstr(3, 0, "SMB Running:  " + str(p2.is_alive()))
+        if not q.empty():
+            w.addstr(4, 0, "Last Attacker:  " + q.get())
         # It always shows IP address it's listening on and showing you can hit Q to quit.
 
         w.refresh()

@@ -4,7 +4,7 @@ import time
 from abuseipdb import hackingabuseipdb
 
 
-def runsmb():
+def runsmb(q):
     while 1:
 
         try:
@@ -19,6 +19,7 @@ def runsmb():
                 conn, addr = s.accept()
                 # print(conn)
                 hackingabuseipdb(addr[0])
+                q.put(addr[0])
 
                 while 1:
                     data = conn.recv(1024)
