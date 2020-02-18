@@ -44,7 +44,7 @@ def main(window):
     controller.start()
     p1 = Process(name='Snmp', target=runsnmp, daemon=True)
     p1.start()
-    p2 = Process(name='Smb', target=runsmb, daemon=True, args=(q,))
+    p2 = Process(name='Smb', target=runsmb, daemon=True)
     p2.start()
 
     while True:
