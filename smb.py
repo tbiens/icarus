@@ -19,6 +19,9 @@ def runsmb():
                 conn, addr = s.accept()
                 # print(conn)
                 hackingabuseipdb(addr[0])
+                box2 = curses.newwin(40, 40, 9, 0)
+                box2.addstr(1, 1, "Last Attacker's IP Address: " + addr[0])
+                box2.refresh()
 
                 while 1:
                     data = conn.recv(1024)

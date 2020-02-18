@@ -76,7 +76,7 @@ def main(window):
         w.addstr(10, 51, "Enabled: " + syslogenable)
         w.addstr(11, 51, "Syslog Server: " + syslogip + ":" + syslogport)
         w.addstr(13, 51, "Press P to change values.", curses.color_pair(2))
-        w.addstr(14, 51, "Press R to reset screen.", curses.color_pair(3))
+        w.addstr(14, 51, "Press R to restart.", curses.color_pair(3))
 
         w.addstr(0, 0, "Listening on: " + IP)
         w.addstr(1, 0, "Server started. Press Q to quit.", curses.color_pair(1))
