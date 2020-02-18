@@ -104,7 +104,7 @@ def main(window):
             w.refresh()
             # window.addstr(2,0,"You pressed P\n") # Just a place holder for new commands in the future.
 
-        sleep(1)  # So that the screen isn't refreshing at crazy rates unnecessarily.
+        w.timeout(3000)  # So that the screen isn't refreshing at crazy rates unnecessarily.
 
     # threading just wouldnt work. Process does seem to work.
     controller.stop()
