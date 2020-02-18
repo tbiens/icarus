@@ -9,7 +9,7 @@ def lastattacker(ip):
     devshm = open("/dev/shm/attacker", "w")
     devshm.write(ip)
     devshm.close()
-    # Quickly writes to a file in /dev/shm/ as a simple tracker of last attacker. /dev/shm is linux memory disk. 
+    # Quickly writes to a file in /dev/shm/ as a simple tracker of last attacker. /dev/shm is linux memory disk.
 
 
 def inmemoryfile(filecontents):

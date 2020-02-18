@@ -1,5 +1,6 @@
 import asyncio
 from abuseipdb import hackingabuseipdb
+from memoryfile import lastattacker
 
 
 class icarus:
@@ -8,7 +9,7 @@ class icarus:
 
     def datagram_received(self, data, addr):
         hackingabuseipdb(addr[0])
-
+        lastattacker(addr[0])
 
 
 def runsnmp():
