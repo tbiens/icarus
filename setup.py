@@ -45,6 +45,7 @@ def main(window):
     p1.start()
     p2 = Process(name='Smb', target=runsmb, daemon=True)
     p2.start()
+    createattacker = open("/dev/shm/attacker", "a")
 
     while True:
         lastattacker = open("/dev/shm/attacker", 'r')
