@@ -1,5 +1,6 @@
 import socketserver
 from abuseipdb import hackingabuseipdb
+from memoryfile import lastattacker
 
 
 class MyTCPHandler(socketserver.BaseRequestHandler):
@@ -7,6 +8,7 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
         # self.request is the TCP socket connected to the client
         self.data = self.request.recv(1024).strip()
         hackingabuseipdb(self.client_address[0])
+        lastattacker(self.client_address[0])
 
 
 def runsmb():
