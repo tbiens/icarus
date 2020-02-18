@@ -77,9 +77,10 @@ def main(window):
         w.addstr(11, 51, "Syslog Server: " + syslogip + ":" + syslogport)
         w.addstr(13, 51, "Press P to change values.", curses.color_pair(2))
         w.addstr(14, 51, "Press R to restart.", curses.color_pair(3))
+        w.addstr(15, 51, "Press Q to quit.", curses.color_pair(1))
 
         w.addstr(0, 0, "Listening on: " + IP)
-        w.addstr(1, 0, "Server started. Press Q to quit.", curses.color_pair(1))
+        w.addstr(1, 0, "SMTP running.", curses.color_pair(1))
         w.addstr(2, 0, "SNMP Running: " + str(p1.is_alive()))
         w.addstr(3, 0, "SMB Running:  " + str(p2.is_alive()))
         # It always shows IP address it's listening on and showing you can hit Q to quit.
@@ -107,6 +108,12 @@ def main(window):
     controller.stop()
     p1.terminate()
     p2.terminate()
+
+    
+def lastattacker(ip):
+    box2 = curses.newwin(40, 40, 9, 0)
+    box2.addstr(1, 1, "Last Attacker IP: " + ip)
+    box2.refresh()
 
 
 class smtphoney:

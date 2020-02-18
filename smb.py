@@ -1,8 +1,8 @@
 import socket
-import curses
 from socket import error as socketerror
 import time
 from abuseipdb import hackingabuseipdb
+from setup import lastattacker
 
 
 def runsmb():
@@ -20,9 +20,7 @@ def runsmb():
                 conn, addr = s.accept()
                 # print(conn)
                 hackingabuseipdb(addr[0])
-                box2 = curses.newwin(40, 40, 9, 0)
-                box2.addstr(1, 1, "Last Attacker's IP Address: " + addr[0])
-                box2.refresh()
+                lastattacker(addr[0])
 
                 while 1:
                     data = conn.recv(1024)
