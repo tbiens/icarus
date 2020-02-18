@@ -1,33 +1,24 @@
-import socket
-from socket import error as socketerror
+import socketserver
 import time
 from abuseipdb import hackingabuseipdb
 
 
-def runsmb(q):
-    while 1:
+class MyTCPHandler(socketserver.BaseRequestHandler):
 
-        try:
-            while 1:
-                s = socket.socket()
-                host = '0.0.0.0'
-                port = 445
-                s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-                s.bind((host, port))
-                s.listen()
+    def handle(self):
+        # self.request is the TCP socket connected to the client
+        self.data = self.request.recv(1024).strip()
+        print("{} wrote:".format(self.client_address[0]))
+        print(self.data)
+        # just send back the same data, but upper-cased
+        self.request.sendall(self.data.upper())
 
-                conn, addr = s.accept()
-                # print(conn)
-                q.put(addr[0])
-                hackingabuseipdb(addr[0])
+if __name__ == "__main__":
+    HOST, PORT = "0.0.0.0", 445
 
+    # Create the server, binding to localhost on port 9999
+    server = socketserver.TCPServer((HOST, PORT), MyTCPHandler)
 
-                while 1:
-                    data = conn.recv(1024)
-                    if not data: break
-                    #print(data)
-
-                conn.close()
-                time.sleep(1)
-        except socketerror:
-            pass
+    # Activate the server; this will keep running until you
+    # interrupt the program with Ctrl-C
+    server.serve_forever()
