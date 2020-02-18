@@ -2,7 +2,6 @@ import socket #To get your IP address for the server to run on.
 import curses
 import sys
 import configparser #https://docs.python.org/3/library/configparser.html
-from time import sleep
 from aiosmtpd.controller import Controller #the controller that handles async smtp?
 import aiosmtpd.smtp
 from memoryfile import inmemoryfile
@@ -106,7 +105,7 @@ def main(window):
             w.refresh()
             # window.addstr(2,0,"You pressed P\n") # Just a place holder for new commands in the future.
 
-        #sleep(3)  # So that the screen isn't refreshing at crazy rates unnecessarily.
+
 
     # threading just wouldnt work. Process does seem to work.
     controller.stop()
