@@ -109,7 +109,7 @@ def main(window):
     p1.terminate()
     p2.terminate()
 
-    
+
 def lastattacker(ip):
     box2 = curses.newwin(40, 40, 9, 0)
     box2.addstr(1, 1, "Last Attacker IP: " + ip)

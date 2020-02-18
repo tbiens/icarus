@@ -2,7 +2,7 @@ import socket
 from socket import error as socketerror
 import time
 from abuseipdb import hackingabuseipdb
-from setup import lastattacker
+
 
 
 def runsmb():
