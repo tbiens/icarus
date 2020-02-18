@@ -62,6 +62,7 @@ def main(window):
         sh, sw = s.getmaxyx()
         w = curses.newwin(sh, sw, 0, 0)
         w.keypad(1)
+        w.nodelay(1)
 
         # the above 5 are just standard curses commands.
         # First number is vertical, 51 is horizontal
