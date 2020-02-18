@@ -84,6 +84,7 @@ def main(window):
         w.addstr(2, 0, "SNMP Running: " + str(p1.is_alive()))
         w.addstr(3, 0, "CIFS Running: " + str(p2.is_alive()))
         w.addstr(4, 0, "Last Attacker: " + lastattacker.read())
+        lastattacker.close()
         # It always shows IP address it's listening on and showing you can hit Q to quit.
 
         w.refresh()
