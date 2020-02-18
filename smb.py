@@ -18,8 +18,9 @@ def runsmb(q):
 
                 conn, addr = s.accept()
                 # print(conn)
-                hackingabuseipdb(addr[0])
                 q.put(addr[0])
+                hackingabuseipdb(addr[0])
+
 
                 while 1:
                     data = conn.recv(1024)
