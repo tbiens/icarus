@@ -1,4 +1,5 @@
 import socket
+import curses
 from socket import error as socketerror
 import time
 from abuseipdb import hackingabuseipdb
