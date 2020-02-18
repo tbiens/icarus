@@ -111,12 +111,6 @@ def main(window):
     p2.terminate()
 
 
-def lastattacker(ip):
-    box2 = curses.newwin(40, 40, 9, 0)
-    box2.addstr(1, 1, "Last Attacker IP: " + ip)
-    box2.refresh()
-
-
 class smtphoney:
     async def handle_RCPT(self, server, session, envelope, address, rcpt_options):
         loggingaddresses(session.peer[0], envelope.mail_from, address)  # check memoryfile.py for this function
