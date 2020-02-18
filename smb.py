@@ -16,5 +16,6 @@ def runsmb():
     HOST, PORT = "0.0.0.0", 445
 
     server = socketserver.TCPServer((HOST, PORT), MyTCPHandler)
+    server.allow_reuse_address = True
 
     server.serve_forever()
