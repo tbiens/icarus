@@ -137,4 +137,4 @@ class smtphoney:
 
 
 if __name__ == '__main__':
-    #curses.wrapper(main)
+    curses.wrapper(main)
