@@ -1,6 +1,7 @@
 import socketserver # https://docs.python.org/3.5/library/socketserver.html
 from abuseipdb import hackingabuseipdb
 from memoryfile import lastattacker
+import logging
 
 
 class MyTCPHandler(socketserver.BaseRequestHandler):
@@ -18,5 +19,5 @@ def runsmb():
         server.allow_reuse_address = True
         server.serve_forever()
 
-    except:  # should be more specific.
-        pass
+    except BaseException as e:  # should be more specific.
+        logging.info(e)
