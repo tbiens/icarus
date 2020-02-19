@@ -20,5 +20,5 @@ def runsmb():
         server.serve_forever()
 
     except BaseException as e:  # should be more specific.
-        logging.basicConfig(filename='logs.txt')
+        logging.basicConfig(filename='logs.txt', level=logging.info)
         logging.info(e)
