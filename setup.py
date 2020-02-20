@@ -42,8 +42,10 @@ def main(window):
     controller.start()
     p1 = Process(name='Snmp', target=runsnmp, daemon=True)
     p1.start()
-    p2 = Process(name='Smb', target=runsmb, daemon=True)
+    p2 = Process(name='Smb', target=runsmb, daemon=True, args=(445,))
     p2.start()
+    p3 = Process(name='Ftp', target=runsmb, daemon=True, args=(21,))
+    p3.start()
     # Keeping track of attackers. Simple in memory file. Below is making sure the file exists.
     createattacker = open("/dev/shm/attacker", "a")
     createattacker.close()

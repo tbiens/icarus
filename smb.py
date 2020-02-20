@@ -12,9 +12,9 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
         lastattacker(self.client_address[0])  # From memoryfile.py
 
 
-def runsmb():
+def runsmb(port):
     try:
-        HOST, PORT = "0.0.0.0", 445
+        HOST, PORT = "0.0.0.0", port
         server = socketserver.TCPServer((HOST, PORT), MyTCPHandler)
         server.allow_reuse_address = True
         server.serve_forever()
