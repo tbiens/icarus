@@ -90,7 +90,8 @@ def main(window):
         w.addstr(1, 0, "SMTP running: True")
         w.addstr(2, 0, "SNMP Running: " + str(p1.is_alive()))
         w.addstr(3, 0, "CIFS Running: " + str(p2.is_alive()))
-        w.addstr(4, 0, "Last Attacker: " + lastattacker.read())
+        w.addstr(4, 0, "FTP Running:  " + str(p3.is_alive()))
+        w.addstr(5, 0, "Last Attacker: " + lastattacker.read())
         lastattacker.close()
         # Pretty standard menu above.
 
@@ -127,7 +128,7 @@ class smtphoney:
         # straight out of documentation
 
     async def handle_DATA(self, server, session, envelope):
-        box1 = curses.newwin(40, 40, 5, 0)
+        box1 = curses.newwin(40, 40, 6, 0)
         box1.addstr(1, 1, "Last Email:")
         box1.addstr(2, 1, "IP Address: " + session.peer[0])
         box1.addstr(3, 1, "From: " + envelope.mail_from)
