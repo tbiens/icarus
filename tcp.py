@@ -12,7 +12,7 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
         lastattacker(self.client_address[0])  # From memoryfile.py
 
 
-def runsmb(port):
+def runtcp(port):
     try:
         HOST, PORT = "0.0.0.0", port
         server = socketserver.TCPServer((HOST, PORT), MyTCPHandler)

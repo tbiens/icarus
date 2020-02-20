@@ -10,7 +10,7 @@ from abuseipdb import abuseipdb
 from icarussyslog import syslogout
 from editor import editor
 from snmp import runsnmp
-from smb import runsmb
+from tcp import runtcp
 from multiprocessing import Process
 
 
@@ -42,9 +42,9 @@ def main(window):
     controller.start()
     p1 = Process(name='Snmp', target=runsnmp, daemon=True)
     p1.start()
-    p2 = Process(name='Smb', target=runsmb, daemon=True, args=(445,))
+    p2 = Process(name='Smb', target=runtcp, daemon=True, args=(445,))
     p2.start()
-    p3 = Process(name='Ftp', target=runsmb, daemon=True, args=(21,))
+    p3 = Process(name='Ftp', target=runtcp, daemon=True, args=(21,))
     p3.start()
     # Keeping track of attackers. Simple in memory file. Below is making sure the file exists.
     createattacker = open("/dev/shm/attacker", "a")
