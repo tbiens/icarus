@@ -14,6 +14,8 @@ There are many awesome honeypots. https://github.com/paralax/awesome-honeypots
 5. Config file the IP choice.
 6. Chroot or nobody:nobody. 
 7. Enable/Disable the services.
+8. SMB accept files to upload to virustotal
+9. FTP accept files to upload to virustotal
 
 **Docker**
 
