@@ -43,13 +43,13 @@ def main(window):
     controller = Controller(smtphoney(), hostname=IP, port=25)
     # It calls the class below as my handler, the hostname sets the ip, I set the SMTP port to 25 obviously
     controller.start()
-    if enableSNMP:
+    if enableSNMP != 'no':
         p1 = Process(name='Snmp', target=runsnmp, daemon=True)
         p1.start()
-    if enableSMB:
+    if enableSMB != 'no':
         p2 = Process(name='Smb', target=runtcp, daemon=True, args=(445,))
         p2.start()
-    if enableFTP:
+    if enableFTP != 'no':
         p3 = Process(name='Ftp', target=runtcp, daemon=True, args=(21,))
         p3.start()
     # Keeping track of attackers. Simple in memory file. Below is making sure the file exists.
