@@ -1,4 +1,5 @@
 import curses
+import socket
 import sys
 import configparser  # https://docs.python.org/3/library/configparser.html
 from aiosmtpd.controller import Controller  # the controller that handles async smtp?
