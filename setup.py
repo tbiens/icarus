@@ -40,7 +40,7 @@ aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
 
 
 def main(window):
-    controller = Controller(smtphoney(), hostname=IP, port=25)
+    controller = Controller(smtphoney(), hostname="0.0.0.0", port=25)
     # It calls the class below as my handler, the hostname sets the ip, I set the SMTP port to 25 obviously
     controller.start()
     if enableSNMP != 'no':
@@ -105,7 +105,7 @@ def main(window):
         if enableFTP != 'no':
             w.addstr(4, 0, "FTP  Running: " + str(p3.is_alive()))
         else:
-            w.addstr(4, 0, "FTP not enabled.")
+            w.addstr(4, 0, "FTP  not enabled.")
         w.addstr(5, 0, "Last Attacker: " + lastattacker.read())
         lastattacker.close()
         # Pretty standard menu above.
