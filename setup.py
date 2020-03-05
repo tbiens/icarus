@@ -32,6 +32,9 @@ virustotal = config['APIKEY']['Virustotal']
 syslogenable = config['SYSLOG']['Syslog']
 syslogip = config['SYSLOG']['IP']
 syslogport = config['SYSLOG']['PORT']
+enableSNMP = config['SERVICES']['SNMP']
+enableFTP = config['SERVICES']['FTP']
+enableSMB = config['SERVICES']['SMB']
 
 aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
 
@@ -40,12 +43,15 @@ def main(window):
     controller = Controller(smtphoney(), hostname=IP, port=25)
     # It calls the class below as my handler, the hostname sets the ip, I set the SMTP port to 25 obviously
     controller.start()
-    p1 = Process(name='Snmp', target=runsnmp, daemon=True)
-    p1.start()
-    p2 = Process(name='Smb', target=runtcp, daemon=True, args=(445,))
-    p2.start()
-    p3 = Process(name='Ftp', target=runtcp, daemon=True, args=(21,))
-    p3.start()
+    if enableSNMP:
+        p1 = Process(name='Snmp', target=runsnmp, daemon=True)
+        p1.start()
+    if enableSMB:
+        p2 = Process(name='Smb', target=runtcp, daemon=True, args=(445,))
+        p2.start()
+    if enableFTP:
+        p3 = Process(name='Ftp', target=runtcp, daemon=True, args=(21,))
+        p3.start()
     # Keeping track of attackers. Simple in memory file. Below is making sure the file exists.
     createattacker = open("/dev/shm/attacker", "a")
     createattacker.close()
