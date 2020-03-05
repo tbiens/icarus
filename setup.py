@@ -26,6 +26,10 @@ IP = get_ip_address()
 
 config = configparser.ConfigParser()
 config.read('icarus.config')
+if config['ADDRESSES']['IP'] == "auto":
+    IP = get_ip_address()
+else:
+    IP = config['ADDRESSES']['IP']
 abuseip = config['IPDBAPI']['AbuseIPDB']
 abuseapikey = config['IPDBAPI']['IPDBAPI']
 vtapikey = config['APIKEY']['apikey']
@@ -33,6 +37,7 @@ virustotal = config['APIKEY']['Virustotal']
 syslogenable = config['SYSLOG']['Syslog']
 syslogip = config['SYSLOG']['IP']
 syslogport = config['SYSLOG']['PORT']
+enableSMTP = config['SERVICES']['SMTP']
 enableSNMP = config['SERVICES']['SNMP']
 enableFTP = config['SERVICES']['FTP']
 enableSMB = config['SERVICES']['SMB']
@@ -41,9 +46,10 @@ aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
 
 
 def main(window):
-    controller = Controller(smtphoney(), hostname=IP, port=25)
-    # It calls the class below as my handler, the hostname sets the ip, I set the SMTP port to 25 obviously
-    controller.start()
+    if enableSMTP != 'no':
+        controller = Controller(smtphoney(), hostname=IP, port=25)
+        # It calls the class below as my handler, the hostname sets the ip, I set the SMTP port to 25 obviously
+        controller.start()
     if enableSNMP != 'no':
         p1 = Process(name='Snmp', target=runsnmp, daemon=True)
         p1.start()
@@ -117,7 +123,8 @@ def main(window):
         if key == ord('q'):
             break
         elif key == ord('r'):
-            controller.stop()
+            if enableSMTP != 'no':
+                controller.stop()
             if enableSNMP != 'no':
                 p1.terminate()
             if enableSMB != 'no':
@@ -134,7 +141,8 @@ def main(window):
             # window.addstr(2,0,"You pressed P\n") # Just a place holder for new commands in the future.
 
     # Threading just wouldnt work. MultiProcessing is the new  beauty.
-    controller.stop()
+    if enableSMTP != 'no':
+        controller.stop()
     if enableSNMP != 'no':
         p1.terminate()
     if enableSMB != 'no':
