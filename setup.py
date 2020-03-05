@@ -1,4 +1,3 @@
-import socket  # To get your IP address for the server to run on.
 import curses
 import sys
 import configparser  # https://docs.python.org/3/library/configparser.html
@@ -13,15 +12,6 @@ from snmp import runsnmp
 from tcp import runtcp
 from multiprocessing import Process
 
-
-def get_ip_address():
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    s.connect(("8.8.8.8", 80))
-    return s.getsockname()[0]
-
-
-IP = get_ip_address()
-# Found socket at https://docs.python.org/3/library/socket.html mostly just their code.
 
 config = configparser.ConfigParser()
 config.read('icarus.config')
@@ -92,7 +82,7 @@ def main(window):
         w.addstr(14, 51, "Press R to restart.", curses.color_pair(3))
         w.addstr(15, 51, "Press Q to quit.", curses.color_pair(1))
 
-        w.addstr(0, 0, "Listening on: " + IP)
+        w.addstr(0, 0, "Listening on: 0.0.0.0")
         w.addstr(1, 0, "SMTP Running: True")
         if enableSNMP != 'no':
             w.addstr(2, 0, "SNMP Running: " + str(p1.is_alive()))
