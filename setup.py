@@ -30,6 +30,7 @@ if config['ADDRESSES']['IP'] == "auto":
     IP = get_ip_address()
 else:
     IP = config['ADDRESSES']['IP']
+smtpport = config['ADDRESSES']['SMTPPort']
 abuseip = config['IPDBAPI']['AbuseIPDB']
 abuseapikey = config['IPDBAPI']['IPDBAPI']
 vtapikey = config['APIKEY']['apikey']
@@ -47,7 +48,7 @@ aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
 
 def main(window):
     if enableSMTP != 'no':
-        controller = Controller(smtphoney(), hostname=IP, port=25)
+        controller = Controller(smtphoney(), hostname=IP, port=smtpport)
         # It calls the class below as my handler, the hostname sets the ip, I set the SMTP port to 25 obviously
         controller.start()
     if enableSNMP != 'no':
