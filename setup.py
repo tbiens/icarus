@@ -96,10 +96,16 @@ def main(window):
         w.addstr(1, 0, "SMTP Running: True")
         if enableSNMP != 'no':
             w.addstr(2, 0, "SNMP Running: " + str(p1.is_alive()))
+        else:
+            w.addstr(2, 0, "SNMP Running: Not Enabled.")
         if enableSMB != 'no':
             w.addstr(3, 0, "CIFS Running: " + str(p2.is_alive()))
+        else:
+            w.addstr(3, 0, "CIFS Running: Not Enabled.")
         if enableFTP != 'no':
             w.addstr(4, 0, "FTP  Running: " + str(p3.is_alive()))
+        else:
+            w.addstr(4, 0, "FTP  Running: Not Enabled.")
         w.addstr(5, 0, "Last Attacker: " + lastattacker.read())
         lastattacker.close()
         # Pretty standard menu above.
