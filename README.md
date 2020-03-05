@@ -37,7 +37,7 @@ cd icarus
 
 pip3 install --upgrade pip
 
-pip3 install requests aiosmtpd
+pip3 install requests aiosmtpd click
 
 nano icarus.config  #Enter your virustotal API Key in.
 
@@ -51,7 +51,7 @@ apt-get install python3-pip git
 
 pip3 install --upgrade pip
 
-pip3 install requests aiosmtpd # if you get some wierd 'main' error. Just reboot.
+pip3 install requests aiosmtpd click # if you get some wierd 'main' error. Just reboot.
 
 git clone https://github.com/tbiens/icarus.git
 

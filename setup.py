@@ -13,6 +13,16 @@ from tcp import runtcp
 from multiprocessing import Process
 
 
+def get_ip_address():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.connect(("8.8.8.8", 80))
+    return s.getsockname()[0]
+
+
+IP = get_ip_address()
+# Found socket at https://docs.python.org/3/library/socket.html mostly just their code.
+
+
 config = configparser.ConfigParser()
 config.read('icarus.config')
 abuseip = config['IPDBAPI']['AbuseIPDB']
@@ -30,7 +40,7 @@ aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
 
 
 def main(window):
-    controller = Controller(smtphoney(), hostname="0.0.0.0", port=25)
+    controller = Controller(smtphoney(), hostname=IP, port=25)
     # It calls the class below as my handler, the hostname sets the ip, I set the SMTP port to 25 obviously
     controller.start()
     if enableSNMP != 'no':
