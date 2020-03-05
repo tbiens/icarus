@@ -82,7 +82,7 @@ def main(window):
         w.addstr(14, 51, "Press R to restart.", curses.color_pair(3))
         w.addstr(15, 51, "Press Q to quit.", curses.color_pair(1))
 
-        w.addstr(0, 0, "ICARUS HONEYPOT")
+        w.addstr(0, 0, "ICARUS HONEYPOT", curses.color_pair(1))
         w.addstr(1, 0, "SMTP Running: True")
         if enableSNMP != 'no':
             w.addstr(2, 0, "SNMP Running: " + str(p1.is_alive()))
@@ -107,8 +107,12 @@ def main(window):
             break
         elif key == ord('r'):
             controller.stop()
-            p1.terminate()
-            p2.terminate()
+            if enableSNMP != 'no':
+                p1.terminate()
+            if enableSMB != 'no':
+                p2.terminate()
+            if enableFTP != 'no':
+                p3.terminate()
             import os
             os.execv(sys.executable, ['python'] + sys.argv)
             # Nice little thing that restarts a python script.
@@ -120,8 +124,12 @@ def main(window):
 
     # Threading just wouldnt work. MultiProcessing is the new  beauty.
     controller.stop()
-    p1.terminate()
-    p2.terminate()
+    if enableSNMP != 'no':
+        p1.terminate()
+    if enableSMB != 'no':
+        p2.terminate()
+    if enableFTP != 'no':
+        p3.terminate()
 
 
 class smtphoney:
