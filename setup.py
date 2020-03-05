@@ -100,7 +100,10 @@ def main(window):
         w.addstr(15, 51, "Press Q to quit.", curses.color_pair(1))
 
         w.addstr(0, 0, "ICARUS HONEYPOT", curses.color_pair(1))
-        w.addstr(1, 0, "SMTP Running: True")
+        if enableSMTP != 'no':
+            w.addstr(1, 0, "SMTP Running: True")
+        else:
+            w.addstr(1, 0, "SMTP not enabled.")
         if enableSNMP != 'no':
             w.addstr(2, 0, "SNMP Running: " + str(p1.is_alive()))
         else:
