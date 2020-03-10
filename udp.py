@@ -12,7 +12,7 @@ class icarus:
         lastattacker(addr[0])
 
 
-def runsnmp():
+def runudp():
     loop = asyncio.get_event_loop()
     asyncio.set_event_loop(loop)
     listen = loop.create_datagram_endpoint(icarus, local_addr=('0.0.0.0', 161))

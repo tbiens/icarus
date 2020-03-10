@@ -9,7 +9,7 @@ from memoryfile import loggingaddresses
 from abuseipdb import abuseipdb
 from icarussyslog import syslogout
 from editor import editor
-from snmp import runsnmp
+from udp import runudp
 from tcp import runtcp
 from multiprocessing import Process
 
@@ -47,12 +47,21 @@ aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
 
 
 def main(window):
+    def shutdown():
+        if enableSMTP != 'no':
+            controller.stop()
+        if enableSNMP != 'no':
+            p1.terminate()
+        if enableSMB != 'no':
+            p2.terminate()
+        if enableFTP != 'no':
+            p3.terminate()
     if enableSMTP != 'no':
         controller = Controller(smtphoney(), hostname=IP, port=smtpport)
         # It calls the class below as my handler, the hostname sets the ip, I set the SMTP port to 25 obviously
         controller.start()
     if enableSNMP != 'no':
-        p1 = Process(name='Snmp', target=runsnmp, daemon=True)
+        p1 = Process(name='Snmp', target=runudp, daemon=True)
         p1.start()
     if enableSMB != 'no':
         p2 = Process(name='Smb', target=runtcp, daemon=True, args=(445,))
@@ -127,14 +136,7 @@ def main(window):
         if key == ord('q'):
             break
         elif key == ord('r'):
-            if enableSMTP != 'no':
-                controller.stop()
-            if enableSNMP != 'no':
-                p1.terminate()
-            if enableSMB != 'no':
-                p2.terminate()
-            if enableFTP != 'no':
-                p3.terminate()
+            shutdown()
             import os
             os.execv(sys.executable, ['python'] + sys.argv)
             # Nice little thing that restarts a python script.
@@ -145,14 +147,7 @@ def main(window):
             # window.addstr(2,0,"You pressed P\n") # Just a place holder for new commands in the future.
 
     # Threading just wouldnt work. MultiProcessing is the new  beauty.
-    if enableSMTP != 'no':
-        controller.stop()
-    if enableSNMP != 'no':
-        p1.terminate()
-    if enableSMB != 'no':
-        p2.terminate()
-    if enableFTP != 'no':
-        p3.terminate()
+    shutdown()
 
 
 class smtphoney:
