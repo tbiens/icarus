@@ -12,10 +12,10 @@ class icarus:
         lastattacker(addr[0])
 
 
-def runudp():
+def runudp(port):
     loop = asyncio.get_event_loop()
     asyncio.set_event_loop(loop)
-    listen = loop.create_datagram_endpoint(icarus, local_addr=('0.0.0.0', 161))
+    listen = loop.create_datagram_endpoint(icarus, local_addr=('0.0.0.0', port))
     transport, protocol = loop.run_until_complete(listen)
 
     loop.run_forever()

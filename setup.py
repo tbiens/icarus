@@ -42,6 +42,7 @@ enableSMTP = config['SERVICES']['SMTP']
 enableSNMP = config['SERVICES']['SNMP']
 enableFTP = config['SERVICES']['FTP']
 enableSMB = config['SERVICES']['SMB']
+enableSIP = config['SERVICES']['SIP']
 
 aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
 
@@ -56,12 +57,14 @@ def main(window):
             p2.terminate()
         if enableFTP != 'no':
             p3.terminate()
+        if enableSIP != 'no':
+            p4.terminate()
     if enableSMTP != 'no':
         controller = Controller(smtphoney(), hostname=IP, port=smtpport)
         # It calls the class below as my handler, the hostname sets the ip, I set the SMTP port to 25 obviously
         controller.start()
     if enableSNMP != 'no':
-        p1 = Process(name='Snmp', target=runudp, daemon=True)
+        p1 = Process(name='Snmp', target=runudp, daemon=True, args=(161,))
         p1.start()
     if enableSMB != 'no':
         p2 = Process(name='Smb', target=runtcp, daemon=True, args=(445,))
@@ -69,6 +72,9 @@ def main(window):
     if enableFTP != 'no':
         p3 = Process(name='Ftp', target=runtcp, daemon=True, args=(21,))
         p3.start()
+    if enableSIP != 'no':
+        p4 = Process(name='SIP', target=runudp, daemon=True, args=(5600,))
+        p4.start()
     # Keeping track of attackers. Simple in memory file. Below is making sure the file exists.
     createattacker = open("/dev/shm/attacker", "a")
     createattacker.close()
@@ -126,7 +132,11 @@ def main(window):
             w.addstr(4, 0, "FTP  Running: " + str(p3.is_alive()))
         else:
             w.addstr(4, 0, "FTP  not enabled.")
-        w.addstr(5, 0, "Last Attacker: " + lastattacker.read())
+        if enableFTP != 'no':
+            w.addstr(5, 0, "SIP  Running: " + str(p4.is_alive()))
+        else:
+            w.addstr(5, 0, "SIP  not enabled.")
+        w.addstr(6, 0, "Last Attacker: " + lastattacker.read())
         lastattacker.close()
         # Pretty standard menu above.
 
@@ -159,7 +169,7 @@ class smtphoney:
         # straight out of documentation
 
     async def handle_DATA(self, server, session, envelope):
-        box1 = curses.newwin(40, 40, 6, 0)
+        box1 = curses.newwin(40, 40, 7, 0)
         box1.addstr(1, 1, "Last Email:")
         box1.addstr(2, 1, "IP Address: " + session.peer[0])
         box1.addstr(3, 1, "From: " + envelope.mail_from)
