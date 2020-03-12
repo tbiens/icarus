@@ -25,9 +25,9 @@ def virustotalfile(filename):
             if viruspost.status_code == 200:
                 request = json.loads(viruspost.text)
                 # The code on the virustotal page is python2, this was a pain to figure out for python3
-                print(request["verbose_msg"])
+                #print(request["verbose_msg"])
                 # especially difficult when I didn't know there would be code differences between 2 and 3.
                 logging.warning(request["permalink"])
                 # yaay debugging
-                print (request["permalink"]) 
+                #print (request["permalink"])
 
