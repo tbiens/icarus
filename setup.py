@@ -12,6 +12,7 @@ from editor import editor
 from udp import runudp
 from tcp import runtcp
 from multiprocessing import Process
+from ftp import ftpserver
 
 
 def get_ip_address():
@@ -70,7 +71,7 @@ def main(window):
         p2 = Process(name='Smb', target=runtcp, daemon=True, args=(445,))
         p2.start()
     if enableFTP != 'no':
-        p3 = Process(name='Ftp', target=runtcp, daemon=True, args=(21,))
+        p3 = Process(name='Ftp', target=ftpserver, daemon=True)
         p3.start()
     if enableSIP != 'no':
         p4 = Process(name='SIP', target=runudp, daemon=True, args=(5600,))
