@@ -10,7 +10,7 @@ RUN apt-get install -y git python3-pip python-virtualenv screen nano
 
 RUN pip3 install --upgrade pip
 
-RUN pip3 install requests aiosmtpd click
+RUN pip3 install requests aiosmtpd click pyftpdlib
 
 RUN git clone https://github.com/tbiens/icarus.git
 
