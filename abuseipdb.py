@@ -51,7 +51,7 @@ def hackingabuseipdb(addr):
         plusone = int(numattacks.fetchone()[0][0]) + 1
         c.execute("UPDATE addresses SET numattacks = ? WHERE address = ?", (plusone, addr))
         conn.commit()
-        print(c.execute("select * from addresses").fetchall())
+        #print(c.execute("select * from addresses").fetchall())
 
         if int(c.execute("select lastattack from addresses where address=?", (addr,)).fetchone()[0]) != day:
             report(addr)
@@ -62,7 +62,7 @@ def hackingabuseipdb(addr):
         report(addr)
         c.execute("INSERT INTO addresses (address, numattacks, lastattack) VALUES (?,?,?)", (addr, "1", day))
         conn.commit()
-        print(c.execute("select * from addresses").fetchall())
+        #print(c.execute("select * from addresses").fetchall())
     conn.commit()  # saves the queries
 
     conn.close()
