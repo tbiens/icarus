@@ -20,7 +20,7 @@ class MyHandler(FTPHandler):
             shahash = hashlib.sha256(filecontents.read()).hexdigest()
             # print(shahash)
         os.rename(file, "./downloads/" + shahash)
-        virustotalfile("./downloads/" + shahash)
+        virustotalfile(shahash)
 
     def on_incomplete_file_sent(self, file):
         # do something when a file is partially sent
