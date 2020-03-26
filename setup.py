@@ -143,10 +143,10 @@ def main(window):
         else:
             w.addstr(5, 0, "SIP  not enabled.")
         if enableSQL != 'no':
-            w.addstr(5, 0, "SQL  Running: " + str(p5.is_alive()))
+            w.addstr(6, 0, "SQL  Running: " + str(p5.is_alive()))
         else:
-            w.addstr(5, 0, "SQL  not enabled.")
-        w.addstr(6, 0, "Last Attacker: " + lastattacker.read())
+            w.addstr(6, 0, "SQL  not enabled.")
+        w.addstr(7, 0, "Last Attacker: " + lastattacker.read())
         lastattacker.close()
         # Pretty standard menu above.
 
@@ -179,7 +179,7 @@ class smtphoney:
         # straight out of documentation
 
     async def handle_DATA(self, server, session, envelope):
-        box1 = curses.newwin(40, 40, 7, 0)
+        box1 = curses.newwin(40, 40, 8, 0)
         box1.addstr(1, 1, "Last Email:")
         box1.addstr(2, 1, "IP Address: " + session.peer[0])
         box1.addstr(3, 1, "From: " + envelope.mail_from)
