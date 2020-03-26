@@ -80,9 +80,8 @@ def main(window):
         p4 = Process(name='SIP', target=runudp, daemon=True, args=(5600,))
         p4.start()
     if enableSQL != 'no':
-        p4 = Process(name='SQL', target=runtcp, daemon=True, args=(1433,))
-        p4.start()
-    # Keeping track of attackers. Simple in memory file. Below is making sure the file exists.
+        p5 = Process(name='SQL', target=runtcp, daemon=True, args=(1433,))
+        p5.start()
     createattacker = open("/dev/shm/attacker", "a")
     createattacker.close()
 
