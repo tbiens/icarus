@@ -44,6 +44,7 @@ enableSNMP = config['SERVICES']['SNMP']
 enableFTP = config['SERVICES']['FTP']
 enableSMB = config['SERVICES']['SMB']
 enableSIP = config['SERVICES']['SIP']
+enableSQL = config['SERVICES']['SQL']
 
 aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
 
@@ -60,6 +61,8 @@ def main(window):
             p3.terminate()
         if enableSIP != 'no':
             p4.terminate()
+        if enableSQL != 'no':
+            p5.terminate()
     if enableSMTP != 'no':
         controller = Controller(smtphoney(), hostname=IP, port=smtpport)
         # It calls the class below as my handler, the hostname sets the ip, I set the SMTP port to 25 obviously
@@ -75,6 +78,9 @@ def main(window):
         p3.start()
     if enableSIP != 'no':
         p4 = Process(name='SIP', target=runudp, daemon=True, args=(5600,))
+        p4.start()
+    if enableSQL != 'no':
+        p4 = Process(name='SQL', target=runtcp, daemon=True, args=(1433,))
         p4.start()
     # Keeping track of attackers. Simple in memory file. Below is making sure the file exists.
     createattacker = open("/dev/shm/attacker", "a")
@@ -137,6 +143,10 @@ def main(window):
             w.addstr(5, 0, "SIP  Running: " + str(p4.is_alive()))
         else:
             w.addstr(5, 0, "SIP  not enabled.")
+        if enableSQL != 'no':
+            w.addstr(5, 0, "SQL  Running: " + str(p5.is_alive()))
+        else:
+            w.addstr(5, 0, "SQL  not enabled.")
         w.addstr(6, 0, "Last Attacker: " + lastattacker.read())
         lastattacker.close()
         # Pretty standard menu above.
