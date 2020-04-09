@@ -15,7 +15,7 @@ There are many awesome honeypots. https://github.com/paralax/awesome-honeypots
 6. Chroot or nobody:nobody. 
 7. Enable/Disable the services.
 8. SMB accept files to upload to virustotal
-9. FTP accept files to upload to virustotal
+9. 
 10.
 
 **Docker**
@@ -26,53 +26,5 @@ nano icarus.config #change this config with your API keys
 
 docker build -t icarus .
 
-docker run -a stdin -a stdout -it -p 25:25/tcp icarus  
+docker run -a stdin -a stdout -it -p 25:25/tcp -p 21:21/tcp -p 161:161/udp -p 445:445/tcp -p 5600:5600/udp -p 1433:1433/tcp icarus
  
-
-**Raspbian from scratch:**
-Raspbian 9 has Python 3.5.3 by default. Which should work.
-
-git clone https://github.com/tbiens/icarus.git
-
-cd icarus
-
-pip3 install --upgrade pip
-
-pip3 install requests aiosmtpd click pyftpdlib
-
-nano icarus.config  #Enter your virustotal API Key in.
-
-python3 setup.py
-
-**Debian 9 fresh install:**
-
-apt-get update;apt-get dist-upgrade
-
-apt-get install python3-pip git
-
-pip3 install --upgrade pip
-
-pip3 install requests aiosmtpd click pyftpdlib # if you get some wierd 'main' error. Just reboot.
-
-git clone https://github.com/tbiens/icarus.git
-
-cd icarus
-
-nano icarus.config  #Enter your virustotal API Key in.
-
-python3 setup.py
-
-
-**Setup:**
-
-Minimum Python seems to be 3.5 because of async and aiosmtpd. I made this in 3.7. 
-
-**To run it:**
-
-python3 setup.py
-
-A copy of the attachments are kept in the ./downloads/ folder.
-
-The virustotal links are stored in ./logs/virustotal.log
-
-All attacks are logged to ./logs/logging.csv
