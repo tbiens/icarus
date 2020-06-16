@@ -1,7 +1,9 @@
 import configparser  # https://docs.python.org/3/library/configparser.html
 import requests  # https://developers.virustotal.com/v2.0/reference#file-scan
 import socket
+import logging
 
+log = logging.getLogger("logit")
 
 def abuseipdb(sessionpeer, mailfrom, mailto):
     config = configparser.ConfigParser()
@@ -44,12 +46,14 @@ def taxii(addr):
     taxiiip = config['TAXII']['Server']
     taxiiport = config['TAXII']['Port']
 
-    if taxiienable != "no":
-        HOST = taxiiip
-        PORT = taxiiport
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
-            sock.connect((HOST,PORT))
-            sock.sendall(bytes(addr + "\n", "utf-8"))
-
+    try:
+        if taxiienable != "no":
+            HOST = taxiiip
+            PORT = taxiiport
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+                sock.connect((HOST,PORT))
+                sock.sendall(bytes(addr + "\n", "utf-8"))
+    except Exception:
+        logging.exception("Exception")
 
 
