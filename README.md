@@ -26,5 +26,5 @@ nano icarus.config #change this config with your API keys
 
 docker build -t icarus .
 
-docker run -a stdin -a stdout -it -p 25:25/tcp -p 21:21/tcp -p 161:161/udp -p 445:445/tcp -p 5600:5600/udp -p 1433:1433/tcp icarus
+docker run -d --restart unless-stopped -a stdin -a stdout -it -p 25:25/tcp -p 21:21/tcp -p 161:161/udp -p 445:445/tcp -p 5600:5600/udp -p 1433:1433/tcp icarus
  
