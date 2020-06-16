@@ -1,7 +1,6 @@
 import configparser  # https://docs.python.org/3/library/configparser.html
 import requests  # https://developers.virustotal.com/v2.0/reference#file-scan
-import sqlite3
-from datetime import date
+import socket
 
 
 def abuseipdb(sessionpeer, mailfrom, mailto):
@@ -37,6 +36,7 @@ def report(ip):
         if apikey != "PUT API KEY HERE":
             abusepost = requests.post(url, headers=headers, data=data)
 
+
 def taxii(addr):
     config = configparser.ConfigParser()
     config.read('icarus.config')
@@ -50,3 +50,6 @@ def taxii(addr):
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
             sock.connect((HOST,PORT))
             sock.sendall(bytes(addr + "\n", "utf-8"))
+
+
+
