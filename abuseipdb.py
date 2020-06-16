@@ -2,8 +2,17 @@ import configparser  # https://docs.python.org/3/library/configparser.html
 import requests  # https://developers.virustotal.com/v2.0/reference#file-scan
 import socket
 import logging
+import logging.handlers
+import os
 
-log = logging.getLogger("logit")
+handler = logging.handlers.WatchedFileHandler(
+    os.environ.get("LOGFILE", "./yourapp.log"))
+formatter = logging.Formatter(logging.BASIC_FORMAT)
+handler.setFormatter(formatter)
+root = logging.getLogger()
+root.setLevel(os.environ.get("LOGLEVEL", "INFO"))
+root.addHandler(handler)
+
 
 def abuseipdb(sessionpeer, mailfrom, mailto):
     config = configparser.ConfigParser()
