@@ -1,5 +1,5 @@
 import socketserver # https://docs.python.org/3.5/library/socketserver.html
-from abuseipdb import hackingabuseipdb
+from abuseipdb import taxii, report
 from memoryfile import lastattacker
 import logging
 
@@ -8,7 +8,8 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
     def handle(self):
         # self.request is the TCP socket connected to the client
         #self.data = self.request.recv(1024).strip()
-        hackingabuseipdb(self.client_address[0])  # From abuseipdb.py
+        taxii(self.client_address[0])  # From abuseipdb.py
+        report(self.client_address[0])
         lastattacker(self.client_address[0])  # From memoryfile.py
 
 

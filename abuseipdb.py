@@ -1,7 +1,6 @@
 import configparser  # https://docs.python.org/3/library/configparser.html
 import requests  # https://developers.virustotal.com/v2.0/reference#file-scan
-import sqlite3
-from datetime import date
+import socket
 
 
 def abuseipdb(sessionpeer, mailfrom, mailto):
@@ -38,31 +37,19 @@ def report(ip):
             abusepost = requests.post(url, headers=headers, data=data)
 
 
-def hackingabuseipdb(addr):
-    conn = sqlite3.connect('attacks.db')
-    c = conn.cursor()
-    c.execute('''CREATE TABLE IF NOT EXISTS addresses (address text, numattacks text, lastattack text)''')
-    conn.commit()  # saves the queries
-    today = date.today()
-    day = int(today.strftime("%d"))
+def taxii(addr):
+    config = configparser.ConfigParser()
+    config.read('icarus.config')
+    taxiienable = config['TAXII']['Taxii']
+    taxiiip = config['TAXII']['Server']
+    taxiiport = config['TAXII']['Port']
 
-    if c.execute("select address from addresses WHERE address=?", (addr,)).fetchone():
-        numattacks = c.execute("select numattacks from addresses WHERE address=?", (addr,))
-        plusone = int(numattacks.fetchone()[0][0]) + 1
-        c.execute("UPDATE addresses SET numattacks = ? WHERE address = ?", (plusone, addr))
-        conn.commit()
-        #print(c.execute("select * from addresses").fetchall())
+    if taxiienable != "no":
+        HOST = taxiiip
+        PORT = taxiiport
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+            sock.connect((HOST,PORT))
+            sock.sendall(bytes(addr + "\n", "utf-8"))
 
-        if int(c.execute("select lastattack from addresses where address=?", (addr,)).fetchone()[0]) != day:
-            report(addr)
-            c.execute("UPDATE addresses SET lastattack = ? WHERE address = ?", (day, addr))
-            conn.commit()
 
-    else:
-        report(addr)
-        c.execute("INSERT INTO addresses (address, numattacks, lastattack) VALUES (?,?,?)", (addr, "1", day))
-        conn.commit()
-        #print(c.execute("select * from addresses").fetchall())
-    conn.commit()  # saves the queries
 
-    conn.close()
