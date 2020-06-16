@@ -1,5 +1,5 @@
 import asyncio
-from abuseipdb import taxii, report
+from abuseipdb import hackingabuseipdb
 from memoryfile import lastattacker
 
 
@@ -8,8 +8,7 @@ class icarus:
         self.transport = transport
 
     def datagram_received(self, data, addr):
-        taxii(addr[0])
-        report(addr[0])
+        hackingabuseipdb(addr[0])
         lastattacker(addr[0])
 
 
