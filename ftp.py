@@ -4,13 +4,14 @@ from pyftpdlib.handlers import FTPHandler
 from pyftpdlib.servers import FTPServer
 from pyftpdlib.authorizers import DummyAuthorizer
 from virustotal import virustotalfile
-from abuseipdb import hackingabuseipdb
+from abuseipdb import taxii, report
 
 
 class MyHandler(FTPHandler):
 
     def on_connect(self):
-        hackingabuseipdb(self.remote_ip)
+        report(self.remote_ip)
+        taxii(self.remote_ip)
 
     def on_file_received(self, file):
         # do something when a file has been received
