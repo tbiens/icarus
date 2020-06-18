@@ -39,6 +39,9 @@ virustotal = config['APIKEY']['Virustotal']
 syslogenable = config['SYSLOG']['Syslog']
 syslogip = config['SYSLOG']['IP']
 syslogport = config['SYSLOG']['PORT']
+largfeedon = config['LARGFEED']['Largfeed']
+largfeedserver = config['LARGFEED']['Server']
+largfeedport = config['LARGFEED']['Port']
 enableSMTP = config['SERVICES']['SMTP']
 enableSNMP = config['SERVICES']['SNMP']
 enableFTP = config['SERVICES']['FTP']
@@ -135,9 +138,12 @@ def main(window):
         w.addstr(9, 51, "Syslog:")
         w.addstr(10, 51, "Enabled: " + syslogenable)
         w.addstr(11, 51, "Syslog Server: " + syslogip + ":" + syslogport)
-        w.addstr(13, 51, "Press P to change values.", curses.color_pair(2))
-        w.addstr(14, 51, "Press R to restart.", curses.color_pair(3))
-        w.addstr(15, 51, "Press Q to quit.", curses.color_pair(1))
+        w.addstr(12, 51, "LARGfeed:")
+        w.addstr(13, 51, "Enabled: " + largfeedon)
+        w.addstr(14, 51, "LARGfeed Server: " + largfeedserver + ":" + largfeedport)
+        w.addstr(16, 51, "Press P to change values.", curses.color_pair(2))
+        w.addstr(17, 51, "Press R to restart.", curses.color_pair(3))
+        w.addstr(18, 51, "Press Q to quit.", curses.color_pair(1))
 
         w.addstr(0, 0, "ICARUS HONEYPOT", curses.color_pair(1))
         if enableSMTP != 'no':
