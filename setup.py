@@ -147,37 +147,37 @@ def main(window):
 
         w.addstr(0, 0, "ICARUS HONEYPOT", curses.color_pair(1))
         if enableSMTP != 'no':
-            w.addstr(1, 0, "SMTP Running: True")
+            w.addstr(1, 0, "SMTP   Running: True")
         else:
-            w.addstr(1, 0, "SMTP not enabled.")
+            w.addstr(1, 0, "SMTP   not enabled.")
         if enableSNMP != 'no':
-            w.addstr(2, 0, "SNMP Running: " + str(p1.is_alive()))
+            w.addstr(2, 0, "SNMP   Running: " + str(p1.is_alive()))
         else:
-            w.addstr(2, 0, "SNMP not enabled.")
+            w.addstr(2, 0, "SNMP   not enabled.")
         if enableSMB != 'no':
-            w.addstr(3, 0, "CIFS Running: " + str(p2.is_alive()))
+            w.addstr(3, 0, "CIFS   Running: " + str(p2.is_alive()))
         else:
-            w.addstr(3, 0, "CIFS not enabled.")
+            w.addstr(3, 0, "CIFS   not enabled.")
         if enableFTP != 'no':
-            w.addstr(4, 0, "FTP  Running: " + str(p3.is_alive()))
+            w.addstr(4, 0, "FTP    Running: " + str(p3.is_alive()))
         else:
-            w.addstr(4, 0, "FTP  not enabled.")
+            w.addstr(4, 0, "FTP    not enabled.")
         if enableFTP != 'no':
-            w.addstr(5, 0, "SIP  Running: " + str(p4.is_alive()))
+            w.addstr(5, 0, "SIP    Running: " + str(p4.is_alive()))
         else:
-            w.addstr(5, 0, "SIP  not enabled.")
+            w.addstr(5, 0, "SIP    not enabled.")
         if enableSQL != 'no':
-            w.addstr(6, 0, "SQL  Running: " + str(p5.is_alive()))
+            w.addstr(6, 0, "SQL    Running: " + str(p5.is_alive()))
         else:
-            w.addstr(6, 0, "SQL  not enabled.")
+            w.addstr(6, 0, "SQL    not enabled.")
         if enableVNC != 'no':
-            w.addstr(7, 0, "VNC  Running: " + str(p6.is_alive()))
+            w.addstr(7, 0, "VNC    Running: " + str(p6.is_alive()))
         else:
-            w.addstr(7, 0, "VNC  not enabled.")
+            w.addstr(7, 0, "VNC    not enabled.")
         if enableSSH != 'no':
-            w.addstr(8, 0, "SSH  Running: " + str(p7.is_alive()))
+            w.addstr(8, 0, "SSH    Running: " + str(p7.is_alive()))
         else:
-            w.addstr(8, 0, "SSH  not enabled.")
+            w.addstr(8, 0, "SSH    not enabled.")
         if enableTELNET != 'no':
             w.addstr(9, 0, "TELNET Running: " + str(p8.is_alive()))
         else:
