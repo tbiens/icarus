@@ -39,12 +39,18 @@ virustotal = config['APIKEY']['Virustotal']
 syslogenable = config['SYSLOG']['Syslog']
 syslogip = config['SYSLOG']['IP']
 syslogport = config['SYSLOG']['PORT']
+largfeedon = config['LARGFEED']['Largfeed']
+largfeedserver = config['LARGFEED']['Server']
+largfeedport = config['LARGFEED']['Port']
 enableSMTP = config['SERVICES']['SMTP']
 enableSNMP = config['SERVICES']['SNMP']
 enableFTP = config['SERVICES']['FTP']
 enableSMB = config['SERVICES']['SMB']
 enableSIP = config['SERVICES']['SIP']
 enableSQL = config['SERVICES']['SQL']
+enableVNC = config['SERVICES']['VNC']
+enableSSH = config['SERVICES']['SSH']
+enableTELNET = config['SERVICES']['TELNET']
 
 aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
 
@@ -63,6 +69,12 @@ def main(window):
             p4.terminate()
         if enableSQL != 'no':
             p5.terminate()
+        if enableVNC != 'no':
+            p6.terminate()
+        if enableSSH != 'no':
+            p7.terminate()
+        if enableTELNET != 'no':
+            p8.terminate()
     if enableSMTP != 'no':
         controller = Controller(smtphoney(), hostname=IP, port=smtpport)
         # It calls the class below as my handler, the hostname sets the ip, I set the SMTP port to 25 obviously
@@ -82,6 +94,15 @@ def main(window):
     if enableSQL != 'no':
         p5 = Process(name='SQL', target=runtcp, daemon=True, args=(1433,))
         p5.start()
+    if enableVNC != 'no':
+        p6 = Process(name='VNC', target=runtcp, daemon=True, args=(5900,))
+        p6.start()
+    if enableSSH != 'no':
+        p7 = Process(name='SSH', target=runtcp, daemon=True, args=(22,))
+        p7.start()
+    if enableTELNET != 'no':
+        p8 = Process(name='TELNET', target=runtcp, daemon=True, args=(23,))
+        p8.start()
     createattacker = open("/dev/shm/attacker", "a")
     createattacker.close()
 
@@ -117,9 +138,12 @@ def main(window):
         w.addstr(9, 51, "Syslog:")
         w.addstr(10, 51, "Enabled: " + syslogenable)
         w.addstr(11, 51, "Syslog Server: " + syslogip + ":" + syslogport)
-        w.addstr(13, 51, "Press P to change values.", curses.color_pair(2))
-        w.addstr(14, 51, "Press R to restart.", curses.color_pair(3))
-        w.addstr(15, 51, "Press Q to quit.", curses.color_pair(1))
+        w.addstr(13, 51, "LARGfeed:")
+        w.addstr(14, 51, "Enabled: " + largfeedon)
+        w.addstr(15, 51, "LARGfeed Server: " + largfeedserver + ":" + largfeedport)
+        w.addstr(17, 51, "Press P to change values.", curses.color_pair(2))
+        w.addstr(18, 51, "Press R to restart.", curses.color_pair(3))
+        w.addstr(19, 51, "Press Q to quit.", curses.color_pair(1))
 
         w.addstr(0, 0, "ICARUS HONEYPOT", curses.color_pair(1))
         if enableSMTP != 'no':
@@ -146,7 +170,19 @@ def main(window):
             w.addstr(6, 0, "SQL  Running: " + str(p5.is_alive()))
         else:
             w.addstr(6, 0, "SQL  not enabled.")
-        w.addstr(7, 0, "Last Attacker: " + lastattacker.read())
+        if enableVNC != 'no':
+            w.addstr(7, 0, "VNC  Running: " + str(p6.is_alive()))
+        else:
+            w.addstr(7, 0, "VNC  not enabled.")
+        if enableSSH != 'no':
+            w.addstr(8, 0, "SSH  Running: " + str(p7.is_alive()))
+        else:
+            w.addstr(8, 0, "SSH  not enabled.")
+        if enableTELNET != 'no':
+            w.addstr(9, 0, "TELNET Running: " + str(p8.is_alive()))
+        else:
+            w.addstr(9, 0, "TELNET not enabled.")
+        w.addstr(10, 0, "Last Attacker: " + lastattacker.read())
         lastattacker.close()
         # Pretty standard menu above.
 

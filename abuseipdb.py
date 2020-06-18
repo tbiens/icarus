@@ -37,18 +37,18 @@ def report(ip):
             abusepost = requests.post(url, headers=headers, data=data)
 
 
-def taxii(addr):
+def largfeed(addr):
     config = configparser.ConfigParser()
     config.read('icarus.config')
-    taxiienable = config['TAXII']['Taxii']
-    taxiiip = config['TAXII']['Server']
-    taxiiport = config['TAXII']['Port']
+    largfeedon = config['LARGFEED']['Largfeed']
+    largfeedserver = config['LARGFEED']['Server']
+    largfeedport = config['LARGFEED']['Port']
 
-    if taxiienable != "no":
-        HOST = taxiiip
-        PORT = int(taxiiport)
+    if largfeedon != "no":
+        HOST = largfeedserver
+        PORT = int(largfeedport)
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
-            sock.connect((HOST,PORT))
+            sock.connect((HOST, PORT))
             sock.sendall(bytes(addr + "\n", "utf-8"))
 
 
