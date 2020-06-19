@@ -1,9 +1,7 @@
 FROM debian
 
 # Update aptitude with new repo
-RUN apt-get update
-
-RUN apt-get dist-upgrade -y
+RUN apt-get update && apt-get dist-upgrade -y
 
 # Install software
 RUN apt-get install -y git python3-pip python-virtualenv screen nano
@@ -19,10 +17,6 @@ RUN touch /icarus/logs/virustotal.log
 # config copy
 
 COPY icarus.config /icarus/
-
-# opening port
-
-EXPOSE 25/tcp
 
 # running command
 
