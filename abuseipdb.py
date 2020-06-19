@@ -1,6 +1,8 @@
 import configparser  # https://docs.python.org/3/library/configparser.html
 import requests  # https://developers.virustotal.com/v2.0/reference#file-scan
 import socket
+import sqlite3
+from datetime import datetime
 
 
 def abuseipdb(sessionpeer, mailfrom, mailto):
@@ -35,6 +37,36 @@ def report(ip):
 
         if apikey != "PUT API KEY HERE":
             abusepost = requests.post(url, headers=headers, data=data)
+
+
+def prereport(addr):
+    conn = sqlite3.connect('attacks.db')
+    c = conn.cursor()
+    c.execute('''CREATE TABLE IF NOT EXISTS addresses (address text, numattacks integer, lastattack integer)''')
+    conn.commit()  # saves the queries
+    day_of_year = datetime.now().timetuple().tm_yday
+
+    if c.execute("select address from addresses WHERE address=?", (addr,)).fetchone():
+        numattacks = c.execute("select numattacks from addresses WHERE address=?", (addr,))
+        beforeone = numattacks.fetchone()[0]
+        plusone = beforeone + 1
+        # print(plusone)
+        c.execute("UPDATE addresses SET numattacks = ? WHERE address = ?", (plusone, addr))
+        conn.commit()
+        # print(c.execute("select * from addresses").fetchall())
+
+        if int(c.execute("select lastattack from addresses where address=?", (addr,)).fetchone()[0]) != day_of_year:
+            report(addr)
+            c.execute("UPDATE addresses SET lastattack = ? WHERE address = ?", (day_of_year, addr))
+            conn.commit()
+
+    else:
+        report(addr)
+        c.execute("INSERT INTO addresses (address, numattacks, lastattack) VALUES (?,?,?)", (addr, "1", day_of_year))
+        conn.commit()
+        # print(c.execute("select * from addresses").fetchall())
+    conn.commit()  # saves the queries
+    conn.close()
 
 
 def largfeed(addr):

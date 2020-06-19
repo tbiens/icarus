@@ -1,5 +1,5 @@
 import socketserver # https://docs.python.org/3.5/library/socketserver.html
-from abuseipdb import largfeed, report
+from abuseipdb import largfeed, prereport
 from memoryfile import lastattacker
 import logging
 
@@ -9,7 +9,7 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
         # self.request is the TCP socket connected to the client
         #self.data = self.request.recv(1024).strip()
         largfeed(self.client_address[0])  # From abuseipdb.py
-        report(self.client_address[0])
+        prereport(self.client_address[0])
         lastattacker(self.client_address[0])  # From memoryfile.py
 
 

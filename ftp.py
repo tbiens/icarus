@@ -4,13 +4,13 @@ from pyftpdlib.handlers import FTPHandler
 from pyftpdlib.servers import FTPServer
 from pyftpdlib.authorizers import DummyAuthorizer
 from virustotal import virustotalfile
-from abuseipdb import largfeed, report
+from abuseipdb import largfeed, prereport
 
 
 class MyHandler(FTPHandler):
 
     def on_connect(self):
-        report(self.remote_ip)
+        prereport(self.remote_ip)
         largfeed(self.remote_ip)
 
     def on_file_received(self, file):

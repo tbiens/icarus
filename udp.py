@@ -1,5 +1,5 @@
 import asyncio
-from abuseipdb import largfeed, report
+from abuseipdb import largfeed, prereport
 from memoryfile import lastattacker
 
 
@@ -9,7 +9,7 @@ class icarus:
 
     def datagram_received(self, data, addr):
         largfeed(addr[0])
-        report(addr[0])
+        prereport(addr[0])
         lastattacker(addr[0])
 
 
