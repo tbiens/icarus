@@ -117,7 +117,7 @@ def main(window):
         # https://docs.python.org/3.5/library/curses.html#module-curses
         curses.start_color()
         curses.init_pair(1, curses.COLOR_RED, curses.COLOR_BLACK)
-        curses.init_pair(2, curses.COLOR_BLUE, curses.COLOR_BLACK)
+        curses.init_pair(2, curses.COLOR_CYAN, curses.COLOR_BLACK)
         curses.init_pair(3, curses.COLOR_GREEN, curses.COLOR_BLACK)
         # I want the 'press Q to quit' to be red
         sh, sw = s.getmaxyx()
