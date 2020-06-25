@@ -44,25 +44,12 @@ enableSNMP = config['SERVICES']['SNMP']
 enableFTP = config['SERVICES']['FTP']
 enableSMB = config['SERVICES']['SMB']
 enableSIP = config['SERVICES']['SIP']
-<<<<<<< HEAD
-<<<<<<< HEAD
-#enableSQL = config['SERVICES']['SQL']
-#enableVNC = config['SERVICES']['VNC']
-#enableSSH = config['SERVICES']['SSH']
-#enableTELNET = config['SERVICES']['TELNET']
-=======
 enableSQL = config['SERVICES']['SQL']
 enableVNC = config['SERVICES']['VNC']
 enableSSH = config['SERVICES']['SSH']
 enableTELNET = config['SERVICES']['TELNET']
->>>>>>> parent of 90721f2... ugh
 enableTCP = config['SERVICES']['TCP']
-=======
-enableSQL = config['SERVICES']['SQL']
-enableVNC = config['SERVICES']['VNC']
-enableSSH = config['SERVICES']['SSH']
-enableTELNET = config['SERVICES']['TELNET']
->>>>>>> parent of b1e19f8... ugh
+
 
 aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
 
@@ -113,18 +100,9 @@ def main(window):
         p8 = Process(name='TELNET', target=runtcp, daemon=True, args=(23,))
         p8.start()
     if enableSMTP != 'no':
-<<<<<<< HEAD
-        p2 = Process(name='SMTP', target=startsmtp(), daemon=True)
-        p2.start()
-    i = 1
-    for port in enableTCP:
-        process = 'ptcp' + i
-        process = 'p' + i
-        process = Process(target=runtcp, daemon=True, args=(port,))
-=======
         p9 = Process(name='SMTP', target=startsmtp(), daemon=True)
         p9.start()
->>>>>>> parent of b1e19f8... ugh
+
 
     createattacker = open("/dev/shm/attacker", "a")
     createattacker.close()
