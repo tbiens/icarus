@@ -99,8 +99,8 @@ def main(window):
     #     p8 = Process(name='TELNET', target=runtcp, daemon=True, args=(23,))
     #     p8.start()
     if enableSMTP != 'no':
-        p9 = Process(name='SMTP', target=startsmtp(), daemon=True)
-        p9.start()
+        p2 = Process(name='SMTP', target=startsmtp(), daemon=True)
+        p2.start()
 
     tcpports = 3389, 143, 53, 110, 445, 1433, 5900, 22, 23
 
@@ -152,7 +152,7 @@ def main(window):
 
         w.addstr(0, 0, "ICARUS HONEYPOT", curses.color_pair(1))
         if enableSMTP != 'no':
-            w.addstr(1, 0, "SMTP   Running: True")
+            w.addstr(1, 0, "SMTP   Running: " + str(p2.is_alive()))
         else:
             w.addstr(1, 0, "SMTP   not enabled.")
         if enableSNMP != 'no':
@@ -164,13 +164,13 @@ def main(window):
         # else:
         #     w.addstr(3, 0, "CIFS   not enabled.")
         if enableFTP != 'no':
-            w.addstr(4, 0, "FTP    Running: " + str(p3.is_alive()))
+            w.addstr(3, 0, "FTP    Running: " + str(p3.is_alive()))
         else:
-            w.addstr(4, 0, "FTP    not enabled.")
+            w.addstr(3, 0, "FTP    not enabled.")
         if enableFTP != 'no':
-            w.addstr(5, 0, "SIP    Running: " + str(p4.is_alive()))
+            w.addstr(4, 0, "SIP    Running: " + str(p4.is_alive()))
         else:
-            w.addstr(5, 0, "SIP    not enabled.")
+            w.addstr(4, 0, "SIP    not enabled.")
         # if enableSQL != 'no':
         #     w.addstr(6, 0, "SQL    Running: " + str(p5.is_alive()))
         # else:
