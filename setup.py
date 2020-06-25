@@ -103,7 +103,6 @@ def main(window):
         p9 = Process(name='SMTP', target=startsmtp(), daemon=True)
         p9.start()
 
-
     createattacker = open("/dev/shm/attacker", "a")
     createattacker.close()
 
@@ -123,8 +122,8 @@ def main(window):
         # I want the 'press Q to quit' to be red
         sh, sw = s.getmaxyx()
         w = curses.newwin(sh, sw, 0, 0)
-        w.keypad(1)
-        w.nodelay(1)
+        w.keypad(True)
+        w.nodelay(True)
         # No delay fixes a problem of the screen not updating properly.
 
         # the above 5 are just standard curses commands.
