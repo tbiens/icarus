@@ -23,7 +23,7 @@ if config['ADDRESSES']['IP'] == "auto":
     IP = get_ip_address()
 else:
     IP = config['ADDRESSES']['IP']
-
+smtpport = config['ADDRESSES']['SMTPPort']
 
 class smtphoney:
     async def handle_RCPT(self, server, session, envelope, address, rcpt_options):
