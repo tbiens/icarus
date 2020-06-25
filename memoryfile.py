@@ -1,23 +1,20 @@
 import io  # https://docs.python.org/3/library/allos.html
 import os  # for os.path.isfile
-import pickle
 import hashlib  # https://docs.python.org/3/library/hashlib.html
 from virustotal import virustotalfile  # Check out virustotal.py
 from datetime import datetime
 
 
 def lastattacker(ip):
-
-    with open("/dev/shm/attacker", "w") as la:
-        lalist = pickle.load(la)
-    if len(lalist) < 5:
-        lalist(0, ip)
+    devshm = open("/dev/shm/attacker", "w")
+    currentdevshm = devshm.read()
+    if len(currentdevshm) < 5:
+        upcomingdevsm = currentdevshm(0, ip)
     else:
-        del lalist[-1]
-        lalist(0, ip)
-
-    pickle.dump(lalist, la)
-    la.close()
+        del currentdevshm[-1]
+        upcomingdevshm = currentdevshm(0, ip)
+    devshm.write(upcomingdevshm)
+    devshm.close()
     # Quickly writes to a file in /dev/shm/ as a simple tracker of last attacker. /dev/shm is linux memory disk.
 
 

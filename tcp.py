@@ -10,7 +10,6 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
         #self.data = self.request.recv(1024).strip()
         largfeed(self.client_address[0])  # From abuseipdb.py
         prereport(self.client_address[0])
-
         lastattacker(self.client_address[0])  # From memoryfile.py
 
 
