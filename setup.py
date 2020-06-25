@@ -103,11 +103,8 @@ def main(window):
         p9 = Process(name='SMTP', target=startsmtp(), daemon=True)
         p9.start()
 
-    i = 1
     for port in enableTCP:
-        tcpgen = 'ptcp' + str(i)
-        tcpgen = Process(name='DynamicTCP', target=runtcp, daemon=True, args=(port,))
-        i += 1
+        tcpgen = Process(name='DynamicTCP ' + str(port), target=runtcp, daemon=True, args=(port,))
         tcpgen.start()
 
     createattacker = open("/dev/shm/attacker", "a")
