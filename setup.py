@@ -2,7 +2,6 @@ import curses
 import socket
 import sys
 import configparser  # https://docs.python.org/3/library/configparser.html
-import time
 import aiosmtpd.smtp
 from smtp import startsmtp
 from editor import editor
@@ -57,52 +56,27 @@ def main(window):
     def shutdown():
         if enableSNMP != 'no':
             p1.terminate()
-        # if enableSMB != 'no':
-        #     p2.terminate()
+        if enableSMTP != 'no':
+            p2.terminate()
         if enableFTP != 'no':
             p3.terminate()
         if enableSIP != 'no':
             p4.terminate()
-        # if enableSQL != 'no':
-        #     p5.terminate()
-        # if enableVNC != 'no':
-        #     p6.terminate()
-        # if enableSSH != 'no':
-        #     p7.terminate()
-        # if enableTELNET != 'no':
-        #     p8.terminate()
-        if enableSMTP != 'no':
-            p2.terminate()
 
     if enableSNMP != 'no':
         p1 = Process(name='Snmp', target=runudp, daemon=True, args=(161,))
         p1.start()
-    # if enableSMB != 'no':
-    #     p2 = Process(name='Smb', target=runtcp, daemon=True, args=(445,))
-    #     p2.start()
+    if enableSMTP != 'no':
+        p2 = Process(name='SMTP', target=startsmtp, daemon=True)
+        p2.start()
     if enableFTP != 'no':
         p3 = Process(name='Ftp', target=ftpserver, daemon=True)
         p3.start()
     if enableSIP != 'no':
         p4 = Process(name='SIP', target=runudp, daemon=True, args=(5600,))
         p4.start()
-    # if enableSQL != 'no':
-    #     p5 = Process(name='SQL', target=runtcp, daemon=True, args=(1433,))
-    #     p5.start()
-    # if enableVNC != 'no':
-    #     p6 = Process(name='VNC', target=runtcp, daemon=True, args=(5900,))
-    #     p6.start()
-    # if enableSSH != 'no':
-    #     p7 = Process(name='SSH', target=runtcp, daemon=True, args=(22,))
-    #     p7.start()
-    # if enableTELNET != 'no':
-    #     p8 = Process(name='TELNET', target=runtcp, daemon=True, args=(23,))
-    #     p8.start()
-    if enableSMTP != 'no':
-        p2 = Process(name='SMTP', target=startsmtp(), daemon=True)
-        p2.start()
 
-    tcpports = 3389, 143, 53, 110, 445, 1433, 5900, 22, 23
+    tcpports = 3389, 143, 53, 110, 111, 135, 139, 1723, 3306, 445, 1433, 5900, 22, 23
 
     for port in tcpports:
         p = Process(name='DynamicTCP ' + str(port), target=runtcp, daemon=True, args=(port,))
@@ -127,8 +101,8 @@ def main(window):
         # I want the 'press Q to quit' to be red
         sh, sw = s.getmaxyx()
         w = curses.newwin(sh, sw, 0, 0)
-        #w.keypad(True)
-        #w.nodelay(True)
+        # w.keypad(True)
+        # w.nodelay(True)
         # No delay fixes a problem of the screen not updating properly.
 
         # the above 5 are just standard curses commands.
