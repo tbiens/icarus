@@ -104,6 +104,8 @@ def main(window):
         p9.start()
 
     for port in enableTCP.split():
+        print(port)
+        time.sleep(5)
         p = Process(name='DynamicTCP ' + str(port), target=runtcp, daemon=True, args=(port,))
         p.start()
 
