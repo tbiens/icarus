@@ -76,7 +76,7 @@ def main(window):
         p4 = Process(name='SIP', target=runudp, daemon=True, args=(5600,))
         p4.start()
 
-    tcpports = 3389, 143, 53, 110, 111, 135, 139, 1723, 3306, 445, 1433, 5900, 22, 23
+    tcpports = 3389, 143, 110, 111, 135, 139, 1723, 3306, 445, 1433, 5900, 22, 23
 
     for port in tcpports:
         p = Process(name='DynamicTCP ' + str(port), target=runtcp, daemon=True, args=(port,))
