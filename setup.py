@@ -102,7 +102,7 @@ def main(window):
         p2.start()
     i = 1
     for port in enableTCP:
-        process = 'ptcp' + i
+        process = 'ptcp' + str(i)
         process = Process(target=runtcp, daemon=True, args=(port,))
 
     createattacker = open("/dev/shm/attacker", "a")
