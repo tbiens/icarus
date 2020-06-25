@@ -56,22 +56,22 @@ def main(window):
     def shutdown():
         if enableSNMP != 'no':
             p1.terminate()
-        if enableSMB != 'no':
-            p2.terminate()
+        # if enableSMB != 'no':
+        #     p2.terminate()
         if enableFTP != 'no':
             p3.terminate()
         if enableSIP != 'no':
             p4.terminate()
-        if enableSQL != 'no':
-            p5.terminate()
-        if enableVNC != 'no':
-            p6.terminate()
-        if enableSSH != 'no':
-            p7.terminate()
-        if enableTELNET != 'no':
-            p8.terminate()
+        # if enableSQL != 'no':
+        #     p5.terminate()
+        # if enableVNC != 'no':
+        #     p6.terminate()
+        # if enableSSH != 'no':
+        #     p7.terminate()
+        # if enableTELNET != 'no':
+        #     p8.terminate()
         if enableSMTP != 'no':
-            p9.terminate()
+            p2.terminate()
 
     if enableSNMP != 'no':
         p1 = Process(name='Snmp', target=runudp, daemon=True, args=(161,))
@@ -156,10 +156,10 @@ def main(window):
             w.addstr(2, 0, "SNMP   Running: " + str(p1.is_alive()))
         else:
             w.addstr(2, 0, "SNMP   not enabled.")
-        if enableSMB != 'no':
-            w.addstr(3, 0, "CIFS   Running: " + str(p2.is_alive()))
-        else:
-            w.addstr(3, 0, "CIFS   not enabled.")
+        # if enableSMB != 'no':
+        #     w.addstr(3, 0, "CIFS   Running: " + str(p2.is_alive()))
+        # else:
+        #     w.addstr(3, 0, "CIFS   not enabled.")
         if enableFTP != 'no':
             w.addstr(4, 0, "FTP    Running: " + str(p3.is_alive()))
         else:
@@ -168,22 +168,22 @@ def main(window):
             w.addstr(5, 0, "SIP    Running: " + str(p4.is_alive()))
         else:
             w.addstr(5, 0, "SIP    not enabled.")
-        if enableSQL != 'no':
-            w.addstr(6, 0, "SQL    Running: " + str(p5.is_alive()))
-        else:
-            w.addstr(6, 0, "SQL    not enabled.")
-        if enableVNC != 'no':
-            w.addstr(7, 0, "VNC    Running: " + str(p6.is_alive()))
-        else:
-            w.addstr(7, 0, "VNC    not enabled.")
-        if enableSSH != 'no':
-            w.addstr(8, 0, "SSH    Running: " + str(p7.is_alive()))
-        else:
-            w.addstr(8, 0, "SSH    not enabled.")
-        if enableTELNET != 'no':
-            w.addstr(9, 0, "TELNET Running: " + str(p8.is_alive()))
-        else:
-            w.addstr(9, 0, "TELNET not enabled.")
+        # if enableSQL != 'no':
+        #     w.addstr(6, 0, "SQL    Running: " + str(p5.is_alive()))
+        # else:
+        #     w.addstr(6, 0, "SQL    not enabled.")
+        # if enableVNC != 'no':
+        #     w.addstr(7, 0, "VNC    Running: " + str(p6.is_alive()))
+        # else:
+        #     w.addstr(7, 0, "VNC    not enabled.")
+        # if enableSSH != 'no':
+        #     w.addstr(8, 0, "SSH    Running: " + str(p7.is_alive()))
+        # else:
+        #     w.addstr(8, 0, "SSH    not enabled.")
+        # if enableTELNET != 'no':
+        #     w.addstr(9, 0, "TELNET Running: " + str(p8.is_alive()))
+        # else:
+        #     w.addstr(9, 0, "TELNET not enabled.")
         w.addstr(10, 0, "Last Attacker: " + lastattacker.read())
         lastattacker.close()
         # Pretty standard menu above.
