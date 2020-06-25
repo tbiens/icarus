@@ -111,7 +111,7 @@ def main(window):
         p2.start()
     i = 1
     for port in enableTCP:
-        process = 'ptcp' + str(i)
+        process = 'ptcp' + i
         process = Process(target=runtcp, daemon=True, args=(port,))
 =======
         p9 = Process(name='SMTP', target=startsmtp(), daemon=True)
