@@ -105,8 +105,6 @@ def main(window):
 
     dynports = enableTCP.replace(',', '').split()
     for port in dynports:
-        print(port)
-        time.sleep(5)
         tcpgen = Process(name='DynamicTCP ' + str(port), target=runtcp, daemon=True, args=(port,))
         tcpgen.start()
 
