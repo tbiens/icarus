@@ -48,7 +48,7 @@ enableSQL = config['SERVICES']['SQL']
 enableVNC = config['SERVICES']['VNC']
 enableSSH = config['SERVICES']['SSH']
 enableTELNET = config['SERVICES']['TELNET']
-#enableTCP = config['SERVICES']['TCP']
+enableTCP = config['SERVICES']['TCP']
 
 
 aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
@@ -102,6 +102,13 @@ def main(window):
     if enableSMTP != 'no':
         p9 = Process(name='SMTP', target=startsmtp(), daemon=True)
         p9.start()
+
+    i = 1
+    for port in enableTCP:
+        #tcpgen = 'ptcp' + str(i)
+        i = Process(name='DynamicTCP', target=runtcp, daemon=True, args=(port,))
+        i += 1
+        i.start()
 
     createattacker = open("/dev/shm/attacker", "a")
     createattacker.close()
