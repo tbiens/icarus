@@ -97,7 +97,7 @@ def main(window):
         sh, sw = s.getmaxyx()
         w = curses.newwin(sh, sw, 0, 0)
         # w.keypad(True)
-        # w.nodelay(True)
+        w.nodelay(True)
         # No delay fixes a problem of the screen not updating properly.
 
         # the above 5 are just standard curses commands.
@@ -140,22 +140,7 @@ def main(window):
             w.addstr(4, 0, "SIP    Running: " + str(p4.is_alive()))
         else:
             w.addstr(4, 0, "SIP    not enabled.")
-        # if enableSQL != 'no':
-        #     w.addstr(6, 0, "SQL    Running: " + str(p5.is_alive()))
-        # else:
-        #     w.addstr(6, 0, "SQL    not enabled.")
-        # if enableVNC != 'no':
-        #     w.addstr(7, 0, "VNC    Running: " + str(p6.is_alive()))
-        # else:
-        #     w.addstr(7, 0, "VNC    not enabled.")
-        # if enableSSH != 'no':
-        #     w.addstr(8, 0, "SSH    Running: " + str(p7.is_alive()))
-        # else:
-        #     w.addstr(8, 0, "SSH    not enabled.")
-        # if enableTELNET != 'no':
-        #     w.addstr(9, 0, "TELNET Running: " + str(p8.is_alive()))
-        # else:
-        #     w.addstr(9, 0, "TELNET not enabled.")
+
         w.addstr(10, 0, "Last Attacker: " + lastattacker.read())
         lastattacker.close()
         # Pretty standard menu above.
