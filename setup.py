@@ -48,7 +48,7 @@ enableSQL = config['SERVICES']['SQL']
 enableVNC = config['SERVICES']['VNC']
 enableSSH = config['SERVICES']['SSH']
 enableTELNET = config['SERVICES']['TELNET']
-enableTCP = config['SERVICES']['TCP']
+#enableTCP = config['SERVICES']['TCP']
 
 
 aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
