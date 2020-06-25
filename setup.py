@@ -107,6 +107,7 @@ def main(window):
     while True:
         # Opening the Last Attacker record from memory.
         lastattacker = open("/dev/shm/attacker", 'r')
+        listattackers = lastattacker.read()
         s = curses.initscr()
         curses.curs_set(0)
         curses.noecho()
@@ -180,7 +181,7 @@ def main(window):
             w.addstr(9, 0, "TELNET Running: " + str(p8.is_alive()))
         else:
             w.addstr(9, 0, "TELNET not enabled.")
-        w.addstr(10, 0, "Last Attacker: " + lastattacker.read()[0])
+        w.addstr(10, 0, "Last Attacker: " + listattackers)
         lastattacker.close()
         # Pretty standard menu above.
 
