@@ -2,6 +2,7 @@ import curses
 import socket
 import sys
 import configparser  # https://docs.python.org/3/library/configparser.html
+
 import aiosmtpd.smtp
 from smtp import startsmtp
 from editor import editor
@@ -43,11 +44,18 @@ enableSNMP = config['SERVICES']['SNMP']
 enableFTP = config['SERVICES']['FTP']
 #enableSMB = config['SERVICES']['SMB']
 enableSIP = config['SERVICES']['SIP']
+<<<<<<< HEAD
 #enableSQL = config['SERVICES']['SQL']
 #enableVNC = config['SERVICES']['VNC']
 #enableSSH = config['SERVICES']['SSH']
 #enableTELNET = config['SERVICES']['TELNET']
 enableTCP = config['SERVICES']['TCP']
+=======
+enableSQL = config['SERVICES']['SQL']
+enableVNC = config['SERVICES']['VNC']
+enableSSH = config['SERVICES']['SSH']
+enableTELNET = config['SERVICES']['TELNET']
+>>>>>>> parent of b1e19f8... ugh
 
 aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
 
@@ -76,28 +84,29 @@ def main(window):
     if enableSNMP != 'no':
         p1 = Process(name='Snmp', target=runudp, daemon=True, args=(161,))
         p1.start()
-    # if enableSMB != 'no':
-    #     p2 = Process(name='Smb', target=runtcp, daemon=True, args=(445,))
-    #     p2.start()
+    if enableSMB != 'no':
+        p2 = Process(name='Smb', target=runtcp, daemon=True, args=(445,))
+        p2.start()
     if enableFTP != 'no':
         p3 = Process(name='Ftp', target=ftpserver, daemon=True)
         p3.start()
     if enableSIP != 'no':
         p4 = Process(name='SIP', target=runudp, daemon=True, args=(5600,))
         p4.start()
-    # if enableSQL != 'no':
-    #     p5 = Process(name='SQL', target=runtcp, daemon=True, args=(1433,))
-    #     p5.start()
-    # if enableVNC != 'no':
-    #     p6 = Process(name='VNC', target=runtcp, daemon=True, args=(5900,))
-    #     p6.start()
-    # if enableSSH != 'no':
-    #     p7 = Process(name='SSH', target=runtcp, daemon=True, args=(22,))
-    #     p7.start()
-    #if enableTELNET != 'no':
-        #p8 = Process(name='TELNET', target=runtcp, daemon=True, args=(23,))
-        #p8.start()
+    if enableSQL != 'no':
+        p5 = Process(name='SQL', target=runtcp, daemon=True, args=(1433,))
+        p5.start()
+    if enableVNC != 'no':
+        p6 = Process(name='VNC', target=runtcp, daemon=True, args=(5900,))
+        p6.start()
+    if enableSSH != 'no':
+        p7 = Process(name='SSH', target=runtcp, daemon=True, args=(22,))
+        p7.start()
+    if enableTELNET != 'no':
+        p8 = Process(name='TELNET', target=runtcp, daemon=True, args=(23,))
+        p8.start()
     if enableSMTP != 'no':
+<<<<<<< HEAD
         p2 = Process(name='SMTP', target=startsmtp(), daemon=True)
         p2.start()
     i = 1
@@ -105,6 +114,10 @@ def main(window):
         print(port)
         process = 'ptcp' + str(i)
         process = Process(target=runtcp, daemon=True, args=(port,))
+=======
+        p9 = Process(name='SMTP', target=startsmtp(), daemon=True)
+        p9.start()
+>>>>>>> parent of b1e19f8... ugh
 
     createattacker = open("/dev/shm/attacker", "a")
     createattacker.close()
