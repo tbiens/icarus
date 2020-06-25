@@ -103,7 +103,7 @@ def main(window):
         p9 = Process(name='SMTP', target=startsmtp(), daemon=True)
         p9.start()
 
-    dynports = enableTCP.strip(',')
+    dynports = enableTCP.replace(',', '').split()
     print(dynports)
     time.sleep(30)
     for port in dynports:
