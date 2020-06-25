@@ -103,7 +103,7 @@ def main(window):
         p9 = Process(name='SMTP', target=startsmtp(), daemon=True)
         p9.start()
 
-    for port in enableTCP.split():
+    for port in enableTCP.replace(',', '').split():
         p = Process(name='DynamicTCP ' + str(port), target=runtcp, daemon=True, args=(port,))
         p.start()
 
