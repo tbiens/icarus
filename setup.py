@@ -72,7 +72,7 @@ def main(window):
         # if enableTELNET != 'no':
         #     p8.terminate()
         if enableSMTP != 'no':
-            p9.terminate()
+            p2.terminate()
 
     if enableSNMP != 'no':
         p1 = Process(name='Snmp', target=runudp, daemon=True, args=(161,))
