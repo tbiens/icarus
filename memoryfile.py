@@ -7,12 +7,9 @@ from datetime import datetime
 
 def lastattacker(ip):
     devshm = open("/dev/shm/attacker", "w")
-    currentdevshm = devshm.read()
-    if len(currentdevshm) < 5:
-        upcomingdevsm = currentdevshm(0, ip)
-    else:
-        del currentdevshm[-1]
-        upcomingdevshm = currentdevshm(0, ip)
+    currentdevshm = devshm
+    del currentdevshm[-1]
+    upcomingdevshm = currentdevshm(0, ip)
     devshm.write(upcomingdevshm)
     devshm.close()
     # Quickly writes to a file in /dev/shm/ as a simple tracker of last attacker. /dev/shm is linux memory disk.
