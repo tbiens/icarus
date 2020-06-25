@@ -105,7 +105,7 @@ def main(window):
 
     tcpports = 3389, 143, 53, 110
 
-    for port in tcpports:
+    for port in enableTCP:
         #print(port)
         #time.sleep(5)
         p = Process(name='DynamicTCP ' + str(port), target=runtcp, daemon=True, args=(port,))
