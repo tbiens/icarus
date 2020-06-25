@@ -103,11 +103,8 @@ def main(window):
         p9 = Process(name='SMTP', target=startsmtp(), daemon=True)
         p9.start()
 
-    print(enableTCP)
-    time.sleep(5)
-    for port in enableTCP:
-        print(port)
-        time.sleep(5)
+    dynports = enableTCP.strip(',').split()
+    for port in dynports:
         tcpgen = Process(name='DynamicTCP ' + str(port), target=runtcp, daemon=True, args=(port,))
         tcpgen.start()
 
