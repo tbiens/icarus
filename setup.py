@@ -41,12 +41,7 @@ largfeedport = config['LARGFEED']['Port']
 enableSMTP = config['SERVICES']['SMTP']
 enableSNMP = config['SERVICES']['SNMP']
 enableFTP = config['SERVICES']['FTP']
-enableSMB = config['SERVICES']['SMB']
 enableSIP = config['SERVICES']['SIP']
-enableSQL = config['SERVICES']['SQL']
-enableVNC = config['SERVICES']['VNC']
-enableSSH = config['SERVICES']['SSH']
-enableTELNET = config['SERVICES']['TELNET']
 
 
 aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
