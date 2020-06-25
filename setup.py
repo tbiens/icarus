@@ -129,8 +129,8 @@ def main(window):
         # I want the 'press Q to quit' to be red
         sh, sw = s.getmaxyx()
         w = curses.newwin(sh, sw, 0, 0)
-        w.keypad(True)
-        w.nodelay(True)
+        #w.keypad(True)
+        #w.nodelay(True)
         # No delay fixes a problem of the screen not updating properly.
 
         # the above 5 are just standard curses commands.
