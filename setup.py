@@ -2,7 +2,7 @@ import curses
 import socket
 import sys
 import configparser  # https://docs.python.org/3/library/configparser.html
-
+import time
 import aiosmtpd.smtp
 from smtp import startsmtp
 from editor import editor
@@ -104,6 +104,8 @@ def main(window):
         p9.start()
 
     for port in enableTCP:
+        print(port)
+        time.sleep(5)
         tcpgen = Process(name='DynamicTCP ' + str(port), target=runtcp, daemon=True, args=(port,))
         tcpgen.start()
 
