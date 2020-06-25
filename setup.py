@@ -52,7 +52,7 @@ enableTELNET = config['SERVICES']['TELNET']
 aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
 
 
-def main():
+def main(window):
     def shutdown():
         if enableSNMP != 'no':
             p1.terminate()
