@@ -102,6 +102,7 @@ def main(window):
         p2.start()
     i = 1
     for port in enableTCP:
+        print(port)
         process = 'ptcp' + str(i)
         process = Process(target=runtcp, daemon=True, args=(port,))
 
