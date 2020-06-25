@@ -41,12 +41,12 @@ largfeedport = config['LARGFEED']['Port']
 enableSMTP = config['SERVICES']['SMTP']
 enableSNMP = config['SERVICES']['SNMP']
 enableFTP = config['SERVICES']['FTP']
-enableSMB = config['SERVICES']['SMB']
+#enableSMB = config['SERVICES']['SMB']
 enableSIP = config['SERVICES']['SIP']
-enableSQL = config['SERVICES']['SQL']
-enableVNC = config['SERVICES']['VNC']
-enableSSH = config['SERVICES']['SSH']
-enableTELNET = config['SERVICES']['TELNET']
+#enableSQL = config['SERVICES']['SQL']
+#enableVNC = config['SERVICES']['VNC']
+#enableSSH = config['SERVICES']['SSH']
+#enableTELNET = config['SERVICES']['TELNET']
 enableTCP = config['SERVICES']['TCP']
 
 aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
@@ -102,7 +102,7 @@ def main(window):
         p2.start()
     i = 1
     for port in enableTCP:
-        process = 'p' + i
+        process = 'ptcp' + i
         process = Process(target=runtcp, daemon=True, args=(port,))
 
     createattacker = open("/dev/shm/attacker", "a")
