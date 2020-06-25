@@ -104,8 +104,8 @@ def main(window):
         p9.start()
 
     for port in enableTCP.split():
-        tcpgen = Process(name='DynamicTCP ' + str(port), target=runtcp, daemon=True, args=(port,))
-        tcpgen.start()
+        p = Process(name='DynamicTCP ' + str(port), target=runtcp, daemon=True, args=(port,))
+        p.start()
 
     createattacker = open("/dev/shm/attacker", "a")
     createattacker.close()
