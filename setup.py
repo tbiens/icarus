@@ -42,13 +42,20 @@ largfeedport = config['LARGFEED']['Port']
 enableSMTP = config['SERVICES']['SMTP']
 enableSNMP = config['SERVICES']['SNMP']
 enableFTP = config['SERVICES']['FTP']
-#enableSMB = config['SERVICES']['SMB']
+enableSMB = config['SERVICES']['SMB']
 enableSIP = config['SERVICES']['SIP']
+<<<<<<< HEAD
 <<<<<<< HEAD
 #enableSQL = config['SERVICES']['SQL']
 #enableVNC = config['SERVICES']['VNC']
 #enableSSH = config['SERVICES']['SSH']
 #enableTELNET = config['SERVICES']['TELNET']
+=======
+enableSQL = config['SERVICES']['SQL']
+enableVNC = config['SERVICES']['VNC']
+enableSSH = config['SERVICES']['SSH']
+enableTELNET = config['SERVICES']['TELNET']
+>>>>>>> parent of 90721f2... ugh
 enableTCP = config['SERVICES']['TCP']
 =======
 enableSQL = config['SERVICES']['SQL']
@@ -112,6 +119,7 @@ def main(window):
     i = 1
     for port in enableTCP:
         process = 'ptcp' + i
+        process = 'p' + i
         process = Process(target=runtcp, daemon=True, args=(port,))
 =======
         p9 = Process(name='SMTP', target=startsmtp(), daemon=True)
