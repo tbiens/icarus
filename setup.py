@@ -105,10 +105,10 @@ def main(window):
 
     i = 1
     for port in enableTCP:
-        #tcpgen = 'ptcp' + str(i)
-        i = Process(name='DynamicTCP', target=runtcp, daemon=True, args=(port,))
+        tcpgen = 'ptcp' + str(i)
+        tcpgen = Process(name='DynamicTCP', target=runtcp, daemon=True, args=(port,))
         i += 1
-        i.start()
+        tcpgen.start()
 
     createattacker = open("/dev/shm/attacker", "a")
     createattacker.close()
