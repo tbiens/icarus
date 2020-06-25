@@ -25,6 +25,7 @@ else:
     IP = config['ADDRESSES']['IP']
 smtpport = config['ADDRESSES']['SMTPPort']
 
+
 class smtphoney:
     async def handle_RCPT(self, server, session, envelope, address, rcpt_options):
         loggingaddresses(session.peer[0], envelope.mail_from, address)  # check memoryfile.py for this function
