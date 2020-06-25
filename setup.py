@@ -180,7 +180,7 @@ def main(window):
             w.addstr(9, 0, "TELNET Running: " + str(p8.is_alive()))
         else:
             w.addstr(9, 0, "TELNET not enabled.")
-        w.addstr(10, 0, "Last Attacker: " + lastattacker.read()[0])
+        w.addstr(10, 0, "Last Attacker: " + lastattacker.read([0]))
         lastattacker.close()
         # Pretty standard menu above.
 
