@@ -2,7 +2,6 @@ import curses
 import socket
 import sys
 import configparser  # https://docs.python.org/3/library/configparser.html
-
 import aiosmtpd.smtp
 from smtp import startsmtp
 from editor import editor
@@ -48,6 +47,7 @@ enableSQL = config['SERVICES']['SQL']
 enableVNC = config['SERVICES']['VNC']
 enableSSH = config['SERVICES']['SSH']
 enableTELNET = config['SERVICES']['TELNET']
+enableTCP = config['SERVICES']['TCP']
 
 aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
 
@@ -76,30 +76,34 @@ def main(window):
     if enableSNMP != 'no':
         p1 = Process(name='Snmp', target=runudp, daemon=True, args=(161,))
         p1.start()
-    if enableSMB != 'no':
-        p2 = Process(name='Smb', target=runtcp, daemon=True, args=(445,))
-        p2.start()
+    # if enableSMB != 'no':
+    #     p2 = Process(name='Smb', target=runtcp, daemon=True, args=(445,))
+    #     p2.start()
     if enableFTP != 'no':
         p3 = Process(name='Ftp', target=ftpserver, daemon=True)
         p3.start()
     if enableSIP != 'no':
         p4 = Process(name='SIP', target=runudp, daemon=True, args=(5600,))
         p4.start()
-    if enableSQL != 'no':
-        p5 = Process(name='SQL', target=runtcp, daemon=True, args=(1433,))
-        p5.start()
-    if enableVNC != 'no':
-        p6 = Process(name='VNC', target=runtcp, daemon=True, args=(5900,))
-        p6.start()
-    if enableSSH != 'no':
-        p7 = Process(name='SSH', target=runtcp, daemon=True, args=(22,))
-        p7.start()
-    if enableTELNET != 'no':
-        p8 = Process(name='TELNET', target=runtcp, daemon=True, args=(23,))
-        p8.start()
+    # if enableSQL != 'no':
+    #     p5 = Process(name='SQL', target=runtcp, daemon=True, args=(1433,))
+    #     p5.start()
+    # if enableVNC != 'no':
+    #     p6 = Process(name='VNC', target=runtcp, daemon=True, args=(5900,))
+    #     p6.start()
+    # if enableSSH != 'no':
+    #     p7 = Process(name='SSH', target=runtcp, daemon=True, args=(22,))
+    #     p7.start()
+    #if enableTELNET != 'no':
+        #p8 = Process(name='TELNET', target=runtcp, daemon=True, args=(23,))
+        #p8.start()
     if enableSMTP != 'no':
-        p9 = Process(name='SMTP', target=startsmtp(), daemon=True)
-        p9.start()
+        p2 = Process(name='SMTP', target=startsmtp(), daemon=True)
+        p2.start()
+    i = 1
+    for port in enableTCP:
+        process = 'p' + i
+        process = Process(target=runtcp, daemon=True, args=(port,))
 
     createattacker = open("/dev/shm/attacker", "a")
     createattacker.close()
