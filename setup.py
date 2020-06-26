@@ -123,11 +123,9 @@ def main(window):
         w.addstr(19, 51, "Press Q to quit.", curses.color_pair(1))
 
         w.addstr(0, 0, "ICARUS HONEYPOT", curses.color_pair(1))
-        w.addstr(3, 0, "Dyn TCP Ports: ")
-        #w.addstr(4, 0, str(dyntcpports))
 
         for num, port in enumerate(dyntcpports, start=1):
-            w.addstr((num + 4), 0, "TCP Port: {}".format(port))
+            w.addstr((num + 1), 0, "TCP Port: {}".format(port))
 
 
 
