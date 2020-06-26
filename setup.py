@@ -28,6 +28,8 @@ def getlastattackers():
             attackerlist = pickle.load(devshm)
         devshm.close()
         return attackerlist
+    else:
+        return "None yet."
 
 
 IP = get_ip_address()
@@ -147,7 +149,7 @@ def main(window):
         attackerlist = getlastattackers()
         w.addstr(19, 0, "Last Attacker: " + attackerlist)
         # Pretty standard menu above.
-          
+
 
         w.refresh()
 
