@@ -1,13 +1,15 @@
 import curses
 import socket
 import sys
+import psutil
 import configparser  # https://docs.python.org/3/library/configparser.html
 import aiosmtpd.smtp
+from multiprocessing import Process
+# Below are my functions.
 from smtp import startsmtp
 from editor import editor
 from udp import runudp
 from tcp import runtcp
-from multiprocessing import Process
 from ftp import ftpserver
 
 
@@ -52,12 +54,21 @@ def main(window):
 
     # Dynamic low interaction port services.
 
+    dyntcpports = []
+
+    def checktcpport(port):
+        for conn in psutil.net_connections(kind='tcp'):
+            if conn.laddr[1] == port and conn.status == psutil.CONN_LISTEN:
+                return True
+        return False
+
     tcpports = 3389, 143, 110, 111, 135, 139, 1723, 3306, 445, 1433, 5900, 22, 23
     udpports = 161, 5600
 
     for tcpport in tcpports:
         p = Process(name='DynamicTCP ' + str(tcpport), target=runtcp, daemon=True, args=(tcpport,))
         p.start()
+        checktcpport(tcpport)
 
     for udpport in udpports:
         p = Process(name='DynamicUDP ' + str(udpport), target=runudp, daemon=True, args=(udpport,))
@@ -104,6 +115,7 @@ def main(window):
         w.addstr(19, 51, "Press Q to quit.", curses.color_pair(1))
 
         w.addstr(0, 0, "ICARUS HONEYPOT", curses.color_pair(1))
+        w.addstr(3, 0, "Dyn TCP Ports: " + str(dyntcpports))
 
         w.addstr(10, 0, "Last Attacker: " + lastattacker.read())
         lastattacker.close()
