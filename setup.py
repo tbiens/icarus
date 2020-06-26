@@ -58,16 +58,16 @@ def main(window):
     dyntcpports = []
     dynudpports = []
 
-    def checktcpport(port):
+    def checktcpport(port1):
         for conn in psutil.net_connections(kind='tcp'):
-            if conn.laddr[1] == port and conn.status == psutil.CONN_LISTEN:
-                dyntcpports.append(port)
+            if conn.laddr[1] == port1 and conn.status == psutil.CONN_LISTEN:
+                dyntcpports.append(port1)
         return False
 
-    def checkudpport(port):
+    def checkudpport(port2):
         for conn in psutil.net_connections(kind='udp'):
-            if conn.laddr[1] == port and conn.status == psutil.CONN_LISTEN:
-                dynudpports.append(port)
+            if conn.laddr[1] == port2 and conn.status == psutil.CONN_LISTEN:
+                dynudpports.append(port2)
         return False
 
     tcpports = 3389, 143, 110, 111, 135, 139, 1723, 3306, 445, 1433, 5900, 22, 23
