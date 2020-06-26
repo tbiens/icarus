@@ -22,6 +22,13 @@ def get_ip_address():
     return s.getsockname()[0]
 
 
+def getlastattackers():
+    if os.path.getsize('/dev/shm/attacker') > 0:
+        with open("/dev/shm/attacker", "rb") as devshm:
+            attackerlist = pickle.load(devshm)
+        devshm.close()
+        return attackerlist
+
 
 IP = get_ip_address()
 # Found socket at https://docs.python.org/3/library/socket.html mostly just their code.
@@ -137,12 +144,10 @@ def main(window):
         for num, port in enumerate(wrapdynudp, start=1):
             w.addstr((num + 11), 0, "{}".format(port))
 
-        if os.path.getsize('/dev/shm/attacker') > 0:
-            with open("/dev/shm/attacker", "rb") as devshm:
-                attackerlist = pickle.load(devshm)
-            w.addstr(19, 0, "Last Attacker: " + attackerlist)
-            # Pretty standard menu above.
-            devshm.close()
+        attackerlist = getlastattackers()
+        w.addstr(19, 0, "Last Attacker: " + attackerlist)
+        # Pretty standard menu above.
+          
 
         w.refresh()
 
