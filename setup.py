@@ -128,13 +128,13 @@ def main(window):
 
         for i in range(len(dyntcpports)):
             if i > 3:
-                w.addstr(4, 0, dyntcpports[0] + dyntcpports[1] + dyntcpports[2] )
+                w.addstr(4, 0, str(dyntcpports[0]) + str(dyntcpports[1]) + str(dyntcpports[2]) )
             if 3 > i < 6:
-                w.addstr(5, 0, dyntcpports[3] + dyntcpports[4] + dyntcpports[5] )
+                w.addstr(5, 0, str(dyntcpports[3]) + str(dyntcpports[4]) + str(dyntcpports[5]) )
             if 6 > i < 9:
-                w.addstr(6, 0, dyntcpports[6] + dyntcpports[7] + dyntcpports[8] )
+                w.addstr(6, 0, str(dyntcpports[6]) + str(dyntcpports[7]) + str(dyntcpports[8]) )
             if 9 > i < 12:
-                w.addstr(7, 0, dyntcpports[9] + dyntcpports[10] + dyntcpports[11] )
+                w.addstr(7, 0, str(dyntcpports[9]) + str(dyntcpports[10]) + str(dyntcpports[11]) )
 
 
         w.addstr(10, 0, "Last Attacker: " + lastattacker.read())
