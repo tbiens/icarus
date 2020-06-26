@@ -62,8 +62,11 @@ def main(window):
         p1 = Process(name='Snmp', target=runudp, daemon=True, args=(161,))
         p1.start()
     if enableSMTP != 'no':
-        p2 = Process(name='SMTP', target=startsmtp, daemon=True)
-        p2.start()
+        startsmtp()
+
+        #p2 = Process(name='SMTP', target=startsmtp, daemon=True)
+
+        #p2.start()
     if enableFTP != 'no':
         p3 = Process(name='Ftp', target=ftpserver, daemon=True)
         p3.start()
