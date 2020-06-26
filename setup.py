@@ -152,7 +152,7 @@ def main(window):
             w.addstr(4, 0, "SIP    Running: " + str(p4.is_alive()))
         else:
             w.addstr(4, 0, "SIP    not enabled.")
-        w.addstr(5, 0, "Dyanmic TCP Ports enabled: " + dyntcpports)
+        w.addstr(5, 0, "Dyanmic TCP Ports enabled: " + str(dyntcpports))
 
         w.addstr(10, 0, "Last Attacker: " + lastattacker.read())
         lastattacker.close()
