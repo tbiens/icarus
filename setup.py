@@ -3,6 +3,7 @@ import socket
 import sys
 import configparser  # https://docs.python.org/3/library/configparser.html
 import psutil
+import textwrap
 import aiosmtpd.smtp
 from multiprocessing import Process
 # Below are my functions.
@@ -123,9 +124,9 @@ def main(window):
         w.addstr(19, 51, "Press Q to quit.", curses.color_pair(1))
 
         w.addstr(0, 0, "ICARUS HONEYPOT", curses.color_pair(1))
-
-        for num, port in enumerate(dyntcpports, start=1):
-            w.addstr((num + 1), 0, "TCP Port: {}".format(port))
+        wrapdyntcp = textwrap.wrap(str(dyntcpports), width=40)
+        for num, port in enumerate(wrapdyntcp, start=1):
+            w.addstr((num + 1), 0, "TCP Ports: {}".format(port))
 
         w.addstr(19, 0, "Last Attacker: " + lastattacker.read())
         lastattacker.close()
