@@ -55,11 +55,18 @@ def main(window):
     # Dynamic low interaction port services.
 
     dyntcpports = []
+    dynudpports = []
 
     def checktcpport(port):
         for conn in psutil.net_connections(kind='tcp'):
             if conn.laddr[1] == port and conn.status == psutil.CONN_LISTEN:
                 dyntcpports.append(port)
+        return False
+
+    def checkudpport(port):
+        for conn in psutil.net_connections(kind='udp'):
+            if conn.laddr[1] == port and conn.status == psutil.CONN_LISTEN:
+                dynudpports.append(port)
         return False
 
     tcpports = 3389, 143, 110, 111, 135, 139, 1723, 3306, 445, 1433, 5900, 22, 23
@@ -73,6 +80,7 @@ def main(window):
     for udpport in udpports:
         p = Process(name='DynamicUDP ' + str(udpport), target=runudp, daemon=True, args=(udpport,))
         p.start()
+        checkudpport(udpport)
 
     createattacker = open("/dev/shm/attacker", "a")
     createattacker.close()
@@ -115,7 +123,10 @@ def main(window):
         w.addstr(19, 51, "Press Q to quit.", curses.color_pair(1))
 
         w.addstr(0, 0, "ICARUS HONEYPOT", curses.color_pair(1))
-        w.addstr(3, 0, "Dyn TCP Ports: " + str(dyntcpports))
+
+        box1 = curses.newwin(3, 0, 6, 49)
+        box1.immedok(True)
+        box1.addstr(1, 1, "Dyn TCP Ports: " + str(dyntcpports))
 
         w.addstr(10, 0, "Last Attacker: " + lastattacker.read())
         lastattacker.close()
