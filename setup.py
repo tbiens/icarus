@@ -90,8 +90,7 @@ def main(window):
 
     while True:
         # Opening the Last Attacker record from memory.
-        with open("/dev/shm/attacker", "rb") as devshm:
-            attackerlist = pickle.load(devshm)
+
         s = curses.initscr()
         curses.curs_set(0)
         curses.noecho()
@@ -137,9 +136,12 @@ def main(window):
         for num, port in enumerate(wrapdynudp, start=1):
             w.addstr((num + 11), 0, "{}".format(port))
 
-        w.addstr(19, 0, "Last Attacker: " + attackerlist)
-        # Pretty standard menu above.
-        devshm.close()
+        if os.path.getsize('/dev/shm/attacker') > 0:
+            with open("/dev/shm/attacker", "rb") as devshm:
+                attackerlist = pickle.load(devshm)
+            w.addstr(19, 0, "Last Attacker: " + attackerlist)
+            # Pretty standard menu above.
+            devshm.close()
 
         w.refresh()
 
