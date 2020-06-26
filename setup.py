@@ -76,7 +76,7 @@ def main(window):
 
     def tcpportopen(tcpport):
         stcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        check = stcp.connect('127.0.0.1', tcpport)
+        check = stcp.connect(('127.0.0.1', tcpport))
         if check == 0:
             dyntcpports.append(port)
         stcp.close()
