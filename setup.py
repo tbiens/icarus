@@ -127,6 +127,7 @@ def main(window):
         box1 = curses.newwin(3, 0, 6, 49)
         box1.immedok(True)
         box1.addstr(1, 1, "Dyn TCP Ports: " + str(dyntcpports))
+        box1.refresh()
 
         w.addstr(10, 0, "Last Attacker: " + lastattacker.read())
         lastattacker.close()
