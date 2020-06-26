@@ -133,8 +133,8 @@ def main(window):
                 w.addstr(5, 0, str(dyntcpports[3]) + str(dyntcpports[4]) + str(dyntcpports[5]) )
             if 6 > i < 9:
                 w.addstr(6, 0, str(dyntcpports[6]) + str(dyntcpports[7]) + str(dyntcpports[8]) )
-            if 9 > i < 12:
-                w.addstr(7, 0, str(dyntcpports[9]) + str(dyntcpports[10]) + str(dyntcpports[11]) )
+            #if 9 > i < 12:
+             #   w.addstr(7, 0, str(dyntcpports[9]) + str(dyntcpports[10]) + str(dyntcpports[11]) )
 
 
         w.addstr(10, 0, "Last Attacker: " + lastattacker.read())
