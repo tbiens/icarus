@@ -37,8 +37,6 @@ syslogport = config['SYSLOG']['PORT']
 largfeedon = config['LARGFEED']['Largfeed']
 largfeedserver = config['LARGFEED']['Server']
 largfeedport = config['LARGFEED']['Port']
-enableSMTP = config['SERVICES']['SMTP']
-enableFTP = config['SERVICES']['FTP']
 
 
 aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
@@ -46,11 +44,13 @@ aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
 
 def main(window):
 
-    if enableSMTP != 'no':
-        startsmtp()
-    if enableFTP != 'no':
-        p1 = Process(name='Ftp', target=ftpserver, daemon=True)
-        p1.start()
+    # Starting SMTP Service
+    startsmtp()
+    # Starting FTP Service
+    p1 = Process(name='Ftp', target=ftpserver, daemon=True)
+    p1.start()
+
+    # Dynamic low interaction port services.
 
     tcpports = 3389, 143, 110, 111, 135, 139, 1723, 3306, 445, 1433, 5900, 22, 23
     udpports = 161, 5600
@@ -104,11 +104,6 @@ def main(window):
         w.addstr(19, 51, "Press Q to quit.", curses.color_pair(1))
 
         w.addstr(0, 0, "ICARUS HONEYPOT", curses.color_pair(1))
-
-        if enableFTP != 'no':
-            w.addstr(3, 0, "FTP    Running: " + str(p1.is_alive()))
-        else:
-            w.addstr(3, 0, "FTP    not enabled.")
 
         w.addstr(10, 0, "Last Attacker: " + lastattacker.read())
         lastattacker.close()
