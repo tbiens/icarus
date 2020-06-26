@@ -66,12 +66,12 @@ def main(window):
 
     def checkudpport(port2):
         for conn in psutil.net_connections(kind='udp'):
-            if conn.laddr[1] == port2 and conn.status == psutil.CONN_LISTEN:
+            if conn.laddr[1] == port2 and conn.status == psutil.CONN_NONE:
                 dynudpports.append(port2)
         return False
 
     tcpports = 3389, 143, 110, 111, 135, 139, 1723, 3306, 445, 1433, 5900, 22, 23
-    udpports = 161, 5600
+    udpports = 161, 5600, 178
 
     for tcpport in tcpports:
         p = Process(name='DynamicTCP ' + str(tcpport), target=runtcp, daemon=True, args=(tcpport,))
