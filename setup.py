@@ -123,11 +123,19 @@ def main(window):
         w.addstr(19, 51, "Press Q to quit.", curses.color_pair(1))
 
         w.addstr(0, 0, "ICARUS HONEYPOT", curses.color_pair(1))
+        w.addstr(3, 0, "Dyn TCP Ports: ")
+        numports = len(dyntcpports)
 
-        box1 = curses.newpad(3, 0)
-        #box1.immedok(True)
-        box1.addstr(1, 1, "Dyn TCP Ports: " + str(dyntcpports))
-        box1.refresh()
+        for i in range(len(dyntcpports)):
+            if i > 3:
+                w.addstr(4, 0, dyntcpports[0] + dyntcpports[1] + dyntcpports[2] )
+            if 3 > i < 6:
+                w.addstr(5, 0, dyntcpports[3] + dyntcpports[4] + dyntcpports[5] )
+            if 6 > i < 9:
+                w.addstr(6, 0, dyntcpports[6] + dyntcpports[7] + dyntcpports[8] )
+            if 9 > i < 12:
+                w.addstr(7, 0, dyntcpports[9] + dyntcpports[10] + dyntcpports[11] )
+
 
         w.addstr(10, 0, "Last Attacker: " + lastattacker.read())
         lastattacker.close()
