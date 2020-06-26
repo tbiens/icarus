@@ -145,10 +145,10 @@ def main(window):
         wrapdynudp = textwrap.wrap(str(dynudpports).replace('[', '').replace(']', ''), width=40)
         for num, port in enumerate(wrapdynudp, start=1):
             w.addstr((num + 9), 0, "{}".format(port))
-        w.addstr(14, 0, "Last Attackers: ")
+        w.addstr(13, 0, "Last Attackers: ")
         attackerlist = getlastattackers()
         for num, address in enumerate(attackerlist, start=1):
-            w.addstr((num + 15), 0, "{}".format(address))
+            w.addstr((num + 13), 0, "{}".format(address))
 
 
         # Pretty standard menu above.
