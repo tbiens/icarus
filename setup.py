@@ -80,14 +80,13 @@ def main(window):
             check = stcp.connect(('127.0.0.1', tcpport))
             if check == 0:
                 dyntcpports.append(port)
-        except:
+        except socket.error:
             pass
         stcp.close()
 
     for port in tcpports:
         p = Process(name='DynamicTCP ' + str(port), target=runtcp, daemon=True, args=(port,))
         p.start()
-        tcpportopen(port)
 
     createattacker = open("/dev/shm/attacker", "a")
     createattacker.close()
@@ -152,6 +151,9 @@ def main(window):
             w.addstr(4, 0, "SIP    Running: " + str(p4.is_alive()))
         else:
             w.addstr(4, 0, "SIP    not enabled.")
+
+        for dynport in tcpports:
+            tcpportopen(dynport)
         w.addstr(5, 0, "Dyanmic TCP Ports enabled: " + str(dyntcpports))
 
         w.addstr(10, 0, "Last Attacker: " + lastattacker.read())
