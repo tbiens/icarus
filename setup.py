@@ -43,17 +43,13 @@ enableSNMP = config['SERVICES']['SNMP']
 enableFTP = config['SERVICES']['FTP']
 enableSIP = config['SERVICES']['SIP']
 
-
 aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
-
 
 
 def main(window):
     def shutdown():
         if enableSNMP != 'no':
             p1.terminate()
-        #if enableSMTP != 'no':
-            #p2.terminate()
         if enableFTP != 'no':
             p3.terminate()
         if enableSIP != 'no':
@@ -72,17 +68,6 @@ def main(window):
         p4.start()
 
     tcpports = 3389, 143, 110, 111, 135, 139, 1723, 3306, 445, 1433, 5900, 22, 23
-    dyntcpports = []
-
-    def tcpportopen(tcpport):
-        stcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        try:
-            check = stcp.connect(('127.0.0.1', tcpport))
-            if check == 0:
-                dyntcpports.append(port)
-        except socket.error:
-            pass
-        stcp.close()
 
     for port in tcpports:
         p = Process(name='DynamicTCP ' + str(port), target=runtcp, daemon=True, args=(port,))
@@ -131,18 +116,10 @@ def main(window):
         w.addstr(19, 51, "Press Q to quit.", curses.color_pair(1))
 
         w.addstr(0, 0, "ICARUS HONEYPOT", curses.color_pair(1))
-        #if enableSMTP != 'no':
-        #    w.addstr(1, 0, "SMTP   Running: " + str(p2.is_alive()))
-        #else:
-        #    w.addstr(1, 0, "SMTP   not enabled.")
         if enableSNMP != 'no':
             w.addstr(2, 0, "SNMP   Running: " + str(p1.is_alive()))
         else:
             w.addstr(2, 0, "SNMP   not enabled.")
-        # if enableSMB != 'no':
-        #     w.addstr(3, 0, "CIFS   Running: " + str(p2.is_alive()))
-        # else:
-        #     w.addstr(3, 0, "CIFS   not enabled.")
         if enableFTP != 'no':
             w.addstr(3, 0, "FTP    Running: " + str(p3.is_alive()))
         else:
@@ -151,10 +128,6 @@ def main(window):
             w.addstr(4, 0, "SIP    Running: " + str(p4.is_alive()))
         else:
             w.addstr(4, 0, "SIP    not enabled.")
-
-        for dynport in tcpports:
-            tcpportopen(dynport)
-        w.addstr(5, 0, "Dyanmic TCP Ports enabled: " + str(dyntcpports))
 
         w.addstr(10, 0, "Last Attacker: " + lastattacker.read())
         lastattacker.close()
