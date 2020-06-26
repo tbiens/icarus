@@ -20,7 +20,6 @@ def get_ip_address():
 IP = get_ip_address()
 # Found socket at https://docs.python.org/3/library/socket.html mostly just their code.
 
-
 config = configparser.ConfigParser()
 config.read('icarus.config')
 if config['ADDRESSES']['IP'] == "auto":
@@ -39,17 +38,13 @@ largfeedon = config['LARGFEED']['Largfeed']
 largfeedserver = config['LARGFEED']['Server']
 largfeedport = config['LARGFEED']['Port']
 enableSMTP = config['SERVICES']['SMTP']
-enableSNMP = config['SERVICES']['SNMP']
 enableFTP = config['SERVICES']['FTP']
-enableSIP = config['SERVICES']['SIP']
+
 
 aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
 
 
 def main(window):
-    def shutdown():
-        if enableFTP != 'no':
-            p1.terminate()
 
     if enableSMTP != 'no':
         startsmtp()
@@ -84,10 +79,8 @@ def main(window):
         curses.init_pair(1, curses.COLOR_RED, curses.COLOR_BLACK)
         curses.init_pair(2, curses.COLOR_CYAN, curses.COLOR_BLACK)
         curses.init_pair(3, curses.COLOR_GREEN, curses.COLOR_BLACK)
-        # I want the 'press Q to quit' to be red
         sh, sw = s.getmaxyx()
         w = curses.newwin(sh, sw, 0, 0)
-        # w.keypad(True)
         w.nodelay(True)
         # No delay fixes a problem of the screen not updating properly.
 
@@ -111,7 +104,7 @@ def main(window):
         w.addstr(19, 51, "Press Q to quit.", curses.color_pair(1))
 
         w.addstr(0, 0, "ICARUS HONEYPOT", curses.color_pair(1))
-        
+
         if enableFTP != 'no':
             w.addstr(3, 0, "FTP    Running: " + str(p1.is_alive()))
         else:
@@ -127,7 +120,6 @@ def main(window):
         if key == ord('q'):
             break
         elif key == ord('r'):
-            shutdown()
             import os
             os.execv(sys.executable, ['python'] + sys.argv)
             # Nice little thing that restarts a python script.
@@ -135,10 +127,6 @@ def main(window):
             editor()  # from editor.py, opens your system editor.
             w.erase()
             w.refresh()
-            # window.addstr(2,0,"You pressed P\n") # Just a place holder for new commands in the future.
-
-    # Threading just wouldnt work. MultiProcessing is the new  beauty.
-    shutdown()
 
 
 if __name__ == '__main__':
