@@ -127,7 +127,12 @@ def main(window):
         w.addstr(2, 0, "Dynamic TCP Ports:")
         wrapdyntcp = textwrap.wrap(str(dyntcpports).replace('[', '').replace(']', ''), width=40)
         for num, port in enumerate(wrapdyntcp, start=1):
-            w.addstr((num + 2), 0, "Ports: {}".format(port))
+            w.addstr((num + 2), 0, "{}".format(port))
+
+        w.addstr(11, 0, "Dyanmic UDP Ports:")
+        wrapdynudp = textwrap.wrap(str(dynudpports).replace('[', '').replace(']', ''), width=40)
+        for num, port in enumerate(wrapdynudp, start=1):
+            w.addstr((num + 11), 0, "{}".format(port))
 
         w.addstr(19, 0, "Last Attacker: " + lastattacker.read())
         lastattacker.close()
