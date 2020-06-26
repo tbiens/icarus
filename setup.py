@@ -150,10 +150,6 @@ def main(window):
         for num, address in enumerate(attackerlist, start=1):
             w.addstr((num + 13), 0, "{}".format(address))
 
-
-        # Pretty standard menu above.
-
-
         w.refresh()
 
         key = w.getch()
