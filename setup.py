@@ -1,8 +1,8 @@
 import curses
 import socket
 import sys
-import psutil
 import configparser  # https://docs.python.org/3/library/configparser.html
+import psutil
 import aiosmtpd.smtp
 from multiprocessing import Process
 # Below are my functions.
@@ -124,17 +124,11 @@ def main(window):
 
         w.addstr(0, 0, "ICARUS HONEYPOT", curses.color_pair(1))
         w.addstr(3, 0, "Dyn TCP Ports: ")
-        numports = len(dyntcpports)
+        w.addstr(4, 0, str(dyntcpports))
+        #numports = len(dyntcpports)
+        #for num, port in enumerate(dyntcpports, start=1):
+        #    w.addstr(4, 0, )
 
-        for i in range(len(dyntcpports)):
-            if i > 3:
-                w.addstr(4, 0, str(dyntcpports[0]) + str(dyntcpports[1]) + str(dyntcpports[2]) )
-            if 3 > i < 6:
-                w.addstr(5, 0, str(dyntcpports[3]) + str(dyntcpports[4]) + str(dyntcpports[5]) )
-            if 6 > i < 9:
-                w.addstr(6, 0, str(dyntcpports[6]) + str(dyntcpports[7]) + str(dyntcpports[8]) )
-            #if 9 > i < 12:
-             #   w.addstr(7, 0, str(dyntcpports[9]) + str(dyntcpports[10]) + str(dyntcpports[11]) )
 
 
         w.addstr(10, 0, "Last Attacker: " + lastattacker.read())
