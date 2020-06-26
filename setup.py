@@ -71,7 +71,7 @@ def main(window):
         return False
 
     tcpports = 3389, 143, 110, 111, 135, 139, 1723, 3306, 445, 1433, 5900, 22, 23
-    udpports = 161, 5600, 178
+    udpports = 161, 5600
 
     for tcpport in tcpports:
         p = Process(name='DynamicTCP ' + str(tcpport), target=runtcp, daemon=True, args=(tcpport,))
