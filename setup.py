@@ -124,8 +124,8 @@ def main(window):
 
         w.addstr(0, 0, "ICARUS HONEYPOT", curses.color_pair(1))
 
-        box1 = curses.newwin(3, 0, 6, 49)
-        box1.immedok(True)
+        box1 = curses.newpad(3, 0)
+        #box1.immedok(True)
         box1.addstr(1, 1, "Dyn TCP Ports: " + str(dyntcpports))
         box1.refresh()
 
