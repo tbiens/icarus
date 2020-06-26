@@ -47,12 +47,13 @@ enableSIP = config['SERVICES']['SIP']
 aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
 
 
+
 def main(window):
     def shutdown():
         if enableSNMP != 'no':
             p1.terminate()
-        if enableSMTP != 'no':
-            p2.terminate()
+        #if enableSMTP != 'no':
+            #p2.terminate()
         if enableFTP != 'no':
             p3.terminate()
         if enableSIP != 'no':
@@ -63,10 +64,6 @@ def main(window):
         p1.start()
     if enableSMTP != 'no':
         startsmtp()
-
-        #p2 = Process(name='SMTP', target=startsmtp, daemon=True)
-
-        #p2.start()
     if enableFTP != 'no':
         p3 = Process(name='Ftp', target=ftpserver, daemon=True)
         p3.start()
@@ -75,10 +72,19 @@ def main(window):
         p4.start()
 
     tcpports = 3389, 143, 110, 111, 135, 139, 1723, 3306, 445, 1433, 5900, 22, 23
+    dyntcpports = []
+
+    def tcpportopen(tcpport):
+        stcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        check = stcp.connect('127.0.0.1', tcpport)
+        if check == 0:
+            dyntcpports.append(port)
+        stcp.close()
 
     for port in tcpports:
         p = Process(name='DynamicTCP ' + str(port), target=runtcp, daemon=True, args=(port,))
         p.start()
+        tcpportopen(port)
 
     createattacker = open("/dev/shm/attacker", "a")
     createattacker.close()
@@ -143,6 +149,7 @@ def main(window):
             w.addstr(4, 0, "SIP    Running: " + str(p4.is_alive()))
         else:
             w.addstr(4, 0, "SIP    not enabled.")
+        w.addstr(5, 0, "Dyanmic TCP Ports enabled: " + dyntcpports)
 
         w.addstr(10, 0, "Last Attacker: " + lastattacker.read())
         lastattacker.close()
