@@ -127,9 +127,7 @@ def main(window):
         for num, port in enumerate(dyntcpports, start=1):
             w.addstr((num + 1), 0, "TCP Port: {}".format(port))
 
-
-
-        w.addstr(10, 0, "Last Attacker: " + lastattacker.read())
+        w.addstr(19, 0, "Last Attacker: " + lastattacker.read())
         lastattacker.close()
         # Pretty standard menu above.
 
