@@ -1,6 +1,7 @@
 import curses
 import socket
 import sys
+import os
 import configparser  # https://docs.python.org/3/library/configparser.html
 import psutil
 import textwrap
