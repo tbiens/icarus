@@ -48,29 +48,24 @@ aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
 
 def main(window):
     def shutdown():
-        if enableSNMP != 'no':
-            p1.terminate()
         if enableFTP != 'no':
-            p3.terminate()
-        if enableSIP != 'no':
-            p4.terminate()
+            p1.terminate()
 
-    if enableSNMP != 'no':
-        p1 = Process(name='Snmp', target=runudp, daemon=True, args=(161,))
-        p1.start()
     if enableSMTP != 'no':
         startsmtp()
     if enableFTP != 'no':
-        p3 = Process(name='Ftp', target=ftpserver, daemon=True)
-        p3.start()
-    if enableSIP != 'no':
-        p4 = Process(name='SIP', target=runudp, daemon=True, args=(5600,))
-        p4.start()
+        p1 = Process(name='Ftp', target=ftpserver, daemon=True)
+        p1.start()
 
     tcpports = 3389, 143, 110, 111, 135, 139, 1723, 3306, 445, 1433, 5900, 22, 23
+    udpports = 161, 5600
 
-    for port in tcpports:
-        p = Process(name='DynamicTCP ' + str(port), target=runtcp, daemon=True, args=(port,))
+    for tcpport in tcpports:
+        p = Process(name='DynamicTCP ' + str(tcpport), target=runtcp, daemon=True, args=(tcpport,))
+        p.start()
+
+    for udpport in udpports:
+        p = Process(name='DynamicUDP ' + str(udpport), target=runudp, daemon=True, args=(udpport,))
         p.start()
 
     createattacker = open("/dev/shm/attacker", "a")
@@ -116,18 +111,11 @@ def main(window):
         w.addstr(19, 51, "Press Q to quit.", curses.color_pair(1))
 
         w.addstr(0, 0, "ICARUS HONEYPOT", curses.color_pair(1))
-        if enableSNMP != 'no':
-            w.addstr(2, 0, "SNMP   Running: " + str(p1.is_alive()))
-        else:
-            w.addstr(2, 0, "SNMP   not enabled.")
+        
         if enableFTP != 'no':
-            w.addstr(3, 0, "FTP    Running: " + str(p3.is_alive()))
+            w.addstr(3, 0, "FTP    Running: " + str(p1.is_alive()))
         else:
             w.addstr(3, 0, "FTP    not enabled.")
-        if enableFTP != 'no':
-            w.addstr(4, 0, "SIP    Running: " + str(p4.is_alive()))
-        else:
-            w.addstr(4, 0, "SIP    not enabled.")
 
         w.addstr(10, 0, "Last Attacker: " + lastattacker.read())
         lastattacker.close()
