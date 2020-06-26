@@ -141,13 +141,13 @@ def main(window):
         for num, port in enumerate(wrapdyntcp, start=1):
             w.addstr((num + 2), 0, "{}".format(port))
 
-        w.addstr(11, 0, "Dyanmic UDP Ports:")
+        w.addstr(9, 0, "Dyanmic UDP Ports:")
         wrapdynudp = textwrap.wrap(str(dynudpports).replace('[', '').replace(']', ''), width=40)
         for num, port in enumerate(wrapdynudp, start=1):
-            w.addstr((num + 11), 0, "{}".format(port))
+            w.addstr((num + 9), 0, "{}".format(port))
 
         attackerlist = getlastattackers()
-        w.addstr(19, 0, "Last Attacker: " + attackerlist)
+        w.addstr(14, 0, "Last Attacker: " + attackerlist)
         # Pretty standard menu above.
 
 
