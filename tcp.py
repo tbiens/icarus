@@ -7,7 +7,7 @@ import logging
 class MyTCPHandler(socketserver.BaseRequestHandler):
     def handle(self):
         # self.request is the TCP socket connected to the client
-        #self.data = self.request.recv(1024).strip()
+        # self.data = self.request.recv(1024).strip()
         largfeed(self.client_address[0])  # From abuseipdb.py
         prereport(self.client_address[0])
         lastattacker(self.client_address[0])  # From memoryfile.py

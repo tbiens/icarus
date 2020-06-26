@@ -5,6 +5,7 @@ import configparser  # https://docs.python.org/3/library/configparser.html
 import psutil
 import textwrap
 import aiosmtpd.smtp
+import pickle
 from multiprocessing import Process
 # Below are my functions.
 from smtp import startsmtp
@@ -18,6 +19,7 @@ def get_ip_address():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.connect(("8.8.8.8", 80))
     return s.getsockname()[0]
+
 
 
 IP = get_ip_address()
@@ -88,7 +90,8 @@ def main(window):
 
     while True:
         # Opening the Last Attacker record from memory.
-        lastattacker = open("/dev/shm/attacker", 'r')
+        with open("/dev/shm/attacker", "rb") as devshm:
+            attackerlist = pickle.load(devshm)
         s = curses.initscr()
         curses.curs_set(0)
         curses.noecho()
@@ -134,9 +137,9 @@ def main(window):
         for num, port in enumerate(wrapdynudp, start=1):
             w.addstr((num + 11), 0, "{}".format(port))
 
-        w.addstr(19, 0, "Last Attacker: " + lastattacker.read())
-        lastattacker.close()
+        w.addstr(19, 0, "Last Attacker: " + attackerlist)
         # Pretty standard menu above.
+        devshm.close()
 
         w.refresh()
 
