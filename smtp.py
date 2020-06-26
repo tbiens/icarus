@@ -1,6 +1,5 @@
 import configparser
 import socket
-import time
 from memoryfile import inmemoryfile
 from memoryfile import loggingaddresses
 from abuseipdb import abuseipdb
@@ -52,5 +51,3 @@ def startsmtp():
     controller = Controller(smtphoney(), hostname=IP, port=smtpport)
     # It calls the class below as my handler, the hostname sets the ip, I set the SMTP port to 25 obviously
     controller.start()
-    while True:
-        time.sleep(60)
