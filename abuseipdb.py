@@ -81,13 +81,15 @@ def largfeed(addr):
     largfeedon = config['LARGFEED']['Largfeed']
     largfeedserver = config['LARGFEED']['Server']
     largfeedport = config['LARGFEED']['Port']
-
+    # very straight forward open socket and send bytes data.
     if largfeedon != "no":
         HOST = largfeedserver
         PORT = int(largfeedport)
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
             sock.connect((HOST, PORT))
             sock.sendall(bytes(addr + "\n", "utf-8"))
+
+
 
 
 
