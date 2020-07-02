@@ -11,12 +11,15 @@ def lastattacker(ip):
         with open("/dev/shm/attacker", "rb") as devshm:
             attackerlist = pickle.load(devshm)
             # print(attackerlist)
-            if len(attackerlist) > 4:
-                del attackerlist[-1]
-            attackerlist.insert(0, ip)
+            if ip in attackerlist:
+                pass
+            else:
+                if len(attackerlist) > 4:
+                    del attackerlist[-1]
+                attackerlist.insert(0, ip)
 
-            with open("/dev/shm/attacker", "wb") as devshm:
-                pickle.dump(attackerlist, devshm)
+                with open("/dev/shm/attacker", "wb") as devshm:
+                    pickle.dump(attackerlist, devshm)
     else:
         attacklist = [ip]
         with open("/dev/shm/attacker", "wb") as devshm:
