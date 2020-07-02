@@ -44,6 +44,8 @@ def prereport(addr):
     c = conn.cursor()
     c.execute('''CREATE TABLE IF NOT EXISTS addresses (address text, numattacks integer, lastattack integer)''')
     conn.commit()  # saves the queries
+    #  If the database doesn't yet exist.
+
     day_of_year = datetime.now().timetuple().tm_yday
 
     if c.execute("select address from addresses WHERE address=?", (addr,)).fetchone():
@@ -53,20 +55,22 @@ def prereport(addr):
         # print(plusone)
         c.execute("UPDATE addresses SET numattacks = ? WHERE address = ?", (plusone, addr))
         conn.commit()
-        # print(c.execute("select * from addresses").fetchall())
+        # If the attacker already exists; just update number of attacks.
 
         if int(c.execute("select lastattack from addresses where address=?", (addr,)).fetchone()[0]) != day_of_year:
             report(addr)
             largfeed(addr)
             c.execute("UPDATE addresses SET lastattack = ? WHERE address = ?", (day_of_year, addr))
             conn.commit()
+            # If the last attack wasn't today.
 
     else:
         report(addr)
         largfeed(addr)
         c.execute("INSERT INTO addresses (address, numattacks, lastattack) VALUES (?,?,?)", (addr, "1", day_of_year))
         conn.commit()
-        # print(c.execute("select * from addresses").fetchall())
+        # If the attacking IP hasn't been seen before.
+
     conn.commit()  # saves the queries
     conn.close()
 
