@@ -40,7 +40,7 @@ def report(ip):
 
 
 def prereport(addr):
-    conn = sqlite3.connect(':memory:')
+    conn = sqlite3.connect('/dev/shm/attacks.db')
     c = conn.cursor()
     c.execute('''CREATE TABLE IF NOT EXISTS addresses (address text, numattacks integer, lastattack integer)''')
     conn.commit()  # saves the queries
@@ -62,7 +62,7 @@ def prereport(addr):
             largfeed(addr)
             c.execute("UPDATE addresses SET lastattack = ? WHERE address = ?", (day_of_year, addr))
             conn.commit()
-            # If the last attack wasn't today.
+            # If the last attack wasn't today. This way we report each attacker once a day.
 
     else:
         report(addr)
