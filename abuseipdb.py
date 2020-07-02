@@ -40,7 +40,7 @@ def report(ip):
 
 
 def prereport(addr):
-    conn = sqlite3.connect('attacks.db')
+    conn = sqlite3.connect(':memory:')
     c = conn.cursor()
     c.execute('''CREATE TABLE IF NOT EXISTS addresses (address text, numattacks integer, lastattack integer)''')
     conn.commit()  # saves the queries
