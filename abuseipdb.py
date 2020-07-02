@@ -57,11 +57,13 @@ def prereport(addr):
 
         if int(c.execute("select lastattack from addresses where address=?", (addr,)).fetchone()[0]) != day_of_year:
             report(addr)
+            largfeed(addr)
             c.execute("UPDATE addresses SET lastattack = ? WHERE address = ?", (day_of_year, addr))
             conn.commit()
 
     else:
         report(addr)
+        largfeed(addr)
         c.execute("INSERT INTO addresses (address, numattacks, lastattack) VALUES (?,?,?)", (addr, "1", day_of_year))
         conn.commit()
         # print(c.execute("select * from addresses").fetchall())
