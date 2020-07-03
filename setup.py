@@ -149,7 +149,7 @@ def main(window):
         wrapdynudp = textwrap.wrap(str(dynudpports).replace('[', '').replace(']', ''), width=40)
         for num, port in enumerate(wrapdynudp, start=1):
             w.addstr((num + 9), 0, "{}".format(port))
-        w.addstr(13, 0, "Last Attackers: ", curses.color_pair(3))
+        w.addstr(13, 0, "Last 5 Attackers: ", curses.color_pair(3))
         attackerlist = getlastattackers()
         for num, address in enumerate(attackerlist, start=1):
             w.addstr((num + 13), 0, "{}".format(address))
