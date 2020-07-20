@@ -120,7 +120,7 @@ def main(window):
         childrens = active_children()
         dynports = []
         for x in childrens:
-            dynports.append(x)
+            dynports.append(str(x))
         DynTCP = []
         DynUDP = []
 
