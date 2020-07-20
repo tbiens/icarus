@@ -140,7 +140,7 @@ def main(window):
 
         dynports = active_children()
         for num, disport in enumerate(dynports, start=1):
-            w.addstr((num + 3), 0, "{}".format(address))
+            w.addstr((num + 3), 0, "{}".format(disport))
 
         w.addstr(13, 0, "Last 5 Attackers: ", curses.color_pair(3))
         attackerlist = getlastattackers()
