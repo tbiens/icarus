@@ -143,7 +143,7 @@ def main(window):
             w.addstr((num + 2), 0, "{}".format(port))
 
         w.addstr(9, 0, "Dyanmic UDP Ports:")
-        w.addstr(10, 0, dynudpports)
+        w.addstr(10, 0, str(dynudpports))
         wrapdynudp = textwrap.wrap(str(dynudpports).replace('[', '').replace(']', ''), width=40)
         for num, port in enumerate(wrapdynudp, start=1):
             w.addstr((num + 9), 0, "{}".format(port))
