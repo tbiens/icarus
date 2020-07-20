@@ -117,12 +117,14 @@ def main(window):
         w.addstr(0, 0, "ICARUS HONEYPOT", curses.color_pair(1))
         w.addstr(2, 0, "Dynamic TCP Ports:")
 
-        dynports = active_children()
-        bob = list(dynports)
+        childrens = active_children()
+        dynports = []
+        for x in childrens:
+            dynports.append(x)
         DynTCP = []
         DynUDP = []
 
-        for dport in bob:
+        for dport in dynports:
             if 'DynamicTCP' in dport:
                 port = dport.split()
                 DynTCP.append(port[1])
