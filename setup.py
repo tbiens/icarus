@@ -144,7 +144,7 @@ def main(window):
 
         wrapdynudp = textwrap.wrap(str(dyn_udp_str).replace('[', '').replace(']', ''), width=40)
         for num, port in enumerate(wrapdynudp, start=1):
-            w.addstr((num + 9), 0, "{}".format(port))
+            w.addstr((num + 6), 0, "{}".format(port))
 
         w.addstr(13, 0, "Last 5 Attackers: ", curses.color_pair(3))
         attackerlist = getlastattackers()
