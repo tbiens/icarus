@@ -22,7 +22,7 @@ RUN touch /icarus/logs/virustotal.log
 
 # config copy
 
-COPY app/ .
+COPY app/ ./app/
 
 COPY icarus.config /icarus/
 
