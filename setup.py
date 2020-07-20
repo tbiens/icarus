@@ -5,6 +5,7 @@ import os
 import configparser  # https://docs.python.org/3/library/configparser.html
 import aiosmtpd.smtp
 import pickle
+import textwrap
 from multiprocessing import Process, active_children
 # Below are my functions.
 from app.smtp import startsmtp
@@ -121,26 +122,29 @@ def main(window):
         dynports = []
         for x in childrens:
             dynports.append(str(x))
-        DynTCP = []
-        DynUDP = []
+        dyn_tcp = []
+        dyn_udp = []
 
         for dport in dynports:
             if 'DynamicTCP' in dport:
                 port = dport.split()
-                DynTCP.append(port[1])
+                dyn_tcp.append(port[1])
             if 'DynamicUDP' in dport:
                 port = dport.split()
-                DynUDP.append(port[1])
+                dyn_udp.append(port[1])
 
-        DynTCPstr = ' '.join(str(elem) for elem in DynTCP)
-        w.addstr(3, 0, DynTCPstr)
+        dyn_tcp_str = ' '.join(str(elem) for elem in dyn_tcp)
 
-        w.addstr(5, 0, "Dynamic UDP Ports:")
-        DynUDPstr = ' '.join(str(elem) for elem in DynUDP)
-        w.addstr(6,0, DynUDPstr)
+        wrapdyntcp = textwrap.wrap(str(dyn_tcp_str).replace('[', '').replace(']', ''), width=40)
+        for num, port in enumerate(wrapdyntcp, start=1):
+            w.addstr((num + 2), 0, "{}".format(port))
 
-        #for num, disport in enumerate(dynports, start=1):
-        #    w.addstr((num + 3), 0, "{}".format(disport.name))
+        w.addstr(6, 0, "Dynamic UDP Ports:")
+        dyn_udp_str = ' '.join(str(elem) for elem in dyn_udp)
+
+        wrapdynudp = textwrap.wrap(str(dyn_udp_str).replace('[', '').replace(']', ''), width=40)
+        for num, port in enumerate(wrapdynudp, start=1):
+            w.addstr((num + 9), 0, "{}".format(port))
 
         w.addstr(13, 0, "Last 5 Attackers: ", curses.color_pair(3))
         attackerlist = getlastattackers()
