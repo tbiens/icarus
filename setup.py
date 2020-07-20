@@ -2,8 +2,6 @@ import curses
 import socket
 import sys
 import os
-import logging
-import time
 import configparser  # https://docs.python.org/3/library/configparser.html
 import psutil
 import textwrap
@@ -73,13 +71,11 @@ def main(window):
     dyntcpports = []
     dynudpports = []
 
-    logging.basicConfig(filename='example.log', level=logging.DEBUG)
-    logging.debug("wtf")
     def checktcpport(port1):
         for conn in psutil.net_connections(kind='tcp'):
             if conn.laddr[1] == port1 and conn.status == psutil.CONN_LISTEN:
                 dyntcpports.append(port1)
-                logging.debug(port1)
+              
         return False
 
     def checkudpport(port2):
@@ -88,17 +84,14 @@ def main(window):
                 dynudpports.append(port2)
         return False
 
-    bob = tcpports.replace(" ", "").split(',')
-
-    for tcpport in bob:
-        logging.debug(tcpport)
-        p = Process(name='DynamicTCP ' + str(tcpport), target=runtcp, daemon=True, args=(tcpport,))
+    for tcpport in tcpports.replace(" ", "").split(','):
+        p = Process(name='DynamicTCP ' + str(tcpport), target=runtcp, daemon=True, args=(int(tcpport),))
         p.start()
         checktcpport(tcpport)
         #  PSUtil checks if ports open. Fills a list that's used later.
 
     for udpport in udpports.replace(" ", "").split(','):
-        p = Process(name='DynamicUDP ' + str(udpport), target=runudp, daemon=True, args=(udpport,))
+        p = Process(name='DynamicUDP ' + str(udpport), target=runudp, daemon=True, args=(int(udpport),))
         p.start()
         checkudpport(udpport)
         #  PSUtil checks if ports open. Fills a list that's used later.
