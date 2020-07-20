@@ -54,7 +54,7 @@ syslogport = config['SYSLOG']['PORT']
 largfeedon = config['LARGFEED']['Largfeed']
 largfeedserver = config['LARGFEED']['Server']
 largfeedport = config['LARGFEED']['Port']
-testtcpports = config['PORTS']['tcpports']
+tcpports = config['PORTS']['tcpports']
 udpports = config['PORTS']['udpports']
 
 aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
@@ -79,7 +79,7 @@ def main(window):
         for conn in psutil.net_connections(kind='tcp'):
             if conn.laddr[1] == port1 and conn.status == psutil.CONN_LISTEN:
                 dyntcpports.append(port1)
-                logging.info(port1)
+                logging.debug(port1)
         return False
 
     def checkudpport(port2):
@@ -87,10 +87,9 @@ def main(window):
             if conn.laddr[1] == port2 and conn.status == psutil.CONN_NONE:
                 dynudpports.append(port2)
         return False
-    print (testtcpports)
-    time.sleep(5)
-    for tcpport in testtcpports.replace(" ", "").split(','):
-        logging.info(tcpport)
+
+    for tcpport in tcpports.replace(" ", "").split(','):
+        logging.debug(tcpport)
         p = Process(name='DynamicTCP ' + str(tcpport), target=runtcp, daemon=True, args=(tcpport,))
         p.start()
         checktcpport(tcpport)
