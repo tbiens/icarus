@@ -132,6 +132,8 @@ def main(window):
             if 'DynamicUDP' in dport:
                 port = dport.split()
                 dyn_udp.append(port[1])
+        dyn_tcp.sort()
+        dyn_udp.sort()
 
         dyn_tcp_str = ' '.join(str(elem) for elem in dyn_tcp)
 
