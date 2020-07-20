@@ -4,6 +4,7 @@ import sys
 import os
 import configparser  # https://docs.python.org/3/library/configparser.html
 import psutil
+import time
 import textwrap
 import aiosmtpd.smtp
 import pickle
@@ -85,6 +86,7 @@ def main(window):
 
     for tcpport in tcpports.replace(" ", "").split(','):
         print(tcpport)
+        time.sleep(5)
         p = Process(name='DynamicTCP ' + str(tcpport), target=runtcp, daemon=True, args=(tcpport,))
         p.start()
         checktcpport(tcpport)
