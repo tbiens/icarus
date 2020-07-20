@@ -24,6 +24,8 @@ RUN touch /icarus/logs/virustotal.log
 
 COPY app/ ./app/
 
+COPY setup.py .
+
 COPY icarus.config /icarus/
 
 # running command
