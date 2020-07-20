@@ -10,11 +10,13 @@ WORKDIR /icarus
 
 COPY requirements.txt .
 
-RUN pip3 install --upgrade pip
+#RUN pip3 install --upgrade pip
 
 RUN pip3 install -r requirements.txt
 
 #RUN git clone https://github.com/tbiens/icarus.git
+
+RUN mkdir /icarus/logs
 
 RUN touch /icarus/logs/virustotal.log
 
