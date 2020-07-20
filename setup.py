@@ -88,7 +88,9 @@ def main(window):
                 dynudpports.append(port2)
         return False
 
-    for tcpport in tcpports.replace(" ", "").split(','):
+    bob = tcpports.replace(" ", "").split(',')
+
+    for tcpport in bob:
         logging.debug(tcpport)
         p = Process(name='DynamicTCP ' + str(tcpport), target=runtcp, daemon=True, args=(tcpport,))
         p.start()
