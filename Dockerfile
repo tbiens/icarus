@@ -28,4 +28,4 @@ COPY icarus.config /icarus/
 
 # running command
 
-CMD [ "python3", "/icarus/app/setup.py" ]
+CMD [ "python3", "/icarus/setup.py" ]
