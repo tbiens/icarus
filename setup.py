@@ -3,11 +3,10 @@ import socket
 import sys
 import os
 import configparser  # https://docs.python.org/3/library/configparser.html
-import psutil
-import textwrap
 import aiosmtpd.smtp
 import pickle
-from multiprocessing import Process
+import textwrap
+from multiprocessing import Process, active_children
 # Below are my functions.
 from app.smtp import startsmtp
 from app.editor import editor
@@ -68,36 +67,13 @@ def main(window):
 
     # Dynamic low interaction port services.
 
-    dyntcpports = []
-    dynudpports = []
-
-    def checktcpport(port1):
-        for conn in psutil.net_connections(kind='tcp'):
-            if conn.laddr[1] == port1 and conn.status == psutil.CONN_LISTEN:
-                dyntcpports.append(port1)
-        return False
-
-    def checkudpport(port2):
-        for conn in psutil.net_connections(kind='udp'):
-            if conn.laddr[1] == port2 and conn.status == psutil.CONN_NONE:
-                dynudpports.append(port2)
-        return False
-
-    # If I put this in configparser, it outputs as a string and can't be used? Goal will be to move it there.
-    # tcpports = 3389, 143, 110, 111, 135, 139, 1723, 3306, 445, 1433, 5900, 22, 23
-    # udpports = 161, 5600
-
-    for tcpport in tcpports.split(','):
-        p = Process(name='DynamicTCP ' + str(tcpport), target=runtcp, daemon=True, args=(tcpport,))
+    for tcpport in tcpports.replace(" ", "").split(','):
+        p = Process(name='DynamicTCP ' + str(tcpport), target=runtcp, daemon=True, args=(int(tcpport),))
         p.start()
-        checktcpport(tcpport)
-        #  PSUtil checks if ports open. Fills a list that's used later.
 
-    for udpport in udpports.split(','):
-        p = Process(name='DynamicUDP ' + str(udpport), target=runudp, daemon=True, args=(udpport,))
+    for udpport in udpports.replace(" ", "").split(','):
+        p = Process(name='DynamicUDP ' + str(udpport), target=runudp, daemon=True, args=(int(udpport),))
         p.start()
-        checkudpport(udpport)
-        #  PSUtil checks if ports open. Fills a list that's used later.
 
     createattacker = open("/dev/shm/attacker", "a")
     createattacker.close()
@@ -141,14 +117,37 @@ def main(window):
 
         w.addstr(0, 0, "ICARUS HONEYPOT", curses.color_pair(1))
         w.addstr(2, 0, "Dynamic TCP Ports:")
-        wrapdyntcp = textwrap.wrap(str(dyntcpports).replace('[', '').replace(']', ''), width=40)
+
+        childrens = active_children()
+        dynports = []
+        for x in childrens:
+            dynports.append(str(x))
+        dyn_tcp = []
+        dyn_udp = []
+
+        for dport in dynports:
+            if 'DynamicTCP' in dport:
+                port = dport.split()
+                dyn_tcp.append(port[1])
+            if 'DynamicUDP' in dport:
+                port = dport.split()
+                dyn_udp.append(port[1])
+        dyn_tcp.sort()
+        dyn_udp.sort()
+
+        dyn_tcp_str = ' '.join(str(elem) for elem in dyn_tcp)
+
+        wrapdyntcp = textwrap.wrap(str(dyn_tcp_str).replace('[', '').replace(']', ''), width=40)
         for num, port in enumerate(wrapdyntcp, start=1):
             w.addstr((num + 2), 0, "{}".format(port))
 
-        w.addstr(9, 0, "Dyanmic UDP Ports:")
-        wrapdynudp = textwrap.wrap(str(dynudpports).replace('[', '').replace(']', ''), width=40)
+        w.addstr(6, 0, "Dynamic UDP Ports:")
+        dyn_udp_str = ' '.join(str(elem) for elem in dyn_udp)
+
+        wrapdynudp = textwrap.wrap(str(dyn_udp_str).replace('[', '').replace(']', ''), width=40)
         for num, port in enumerate(wrapdynudp, start=1):
-            w.addstr((num + 9), 0, "{}".format(port))
+            w.addstr((num + 6), 0, "{}".format(port))
+
         w.addstr(13, 0, "Last 5 Attackers: ", curses.color_pair(3))
         attackerlist = getlastattackers()
         for num, address in enumerate(attackerlist, start=1):
