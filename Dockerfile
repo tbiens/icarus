@@ -3,7 +3,7 @@ FROM python:3.8-buster
 WORKDIR /icarus
 
 # Update aptitude with new repo
-RUN apt-get update && apt-get dist-upgrade -y
+RUN apt-get update
 
 # Install software
 RUN apt-get install -y python3-pip screen nano
