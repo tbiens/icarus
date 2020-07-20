@@ -1,9 +1,9 @@
 # Icarus
 **Goal:**
 
-SMTP, SNMP, SMB honeypot for collecting malware and automatically uploading to virustotal and report abusive IPs to abuseipdb. 
+Multiprotocol honeypot for collecting malware and automatically uploading to virustotal and report abusive IPs to abuseipdb. 
 
-There are many awesome honeypots. https://github.com/paralax/awesome-honeypots
+There are many awesome honeypots: https://github.com/paralax/awesome-honeypots
 
 **Features:**
 
