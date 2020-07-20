@@ -83,16 +83,16 @@ def main(window):
                 dynudpports.append(port2)
         return False
 
-    for tcpport in tcpports.split(','):
+    for tcpport in tcpports.replace(" ","").split(','):
         p = Process(name='DynamicTCP ' + str(tcpport), target=runtcp, daemon=True, args=(tcpport,))
         p.start()
-        # checktcpport(tcpport)
+        checktcpport(tcpport)
         #  PSUtil checks if ports open. Fills a list that's used later.
 
-    for udpport in udpports.split(','):
+    for udpport in udpports.replace(" ","").split(','):
         p = Process(name='DynamicUDP ' + str(udpport), target=runudp, daemon=True, args=(udpport,))
         p.start()
-        # checkudpport(udpport)
+        checkudpport(udpport)
         #  PSUtil checks if ports open. Fills a list that's used later.
 
     createattacker = open("/dev/shm/attacker", "a")
@@ -137,8 +137,6 @@ def main(window):
 
         w.addstr(0, 0, "ICARUS HONEYPOT", curses.color_pair(1))
         w.addstr(2, 0, "Dynamic TCP Ports:")
-        w.addstr(3, 0, tcpports)
-        w.addstr(4, 0, udpports)
 
         wrapdyntcp = textwrap.wrap(str(dyntcpports).replace('[', '').replace(']', ''), width=40)
         for num, port in enumerate(wrapdyntcp, start=1):
