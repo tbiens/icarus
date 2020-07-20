@@ -1,12 +1,12 @@
-FROM python:3.8
+FROM python:3.8-buster
 
 WORKDIR /icarus
 
 # Update aptitude with new repo
-#RUN apt-get update && apt-get dist-upgrade -y
+RUN apt-get update && apt-get dist-upgrade -y
 
 # Install software
-#RUN apt-get install -y git python3-pip python-virtualenv screen nano
+RUN apt-get install -y python3-pip screen nano
 
 COPY requirements.txt .
 
