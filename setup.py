@@ -118,10 +118,11 @@ def main(window):
         w.addstr(2, 0, "Dynamic TCP Ports:")
 
         dynports = active_children()
+        bob = list(dynports)
         DynTCP = []
         DynUDP = []
 
-        for dport in list(dynports):
+        for dport in bob:
             if 'DynamicTCP' in dport:
                 port = dport.split()
                 DynTCP.append(port[1])
