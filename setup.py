@@ -138,9 +138,7 @@ def main(window):
         w.addstr(0, 0, "ICARUS HONEYPOT", curses.color_pair(1))
         w.addstr(2, 0, "Dynamic Ports:")
 
-        pad = curses.newpad(12,50)
-        pad.addstr(str(active_children()))
-        pad.refresh(0, 0, 3, 0, 12, 45)
+        w.addstr(str(active_children()))
 
         w.addstr(13, 0, "Last 5 Attackers: ", curses.color_pair(3))
         attackerlist = getlastattackers()
