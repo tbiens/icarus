@@ -1,6 +1,6 @@
 import asyncio
-from abuseipdb import prereport
-from memoryfile import lastattacker
+from app.abuseipdb import prereport
+from app.memoryfile import lastattacker
 
 
 class icarus:

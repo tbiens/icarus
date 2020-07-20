@@ -2,7 +2,7 @@ import io  # https://docs.python.org/3/library/allos.html
 import os  # for os.path.isfile
 import hashlib  # https://docs.python.org/3/library/hashlib.html
 import pickle
-from virustotal import virustotalfile  # Check out virustotal.py
+from app.virustotal import virustotalfile  # Check out virustotal.py
 from datetime import datetime
 
 
@@ -57,7 +57,7 @@ def inmemoryfile(filecontents):
 
 def loggingaddresses(sessionpeer, mailfrom, mailto):  # Logging connections to a csv file
     nowdate = datetime.now().strftime("%Y-%m-%d %H:%M:%S")  # What date and time.
-    loggingfile = open("logs/logging.csv", "a+")
+    loggingfile = open("../logs/logging.csv", "a+")
     # Opening logs/logging.csv in append mode.
     loggingfile.write(sessionpeer + "," + mailfrom + "," + mailto + "," + str(nowdate) + "\n")
     # Logging, IP, From, To, and the Date

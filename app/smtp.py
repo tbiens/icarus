@@ -1,9 +1,9 @@
 import configparser
 import socket
-from memoryfile import inmemoryfile
-from memoryfile import loggingaddresses
-from abuseipdb import abuseipdb
-from icarussyslog import syslogout
+from app.memoryfile import inmemoryfile
+from app.memoryfile import loggingaddresses
+from app.abuseipdb import abuseipdb
+from app.icarussyslog import syslogout
 from aiosmtpd.controller import Controller  # the controller that handles async smtp?
 
 

@@ -3,8 +3,8 @@ import hashlib
 from pyftpdlib.handlers import FTPHandler
 from pyftpdlib.servers import FTPServer
 from pyftpdlib.authorizers import DummyAuthorizer
-from virustotal import virustotalfile
-from abuseipdb import prereport
+from app.virustotal import virustotalfile
+from app.abuseipdb import prereport
 
 
 class MyHandler(FTPHandler):

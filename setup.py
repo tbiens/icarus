@@ -9,11 +9,11 @@ import aiosmtpd.smtp
 import pickle
 from multiprocessing import Process
 # Below are my functions.
-from smtp import startsmtp
-from editor import editor
-from udp import runudp
-from tcp import runtcp
-from ftp import ftpserver
+from app.smtp import startsmtp
+from app.editor import editor
+from app.udp import runudp
+from app.tcp import runtcp
+from app.ftp import ftpserver
 
 
 def get_ip_address():

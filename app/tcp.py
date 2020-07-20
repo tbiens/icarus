@@ -1,6 +1,6 @@
 import socketserver  # https://docs.python.org/3.5/library/socketserver.html
-from abuseipdb import prereport
-from memoryfile import lastattacker
+from app.abuseipdb import prereport
+from app.memoryfile import lastattacker
 import logging
 
 
