@@ -138,7 +138,9 @@ def main(window):
         w.addstr(0, 0, "ICARUS HONEYPOT", curses.color_pair(1))
         w.addstr(2, 0, "Dynamic Ports:")
 
-        w.addstr(str(active_children()))
+        dynports = active_children()
+        for num, disport in enumerate(dynports, start=1):
+            w.addstr((num + 3), 0, "{}".format(address))
 
         w.addstr(13, 0, "Last 5 Attackers: ", curses.color_pair(3))
         attackerlist = getlastattackers()
