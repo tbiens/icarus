@@ -136,17 +136,10 @@ def main(window):
         w.addstr(19, 51, "Press Q to quit.", curses.color_pair(1))
 
         w.addstr(0, 0, "ICARUS HONEYPOT", curses.color_pair(1))
-        w.addstr(2, 0, "Dynamic TCP Ports:")
+        w.addstr(2, 0, "Dynamic Ports:")
 
-        wrapdyntcp = textwrap.wrap(str(dyntcpports).replace('[', '').replace(']', ''), width=40)
-        for num, port in enumerate(wrapdyntcp, start=1):
-            w.addstr((num + 2), 0, "{}".format(port))
+        w.addstr(3, 0, str(active_children()))
 
-        w.addstr(9, 0, "Dyanmic UDP Ports:")
-        w.addstr(10, 0, str(active_children()))
-        wrapdynudp = textwrap.wrap(str(dynudpports).replace('[', '').replace(']', ''), width=40)
-        for num, port in enumerate(wrapdynudp, start=1):
-            w.addstr((num + 9), 0, "{}".format(port))
         w.addstr(13, 0, "Last 5 Attackers: ", curses.color_pair(3))
         attackerlist = getlastattackers()
         for num, address in enumerate(attackerlist, start=1):
