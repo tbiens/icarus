@@ -52,7 +52,8 @@ syslogport = config['SYSLOG']['PORT']
 largfeedon = config['LARGFEED']['Largfeed']
 largfeedserver = config['LARGFEED']['Server']
 largfeedport = config['LARGFEED']['Port']
-
+tcpports = config['PORTS']['tcpports']
+udpports = config['PORTS']['udpports']
 
 aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
 
@@ -83,17 +84,16 @@ def main(window):
         return False
 
     # If I put this in configparser, it outputs as a string and can't be used? Goal will be to move it there.
+    # tcpports = 3389, 143, 110, 111, 135, 139, 1723, 3306, 445, 1433, 5900, 22, 23
+    # udpports = 161, 5600
 
-    tcpports = 3389, 143, 110, 111, 135, 139, 1723, 3306, 445, 1433, 5900, 22, 23
-    udpports = 161, 5600
-
-    for tcpport in tcpports:
+    for tcpport in tcpports.split(','):
         p = Process(name='DynamicTCP ' + str(tcpport), target=runtcp, daemon=True, args=(tcpport,))
         p.start()
         checktcpport(tcpport)
         #  PSUtil checks if ports open. Fills a list that's used later.
 
-    for udpport in udpports:
+    for udpport in udpports.split(','):
         p = Process(name='DynamicUDP ' + str(udpport), target=runudp, daemon=True, args=(udpport,))
         p.start()
         checkudpport(udpport)
