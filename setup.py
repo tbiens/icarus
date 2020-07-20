@@ -4,7 +4,6 @@ import sys
 import os
 import configparser  # https://docs.python.org/3/library/configparser.html
 import psutil
-import time
 import textwrap
 import aiosmtpd.smtp
 import pickle
@@ -53,7 +52,7 @@ syslogport = config['SYSLOG']['PORT']
 largfeedon = config['LARGFEED']['Largfeed']
 largfeedserver = config['LARGFEED']['Server']
 largfeedport = config['LARGFEED']['Port']
-tcpports = config['PORTS']['tcpports']
+testtcpports = config['PORTS']['tcpports']
 udpports = config['PORTS']['udpports']
 
 aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
@@ -84,9 +83,7 @@ def main(window):
                 dynudpports.append(port2)
         return False
 
-    for tcpport in tcpports.replace(" ", "").split(','):
-        print(tcpport)
-        time.sleep(5)
+    for tcpport in testtcpports.replace(" ", "").split(','):
         p = Process(name='DynamicTCP ' + str(tcpport), target=runtcp, daemon=True, args=(tcpport,))
         p.start()
         checktcpport(tcpport)
