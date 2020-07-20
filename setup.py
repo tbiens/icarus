@@ -3,8 +3,6 @@ import socket
 import sys
 import os
 import configparser  # https://docs.python.org/3/library/configparser.html
-import psutil
-import textwrap
 import aiosmtpd.smtp
 import pickle
 from multiprocessing import Process, active_children
@@ -68,32 +66,13 @@ def main(window):
 
     # Dynamic low interaction port services.
 
-    dyntcpports = []
-    dynudpports = []
-
-    def checktcpport(port1):
-        for conn in psutil.net_connections(kind='tcp'):
-            if conn.laddr[1] == port1 and conn.status == psutil.CONN_LISTEN:
-                dyntcpports.append(port1)
-        return False
-
-    def checkudpport(port2):
-        for conn in psutil.net_connections(kind='udp'):
-            if conn.laddr[1] == port2 and conn.status == psutil.CONN_NONE:
-                dynudpports.append(port2)
-        return False
-
     for tcpport in tcpports.replace(" ", "").split(','):
         p = Process(name='DynamicTCP ' + str(tcpport), target=runtcp, daemon=True, args=(int(tcpport),))
         p.start()
-        checktcpport(tcpport)
-        #  PSUtil checks if ports open. Fills a list that's used later.
 
     for udpport in udpports.replace(" ", "").split(','):
         p = Process(name='DynamicUDP ' + str(udpport), target=runudp, daemon=True, args=(int(udpport),))
         p.start()
-        checkudpport(udpport)
-        #  PSUtil checks if ports open. Fills a list that's used later.
 
     createattacker = open("/dev/shm/attacker", "a")
     createattacker.close()
@@ -136,11 +115,29 @@ def main(window):
         w.addstr(19, 51, "Press Q to quit.", curses.color_pair(1))
 
         w.addstr(0, 0, "ICARUS HONEYPOT", curses.color_pair(1))
-        w.addstr(2, 0, "Dynamic Ports:")
+        w.addstr(2, 0, "Dynamic TCP Ports:")
 
         dynports = active_children()
-        for num, disport in enumerate(dynports, start=1):
-            w.addstr((num + 3), 0, "{}".format(disport.name))
+        DynTCP = []
+        DynUDP = []
+
+        for dport in dynports:
+            if 'DynamicTCP' in dport:
+                port = dport.split()
+                DynTCP.append(port[1])
+            if 'DynamicUDP' in dport:
+                port = dport.split()
+                DynUDP.append(port[1])
+
+        DynTCPstr = ' '.join(str(elem) for elem in DynTCP)
+        w.addstr(3, 0, DynTCPstr)
+
+        w.addstr(5, 0, "Dynamic UDP Ports:")
+        DynUDPstr = ' '.join(str(elem) for elem in DynUDP)
+        w.addstr(6,0, DynUDPstr)
+
+        #for num, disport in enumerate(dynports, start=1):
+        #    w.addstr((num + 3), 0, "{}".format(disport.name))
 
         w.addstr(13, 0, "Last 5 Attackers: ", curses.color_pair(3))
         attackerlist = getlastattackers()
