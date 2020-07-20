@@ -128,16 +128,16 @@ def main(window):
         for dport in dynports:
             if 'DynamicTCP' in dport:
                 port = dport.split()
-                dyn_tcp.append(port[1])
+                dyn_tcp.append(port[2])
             if 'DynamicUDP' in dport:
                 port = dport.split()
-                dyn_udp.append(port[1])
+                dyn_udp.append(port[2])
         dyn_tcp.sort()
         dyn_udp.sort()
 
         dyn_tcp_str = ' '.join(str(elem) for elem in dyn_tcp)
 
-        wrapdyntcp = textwrap.wrap(str(dyn_tcp_str).replace('[', '').replace(']', ''), width=40)
+        wrapdyntcp = textwrap.wrap(str(dyn_tcp_str).replace('[', '').replace(']', '').replace("'", ''), width=40)
         for num, port in enumerate(wrapdyntcp, start=1):
             w.addstr((num + 2), 0, "{}".format(port))
 
