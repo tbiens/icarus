@@ -74,7 +74,7 @@ def main(window):
     dynudpports = []
 
     logging.basicConfig(filename='example.log', level=logging.DEBUG)
-
+    logging.debug("wtf")
     def checktcpport(port1):
         for conn in psutil.net_connections(kind='tcp'):
             if conn.laddr[1] == port1 and conn.status == psutil.CONN_LISTEN:
