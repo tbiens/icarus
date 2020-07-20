@@ -3,6 +3,7 @@ import socket
 import sys
 import os
 import logging
+import time
 import configparser  # https://docs.python.org/3/library/configparser.html
 import psutil
 import textwrap
@@ -86,7 +87,8 @@ def main(window):
             if conn.laddr[1] == port2 and conn.status == psutil.CONN_NONE:
                 dynudpports.append(port2)
         return False
-
+    print (testtcpports)
+    time.sleep(5)
     for tcpport in testtcpports.replace(" ", "").split(','):
         logging.info(tcpport)
         p = Process(name='DynamicTCP ' + str(tcpport), target=runtcp, daemon=True, args=(tcpport,))
