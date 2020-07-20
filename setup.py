@@ -139,8 +139,10 @@ def main(window):
         w.addstr(2, 0, "Dynamic Ports:")
 
         dynports = active_children()
-        for num, disport in enumerate(dynports, start=1):
-            w.addstr((num + 3), 0, "{}".format(disport))
+        for bob in active_children():
+            w.addstr(3, 0, bob.name)
+        #for num, disport.name in enumerate(dynports, start=1):
+        #    w.addstr((num + 3), 0, "{}".format(disport))
 
         w.addstr(13, 0, "Last 5 Attackers: ", curses.color_pair(3))
         attackerlist = getlastattackers()
