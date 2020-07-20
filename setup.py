@@ -75,7 +75,6 @@ def main(window):
         for conn in psutil.net_connections(kind='tcp'):
             if conn.laddr[1] == port1 and conn.status == psutil.CONN_LISTEN:
                 dyntcpports.append(port1)
-              
         return False
 
     def checkudpport(port2):
@@ -144,6 +143,7 @@ def main(window):
             w.addstr((num + 2), 0, "{}".format(port))
 
         w.addstr(9, 0, "Dyanmic UDP Ports:")
+        w.addstr(10, 0, dynudpports)
         wrapdynudp = textwrap.wrap(str(dynudpports).replace('[', '').replace(']', ''), width=40)
         for num, port in enumerate(wrapdynudp, start=1):
             w.addstr((num + 9), 0, "{}".format(port))
