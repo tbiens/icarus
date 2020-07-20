@@ -121,7 +121,7 @@ def main(window):
         DynTCP = []
         DynUDP = []
 
-        for dport in dynports:
+        for dport in str(dynports):
             if 'DynamicTCP' in dport:
                 port = dport.split()
                 DynTCP.append(port[1])
