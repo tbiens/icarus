@@ -7,7 +7,7 @@ import psutil
 import textwrap
 import aiosmtpd.smtp
 import pickle
-from multiprocessing import Process
+from multiprocessing import Process, active_children
 # Below are my functions.
 from app.smtp import startsmtp
 from app.editor import editor
@@ -143,7 +143,7 @@ def main(window):
             w.addstr((num + 2), 0, "{}".format(port))
 
         w.addstr(9, 0, "Dyanmic UDP Ports:")
-        w.addstr(10, 0, str(dynudpports))
+        w.addstr(10, 0, str(active_children()))
         wrapdynudp = textwrap.wrap(str(dynudpports).replace('[', '').replace(']', ''), width=40)
         for num, port in enumerate(wrapdynudp, start=1):
             w.addstr((num + 9), 0, "{}".format(port))
