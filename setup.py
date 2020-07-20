@@ -84,6 +84,7 @@ def main(window):
         return False
 
     for tcpport in tcpports.replace(" ", "").split(','):
+        print(tcpport)
         p = Process(name='DynamicTCP ' + str(tcpport), target=runtcp, daemon=True, args=(tcpport,))
         p.start()
         checktcpport(tcpport)
