@@ -83,13 +83,13 @@ def main(window):
                 dynudpports.append(port2)
         return False
 
-    for tcpport in tcpports.replace(" ","").split(','):
+    for tcpport in tcpports.replace(" ", "").split(','):
         p = Process(name='DynamicTCP ' + str(tcpport), target=runtcp, daemon=True, args=(tcpport,))
         p.start()
         checktcpport(tcpport)
         #  PSUtil checks if ports open. Fills a list that's used later.
 
-    for udpport in udpports.replace(" ","").split(','):
+    for udpport in udpports.replace(" ", "").split(','):
         p = Process(name='DynamicUDP ' + str(udpport), target=runudp, daemon=True, args=(udpport,))
         p.start()
         checkudpport(udpport)
