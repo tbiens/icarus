@@ -42,7 +42,7 @@ def report(ip):
 def prereport(addr):
 
     day_of_year = datetime.now().timetuple().tm_yday
-    
+
     if addr in app.cfg.attackdb:
         if app.cfg.attackdb[addr] != day_of_year:
             report(addr)
