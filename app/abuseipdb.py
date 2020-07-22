@@ -42,13 +42,12 @@ def report(ip):
 def prereport(addr):
 
     day_of_year = datetime.now().timetuple().tm_yday
-
-    db = app.cfg.attackdb
-    if addr in db:
-        if db[addr] != day_of_year:
+    
+    if addr in app.cfg.attackdb:
+        if app.cfg.attackdb[addr] != day_of_year:
             report(addr)
             largfeed(addr)
-    db[addr] = day_of_year
+    app.cfg.attackdb[addr] = day_of_year
 
 
 def largfeed(addr):
