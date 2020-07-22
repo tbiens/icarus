@@ -4,9 +4,11 @@ import hashlib  # https://docs.python.org/3/library/hashlib.html
 import pickle
 from app.virustotal import virustotalfile  # Check out virustotal.py
 from datetime import datetime
+import app.cfg
 
 
 def lastattacker(ip):
+    app.cfg.attackers.insert(0, ip)
     if os.path.getsize('/dev/shm/attacker') > 0:
         with open("/dev/shm/attacker", "rb") as devshm:
             attackerlist = pickle.load(devshm)
