@@ -137,6 +137,8 @@ def main(window):
             for num, address in enumerate(app.cfg.attackers, start=1):
                 w.addstr((num + 13), 0, "{}".format(address))
 
+        w.addstr(20, 0, str(app.cfg.attackdb))
+
         w.refresh()
 
         key = w.getch()
