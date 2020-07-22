@@ -45,11 +45,12 @@ def prereport(addr):
     day_of_year = datetime.now().timetuple().tm_yday
 
     db = app.cfg.attackdb
-    if db[addr] != day_of_year:
-        report(addr)
-        largfeed(addr)
+    if db[addr]:
+        if db[addr] != day_of_year:
+            report(addr)
+            largfeed(addr)
     db[addr] = day_of_year
-                
+
     #
     # conn = sqlite3.connect('/dev/shm/attacks.db')
     # c = conn.cursor()
