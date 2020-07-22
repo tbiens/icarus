@@ -1,10 +1,8 @@
 import curses
 import socket
 import sys
-import os
 import configparser  # https://docs.python.org/3/library/configparser.html
 import aiosmtpd.smtp
-import pickle
 import textwrap
 from multiprocessing import Process, active_children
 # Below are my functions.
@@ -20,16 +18,6 @@ def get_ip_address():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.connect(("8.8.8.8", 80))
     return s.getsockname()[0]
-
-
-def getlastattackers():
-    if os.path.getsize('/dev/shm/attacker') > 0:
-        with open("/dev/shm/attacker", "rb") as devshm:
-            attackerlist = pickle.load(devshm)
-        devshm.close()
-        return attackerlist
-    else:
-        return "None yet."
 
 
 IP = get_ip_address()
