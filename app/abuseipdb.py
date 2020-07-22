@@ -3,6 +3,7 @@ import requests  # https://developers.virustotal.com/v2.0/reference#file-scan
 import socket
 import sqlite3
 from datetime import datetime
+import app.cfg
 
 
 def abuseipdb(sessionpeer, mailfrom, mailto):
@@ -40,39 +41,47 @@ def report(ip):
 
 
 def prereport(addr):
-    conn = sqlite3.connect('/dev/shm/attacks.db')
-    c = conn.cursor()
-    c.execute('''CREATE TABLE IF NOT EXISTS addresses (address text, numattacks integer, lastattack integer)''')
-    conn.commit()  # saves the queries
-    #  If the database doesn't yet exist.
 
     day_of_year = datetime.now().timetuple().tm_yday
 
-    if c.execute("select address from addresses WHERE address=?", (addr,)).fetchone():
-        numattacks = c.execute("select numattacks from addresses WHERE address=?", (addr,))
-        beforeone = numattacks.fetchone()[0]
-        plusone = beforeone + 1
-        # print(plusone)
-        c.execute("UPDATE addresses SET numattacks = ? WHERE address = ?", (plusone, addr))
-        conn.commit()
-        # If the attacker already exists; just update number of attacks.
-
-        if int(c.execute("select lastattack from addresses where address=?", (addr,)).fetchone()[0]) != day_of_year:
-            report(addr)
-            largfeed(addr)
-            c.execute("UPDATE addresses SET lastattack = ? WHERE address = ?", (day_of_year, addr))
-            conn.commit()
-            # If the last attack wasn't today. This way we report each attacker once a day.
-
-    else:
+    db = app.cfg.attackdb
+    if db[addr] != day_of_year:
         report(addr)
         largfeed(addr)
-        c.execute("INSERT INTO addresses (address, numattacks, lastattack) VALUES (?,?,?)", (addr, "1", day_of_year))
-        conn.commit()
-        # If the attacking IP hasn't been seen before.
+    db[addr] = day_of_year
+                
+    #
+    # conn = sqlite3.connect('/dev/shm/attacks.db')
+    # c = conn.cursor()
+    # c.execute('''CREATE TABLE IF NOT EXISTS addresses (address text, numattacks integer, lastattack integer)''')
+    # conn.commit()  # saves the queries
+    # #  If the database doesn't yet exist.
 
-    conn.commit()  # saves the queries
-    conn.close()
+
+    # if c.execute("select address from addresses WHERE address=?", (addr,)).fetchone():
+    #     numattacks = c.execute("select numattacks from addresses WHERE address=?", (addr,))
+    #     beforeone = numattacks.fetchone()[0]
+    #     plusone = beforeone + 1
+    #     # print(plusone)
+    #     c.execute("UPDATE addresses SET numattacks = ? WHERE address = ?", (plusone, addr))
+    #     conn.commit()
+    #     # If the attacker already exists; just update number of attacks.
+
+    #     if int(c.execute("select lastattack from addresses where address=?", (addr,)).fetchone()[0]) != day_of_year:
+    #
+    #         c.execute("UPDATE addresses SET lastattack = ? WHERE address = ?", (day_of_year, addr))
+    #         conn.commit()
+    #         # If the last attack wasn't today. This way we report each attacker once a day.
+    #
+    # else:
+    #     report(addr)
+    #     largfeed(addr)
+    #     c.execute("INSERT INTO addresses (address, numattacks, lastattack) VALUES (?,?,?)", (addr, "1", day_of_year))
+    #     conn.commit()
+    #     # If the attacking IP hasn't been seen before.
+    #
+    # conn.commit()  # saves the queries
+    # conn.close()
 
 
 def largfeed(addr):
