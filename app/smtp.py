@@ -1,7 +1,6 @@
 import configparser
 import socket
 from app.memoryfile import inmemoryfile
-from app.memoryfile import loggingaddresses
 from app.abuseipdb import abuseipdb
 from app.icarussyslog import syslogout
 from aiosmtpd.controller import Controller  # the controller that handles async smtp?
@@ -28,19 +27,12 @@ smtpport = config['ADDRESSES']['SMTPPort']
 
 class smtphoney:
     async def handle_RCPT(self, server, session, envelope, address, rcpt_options):
-        loggingaddresses(session.peer[0], envelope.mail_from, address)  # check memoryfile.py for this function
         abuseipdb(session.peer[0], envelope.mail_from, address)  # check abuseipdb.py for this function.
         envelope.rcpt_tos.append(address)
         return '250 OK'
         # straight out of documentation
 
     async def handle_DATA(self, server, session, envelope):
-        # box1 = curses.newwin(40, 40, 8, 0)
-        # box1.addstr(1, 1, "Last Email:")
-        # box1.addstr(2, 1, "IP Address: " + session.peer[0])
-        # box1.addstr(3, 1, "From: " + envelope.mail_from)
-        # box1.refresh()
-        # above box1 code is to show 'last email details' on the screen.
         inmemoryfile(envelope.content.decode('utf8', errors='replace'))  # A function I made in memoryfile.py
         syslogout("Attack: IP:" + session.peer[0])
         return '250 Message accepted for delivery'

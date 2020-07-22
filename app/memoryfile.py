@@ -2,7 +2,6 @@ import io  # https://docs.python.org/3/library/allos.html
 import os  # for os.path.isfile
 import hashlib  # https://docs.python.org/3/library/hashlib.html
 from app.virustotal import virustotalfile  # Check out virustotal.py
-from datetime import datetime
 import app.cfg
 
 
@@ -40,12 +39,3 @@ def inmemoryfile(filecontents):
             filename.close()  # closing is important.
             virustotalfile(shahash)  # Send the file to my virustotal script
             memoryfile.close()  # closing is important.
-
-
-def loggingaddresses(sessionpeer, mailfrom, mailto):  # Logging connections to a csv file
-    nowdate = datetime.now().strftime("%Y-%m-%d %H:%M:%S")  # What date and time.
-    loggingfile = open("../logs/logging.csv", "a+")
-    # Opening logs/logging.csv in append mode.
-    loggingfile.write(sessionpeer + "," + mailfrom + "," + mailto + "," + str(nowdate) + "\n")
-    # Logging, IP, From, To, and the Date
-    loggingfile.close()
