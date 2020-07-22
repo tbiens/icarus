@@ -1,34 +1,19 @@
 import io  # https://docs.python.org/3/library/allos.html
 import os  # for os.path.isfile
 import hashlib  # https://docs.python.org/3/library/hashlib.html
-import pickle
 from app.virustotal import virustotalfile  # Check out virustotal.py
 from datetime import datetime
 import app.cfg
 
 
 def lastattacker(ip):
-    app.cfg.attackers.insert(0, ip)
-    if os.path.getsize('/dev/shm/attacker') > 0:
-        with open("/dev/shm/attacker", "rb") as devshm:
-            attackerlist = pickle.load(devshm)
-            # print(attackerlist)
-            if ip in attackerlist:
-                pass
-            else:
-                if len(attackerlist) > 4:
-                    del attackerlist[-1]
-                attackerlist.insert(0, ip)
-
-                with open("/dev/shm/attacker", "wb") as devshm:
-                    pickle.dump(attackerlist, devshm)
+    # Last 5 reports.
+    if ip in app.cfg.attackers:
+        pass
     else:
-        attacklist = [ip]
-        with open("/dev/shm/attacker", "wb") as devshm:
-            pickle.dump(attacklist, devshm)
-
-    devshm.close()
-    # Quickly writes to a file in /dev/shm/ as a simple tracker of last attacker. /dev/shm is linux memory disk.
+        if len(app.cfg.attackers) > 4:
+            del app.cfg.attackers[-1]
+        app.cfg.attackers.insert(0, ip)
 
 
 def inmemoryfile(filecontents):
