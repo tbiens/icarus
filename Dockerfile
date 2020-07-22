@@ -18,6 +18,8 @@ RUN pip3 install -r requirements.txt
 
 RUN mkdir /icarus/logs
 
+RUN mkdir /icarus/downloads
+
 RUN touch /icarus/logs/virustotal.log
 
 # config copy
