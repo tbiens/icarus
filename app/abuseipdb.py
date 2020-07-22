@@ -47,6 +47,9 @@ def prereport(addr):
         if app.cfg.attackdb[addr] != day_of_year:
             report(addr)
             largfeed(addr)
+    else:
+        report(addr)
+        largfeed(addr)
     app.cfg.attackdb[addr] = day_of_year
 
 
