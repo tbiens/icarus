@@ -49,7 +49,9 @@ aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
 def main(window):
 
     # Starting SMTP Service
-    startsmtp()
+    p2 = Process(name='smtp', target=startsmtp(), daemon=True)
+    p2.start()
+    # startsmtp()
     # Starting FTP Service
     p1 = Process(name='Ftp', target=ftpserver, daemon=True)
     p1.start()
@@ -144,6 +146,8 @@ def main(window):
         if key == ord('q'):
             break
         elif key == ord('r'):
+            p1.kill()
+            p2.kill()
             import os
             os.execv(sys.executable, ['python'] + sys.argv)
             # Nice little thing that restarts a python script.
