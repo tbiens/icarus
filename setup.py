@@ -146,8 +146,8 @@ def main(window):
         if key == ord('q'):
             break
         elif key == ord('r'):
-            p1.kill()
-            p2.kill()
+            p1.terminate()
+            p2.terminate()
             import os
             os.execv(sys.executable, ['python'] + sys.argv)
             # Nice little thing that restarts a python script.
