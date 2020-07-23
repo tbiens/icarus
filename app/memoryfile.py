@@ -6,6 +6,7 @@ import app.cfg
 
 
 def lastattacker(ip):
+    app.cfg.numattacks['num'] = app.cfg.numattacks['num'] + 1
     # Last 5 reports.
     if ip in app.cfg.attackers:
         pass
