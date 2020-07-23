@@ -49,7 +49,7 @@ aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
 def main(window):
 
     # Starting SMTP Service
-    p2 = Process(name='smtp', target=startsmtp(), daemon=True)
+    p2 = Process(name='smtp', target=startsmtp, daemon=True)
     p2.start()
     # startsmtp()
     # Starting FTP Service
