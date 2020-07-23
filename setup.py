@@ -149,7 +149,7 @@ def main(window):
             p1.terminate()
             p2.terminate()
             import os
-            os.execv(sys.executable, ['python'] + sys.argv)
+            os.execv(sys.executable, ['python3'] + sys.argv)
             # Nice little thing that restarts a python script.
         elif key == ord('p'):
             editor()  # from editor.py, opens your system editor.
