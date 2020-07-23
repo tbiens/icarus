@@ -132,7 +132,7 @@ def main(window):
         for num, port in enumerate(wrapdynudp, start=1):
             w.addstr((num + 6), 0, "{}".format(port))
 
-        w.addstr(12, 0, "Attacks: " + app.cfg.numattacks['num'])
+        w.addstr(12, 0, "Attacks: " + str(app.cfg.numattacks['num']))
         w.addstr(13, 0, "Last 5 Attackers: ", curses.color_pair(3))
         if app.cfg.attackers:
             for num, address in enumerate(app.cfg.attackers, start=1):
