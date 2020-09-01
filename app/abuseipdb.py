@@ -70,7 +70,7 @@ def largfeed():
                 sock.connect((HOST, PORT))
                 if app.cfg.largfeedqueue:
                     addr = app.cfg.largfeedqueue.pop()
-                sock.sendall(bytes(addr + "\n", "utf-8"))
+                    sock.sendall(bytes(addr + "\n", "utf-8"))
             time.sleep(5)
         except socket.timeout:
             time.sleep(60)
