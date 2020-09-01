@@ -1,6 +1,7 @@
 import configparser  # https://docs.python.org/3/library/configparser.html
 import requests  # https://developers.virustotal.com/v2.0/reference#file-scan
 import socket
+import time
 from datetime import datetime
 import app.cfg
 
@@ -46,28 +47,30 @@ def prereport(addr):
     if addr in app.cfg.attackdb:
         if app.cfg.attackdb[addr] != day_of_year:
             report(addr)
-            largfeed(addr)
+            app.cfg.largfeedqueue.append(addr)
     else:
         report(addr)
-        largfeed(addr)
+        app.cfg.largfeedqueue.append(addr)
     app.cfg.attackdb[addr] = day_of_year
 
 
-def largfeed(addr):
+def largfeed():
     config = configparser.ConfigParser()
     config.read('icarus.config')
-    largfeedon = config['LARGFEED']['Largfeed']
     largfeedserver = config['LARGFEED']['Server']
     largfeedport = config['LARGFEED']['Port']
     # very straight forward open socket and send bytes data.
-    if largfeedon != "no":
-        HOST = largfeedserver
-        PORT = int(largfeedport)
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
-            sock.connect((HOST, PORT))
-            sock.sendall(bytes(addr + "\n", "utf-8"))
 
+    while True:
+        try:
+            HOST = largfeedserver
+            PORT = int(largfeedport)
 
-
-
-
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+                sock.connect((HOST, PORT))
+                if app.cfg.largfeedqueue:
+                    addr = app.cfg.largfeedqueue.pop()
+                sock.sendall(bytes(addr + "\n", "utf-8"))
+            time.sleep(5)
+        except socket.timeout:
+            time.sleep(60)
