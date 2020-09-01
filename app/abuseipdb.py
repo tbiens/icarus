@@ -43,11 +43,12 @@ def report(ip):
 def prereport(addr):
 
     day_of_year = datetime.now().timetuple().tm_yday
-
+    # If we already have the address but no attack today. Report.
     if addr in app.cfg.attackdb:
         if app.cfg.attackdb[addr] != day_of_year:
             report(addr)
             app.cfg.largfeedqueue.append(addr)
+    # If we don't have the address at all. Report.
     else:
         report(addr)
         app.cfg.largfeedqueue.append(addr)
