@@ -11,6 +11,7 @@ from app.editor import editor
 from app.udp import runudp
 from app.tcp import runtcp
 from app.ftp import ftpserver
+from app.abuseipdb import largfeed
 import app.cfg
 
 
@@ -55,6 +56,10 @@ def main(window):
     # Starting FTP Service
     p1 = Process(name='Ftp', target=ftpserver, daemon=True)
     p1.start()
+    # Largfeed Queue processor
+    if largfeedon != "no":
+        p3 = Process(name='largfeed', target=largfeed, daemon=True)
+        p3.start()
 
     # Dynamic low interaction port services.
 
