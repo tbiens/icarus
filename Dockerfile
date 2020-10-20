@@ -1,5 +1,7 @@
 FROM python:3.8-buster
 
+USER NOTROOT
+
 WORKDIR /icarus
 
 # Update aptitude with new repo
