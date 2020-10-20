@@ -2,6 +2,8 @@ FROM python:3.8-buster
 
 USER NOTROOT
 
+RUN groupadd -r NOTROOT && useradd --no-log-init -r -g NOTROOT NOTROOT
+
 WORKDIR /icarus
 
 # Update aptitude with new repo
