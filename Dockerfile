@@ -32,6 +32,8 @@ COPY setup.py .
 
 COPY icarus.config /icarus/
 
+RUN CHOWN NOTROOT -R /icarus/
+
 # running command
 
 USER NOTROOT
