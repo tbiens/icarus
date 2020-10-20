@@ -1,7 +1,5 @@
 FROM python:3.8-buster
 
-USER NOTROOT
-
 RUN groupadd -r NOTROOT && useradd --no-log-init -r -g NOTROOT NOTROOT
 
 WORKDIR /icarus
@@ -34,6 +32,10 @@ COPY setup.py .
 
 COPY icarus.config /icarus/
 
+RUN chown NOTROOT -R /icarus/
+
 # running command
+
+USER NOTROOT
 
 CMD [ "python3", "/icarus/setup.py" ]
