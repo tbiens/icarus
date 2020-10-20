@@ -32,7 +32,7 @@ COPY setup.py .
 
 COPY icarus.config /icarus/
 
-RUN CHOWN NOTROOT -R /icarus/
+RUN chown NOTROOT -R /icarus/
 
 # running command
 
