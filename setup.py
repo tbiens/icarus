@@ -3,7 +3,6 @@ import socket
 import sys
 import configparser  # https://docs.python.org/3/library/configparser.html
 import aiosmtpd.smtp
-import textwrap
 from multiprocessing import Process, active_children
 # Below are my functions.
 from app.smtp import startsmtp
@@ -12,7 +11,6 @@ from app.udp import runudp
 from app.tcp import runtcp
 from app.ftp import ftpserver
 from app.abuseipdb import largfeed
-import app.cfg
 
 
 def get_ip_address():
@@ -75,7 +73,7 @@ def main(window):
         s = curses.initscr()
         curses.curs_set(0)
         curses.noecho()
-        curses.napms(3000)
+        curses.napms(500)
         # Pretty standard configs. I have the curses refresh set to 3 seconds.
         # https://docs.python.org/3.5/library/curses.html#module-curses
         curses.start_color()
@@ -109,41 +107,41 @@ def main(window):
         w.addstr(0, 0, "ICARUS HONEYPOT", curses.color_pair(1))
         w.addstr(2, 0, "Dynamic TCP Ports:")
 
-        childrens = active_children()
-        dynports = []
-        for x in childrens:
-            dynports.append(str(x))
-        dyn_tcp = []
-        dyn_udp = []
-
-        for dport in dynports:
-            if 'DynamicTCP' in dport:
-                port = dport.split()
-                dyn_tcp.append(port[2])
-            if 'DynamicUDP' in dport:
-                port = dport.split()
-                dyn_udp.append(port[2])
-        dyn_tcp.sort()
-        dyn_udp.sort()
-
-        dyn_tcp_str = ' '.join(str(elem) for elem in dyn_tcp)
-
-        wrapdyntcp = textwrap.wrap(str(dyn_tcp_str).replace('[', '').replace(']', '').replace("'", ''), width=40)
-        for num, port in enumerate(wrapdyntcp, start=1):
-            w.addstr((num + 2), 0, "{}".format(port))
-
-        w.addstr(6, 0, "Dynamic UDP Ports:")
-        dyn_udp_str = ' '.join(str(elem) for elem in dyn_udp)
-
-        wrapdynudp = textwrap.wrap(str(dyn_udp_str).replace('[', '').replace(']', '').replace("'", ''), width=40)
-        for num, port in enumerate(wrapdynudp, start=1):
-            w.addstr((num + 6), 0, "{}".format(port))
-
-        w.addstr(12, 0, "Attacks: " + str(app.cfg.numattacks['num']))
-        w.addstr(13, 0, "Last 5 Attackers: ", curses.color_pair(3))
-        if app.cfg.attackers:
-            for num, address in enumerate(app.cfg.attackers, start=1):
-                w.addstr((num + 13), 0, "{}".format(address))
+        # childrens = active_children()
+        # dynports = []
+        # for x in childrens:
+        #     dynports.append(str(x))
+        # dyn_tcp = []
+        # dyn_udp = []
+        #
+        # for dport in dynports:
+        #     if 'DynamicTCP' in dport:
+        #         port = dport.split()
+        #         dyn_tcp.append(port[2])
+        #     if 'DynamicUDP' in dport:
+        #         port = dport.split()
+        #         dyn_udp.append(port[2])
+        # dyn_tcp.sort()
+        # dyn_udp.sort()
+        #
+        # dyn_tcp_str = ' '.join(str(elem) for elem in dyn_tcp)
+        #
+        # wrapdyntcp = textwrap.wrap(str(dyn_tcp_str).replace('[', '').replace(']', '').replace("'", ''), width=40)
+        # for num, port in enumerate(wrapdyntcp, start=1):
+        #     w.addstr((num + 2), 0, "{}".format(port))
+        #
+        # w.addstr(6, 0, "Dynamic UDP Ports:")
+        # dyn_udp_str = ' '.join(str(elem) for elem in dyn_udp)
+        #
+        # wrapdynudp = textwrap.wrap(str(dyn_udp_str).replace('[', '').replace(']', '').replace("'", ''), width=40)
+        # for num, port in enumerate(wrapdynudp, start=1):
+        #     w.addstr((num + 6), 0, "{}".format(port))
+        #
+        # w.addstr(12, 0, "Attacks: " + str(app.cfg.numattacks['num']))
+        # w.addstr(13, 0, "Last 5 Attackers: ", curses.color_pair(3))
+        # if app.cfg.attackers:
+        #     for num, address in enumerate(app.cfg.attackers, start=1):
+        #         w.addstr((num + 13), 0, "{}".format(address))
 
         w.refresh()
 
