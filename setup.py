@@ -107,7 +107,7 @@ def main(window):
         w.addstr(19, 51, "Press Q to quit.", curses.color_pair(1))
 
         w.addstr(0, 0, "ICARUS HONEYPOT", curses.color_pair(1))
-        w.addstr(2, 0, "Dynamic TCP Ports:")
+        # w.addstr(2, 0, "Dynamic TCP Ports:")
 
         # childrens = active_children()
         # dynports = []
