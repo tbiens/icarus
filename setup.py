@@ -3,6 +3,7 @@ import socket
 import sys
 import configparser  # https://docs.python.org/3/library/configparser.html
 import aiosmtpd.smtp
+import textwrap
 from multiprocessing import Process, active_children
 # Below are my functions.
 from app.smtp import startsmtp
@@ -11,6 +12,7 @@ from app.udp import runudp
 from app.tcp import runtcp
 from app.ftp import ftpserver
 from app.abuseipdb import largfeed
+import app.cfg
 
 
 def get_ip_address():
@@ -137,11 +139,11 @@ def main(window):
         # for num, port in enumerate(wrapdynudp, start=1):
         #     w.addstr((num + 6), 0, "{}".format(port))
         #
-        # w.addstr(12, 0, "Attacks: " + str(app.cfg.numattacks['num']))
-        # w.addstr(13, 0, "Last 5 Attackers: ", curses.color_pair(3))
-        # if app.cfg.attackers:
-        #     for num, address in enumerate(app.cfg.attackers, start=1):
-        #         w.addstr((num + 13), 0, "{}".format(address))
+        w.addstr(12, 0, "Attacks: " + str(app.cfg.numattacks['num']))
+        w.addstr(13, 0, "Last 5 Attackers: ", curses.color_pair(3))
+        if app.cfg.attackers:
+            for num, address in enumerate(app.cfg.attackers, start=1):
+                w.addstr((num + 13), 0, "{}".format(address))
 
         w.refresh()
 
