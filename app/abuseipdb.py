@@ -75,3 +75,6 @@ def largfeed():
             time.sleep(5)
         except socket.timeout:
             time.sleep(60)
+
+        except socket.error:
+            time.sleep(60)
