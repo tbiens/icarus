@@ -16,6 +16,10 @@ There are many awesome honeypots: https://github.com/paralax/awesome-honeypots
 
 **Docker**
 
+On a fresh minimalist Ubuntu server 20.04 LTS install only 'apt install docker.io' is needed. 
+You may use any distro for your docker host.
+API keys for AbuseIPDB and virustotal is recommended.
+
 git clone https://github.com/tbiens/icarus.git
 
 nano icarus.config #change this config with your API keys
