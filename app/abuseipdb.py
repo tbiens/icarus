@@ -5,15 +5,18 @@ import time
 from datetime import datetime
 import app.cfg
 
+config = configparser.ConfigParser()
+config.read('icarus.config')
+abuseip = config['IPDBAPI']['AbuseIPDB']
+apikey = config['IPDBAPI']['IPDBAPI']
+largfeedserver = config['LARGFEED']['Server']
+largfeedport = config['LARGFEED']['Port']
+
 
 def abuseipdb(sessionpeer, mailfrom, mailto):
-    config = configparser.ConfigParser()
-    config.read('icarus.config')
-    abuseip = config['IPDBAPI']['AbuseIPDB']
-    apikey = config['IPDBAPI']['IPDBAPI']
     # using configparser to pull the apikey details for abuseipdb.
     headers = {'Key': apikey, 'Accept': 'application/json', }
-    data = {'categories': '11', 'ip': sessionpeer, 'comment': 'Icarus Smtp honeypot github'}
+    data = {'categories': '11, 15', 'ip': sessionpeer, 'comment': 'Icarus Smtp honeypot github'}
     # this is the API. https://docs.abuseipdb.com/#report-endpoint
 
     if abuseip != "no":  # checking if abuseipdb is enabled. Disabled by default.
@@ -24,13 +27,9 @@ def abuseipdb(sessionpeer, mailfrom, mailto):
 
 
 def report(ip):
-    config = configparser.ConfigParser()
-    config.read('icarus.config')
-    abuseip = config['IPDBAPI']['AbuseIPDB']
-    apikey = config['IPDBAPI']['IPDBAPI']
     # using configparser to pull the apikey details for abuseipdb.
     headers = {'Key': apikey, 'Accept': 'application/json', }
-    data = {'categories': '15', 'ip': ip, 'comment': 'Icarus honeypot on github'}
+    data = {'categories': '14, 15', 'ip': ip, 'comment': 'Icarus honeypot on github by %s' % ip}
     # this is the API. https://docs.abuseipdb.com/#report-endpoint
 
     if abuseip != "no":  # checking if abuseipdb is enabled. Disabled by default.
@@ -56,10 +55,6 @@ def prereport(addr):
 
 
 def largfeed():
-    config = configparser.ConfigParser()
-    config.read('icarus.config')
-    largfeedserver = config['LARGFEED']['Server']
-    largfeedport = config['LARGFEED']['Port']
     # very straight forward open socket and send bytes data.
 
     while True:
