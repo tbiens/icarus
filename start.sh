@@ -1,7 +1,13 @@
 #!/bin/bash
 clear
 
-if ! command -v tmux docker &> /dev/null
+if ! command -v tmux &> /dev/null
+then
+  echo 'Error: Tmux and Docker must be installed'
+  exit
+fi
+
+if ! command -v docker &> /dev/null
 then
   echo 'Error: Tmux and Docker must be installed'
   exit
