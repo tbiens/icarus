@@ -14,7 +14,7 @@ then
 fi
 
 docker build -t icarus .
-tmux -c docker run -a stdin -a stdout -it \
+tmux docker run -a stdin -a stdout -it \
 -p 21:2021/tcp -p 22:2022/tcp -p 23:2023/tcp \
 -p 25:2025/tcp -p 110:20110/tcp -p 111:20111/tcp \
 -p 135:20135/tcp -p 139:20139/tcp -p 143:20143/tcp \
