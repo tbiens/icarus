@@ -26,10 +26,10 @@ def abuseipdb(sessionpeer, mailfrom, mailto):
             abusepost = requests.post(url, headers=headers, data=data)
 
 
-def report(ip):
+def report(ip, port):
     # using configparser to pull the apikey details for abuseipdb.
     headers = {'Key': apikey, 'Accept': 'application/json', }
-    data = {'categories': '14, 15', 'ip': ip, 'comment': '%s triggered Icarus honeypot. Check us out on github.' % ip}
+    data = {'categories': '14, 15', 'ip': ip, 'comment': '%s triggered Icarus honeypot on port %s. Check us out on github.' % (ip, port, )}
     # this is the API. https://docs.abuseipdb.com/#report-endpoint
 
     if abuseip != "no":  # checking if abuseipdb is enabled. Disabled by default.
@@ -39,17 +39,17 @@ def report(ip):
             abusepost = requests.post(url, headers=headers, data=data)
 
 
-def prereport(addr):
+def prereport(addr, port):
 
     day_of_year = datetime.now().timetuple().tm_yday
     # If we already have the address but no attack today. Report.
     if addr in app.cfg.attackdb:
         if app.cfg.attackdb[addr] != day_of_year:
-            report(addr)
+            report(addr, port)
             app.cfg.largfeedqueue.append(addr)
     # If we don't have the address at all. Report.
     else:
-        report(addr)
+        report(addr, port)
         app.cfg.largfeedqueue.append(addr)
     app.cfg.attackdb[addr] = day_of_year
 

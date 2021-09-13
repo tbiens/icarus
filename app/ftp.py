@@ -10,7 +10,7 @@ from app.abuseipdb import prereport
 class MyHandler(FTPHandler):
 
     def on_connect(self):
-        prereport(self.remote_ip)
+        prereport(self.remote_ip, "21")
 
     def on_file_received(self, file):
         # do something when a file has been received
