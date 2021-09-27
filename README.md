@@ -20,8 +20,12 @@ On a fresh minimalist Ubuntu server 20.04 LTS install only 'apt install docker.i
 You may use any distro for your docker host.
 API keys for AbuseIPDB and virustotal is recommended.
 
+```
 git clone https://github.com/tbiens/icarus.git
+
+cd icarus
 
 nano icarus.config #change this config with your API keys
 
-bash start.sh
+sudo bash start.sh
+```
