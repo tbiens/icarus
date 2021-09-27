@@ -29,6 +29,7 @@ def abuseipdb(sessionpeer, mailfrom, mailto):
 
 def report(ip, preport):
     # Docker NAT reports wrong port.
+    prenatport = preport.strip()
     natports = {
         "2021": "21",
         "2022": "22",
@@ -48,7 +49,7 @@ def report(ip, preport):
         "5600": "5600",
         "5900": "5900"
     }
-    port = natports[preport]
+    port = natports[prenatport]
 
     # using configparser to pull the apikey details for abuseipdb.
     headers = {'Key': apikey, 'Accept': 'application/json', }
