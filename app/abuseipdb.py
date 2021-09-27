@@ -16,7 +16,8 @@ largfeedport = config['LARGFEED']['Port']
 def abuseipdb(sessionpeer, mailfrom, mailto):
     # using configparser to pull the apikey details for abuseipdb.
     headers = {'Key': apikey, 'Accept': 'application/json', }
-    data = {'categories': '11, 15', 'ip': sessionpeer, 'comment': '%s triggered Icarus Smtp honeypot. Check us out on github' % sessionpeer}
+    data = {'categories': '11, 15', 'ip': sessionpeer,
+            'comment': '%s triggered Icarus Smtp honeypot. Check us out on github' % sessionpeer}
     # this is the API. https://docs.abuseipdb.com/#report-endpoint
 
     if abuseip != "no":  # checking if abuseipdb is enabled. Disabled by default.
@@ -26,10 +27,33 @@ def abuseipdb(sessionpeer, mailfrom, mailto):
             abusepost = requests.post(url, headers=headers, data=data)
 
 
-def report(ip, port):
+def report(ip, preport):
+    # Docker NAT reports wrong port.
+    natports = {
+        "2021": "21",
+        "2022": "22",
+        "2023": "23",
+        "2205": "25",
+        "20110": "110",
+        "20111": "111",
+        "20135": "135",
+        "20139": "139",
+        "20143": "143",
+        "20161": "161",
+        "20445": "445",
+        "1433": "1433",
+        "1723": "1723",
+        "3306": "3306",
+        "3389": "3389",
+        "5600": "5600",
+        "5900": "5900"
+    }
+    port = natports[preport]
+
     # using configparser to pull the apikey details for abuseipdb.
     headers = {'Key': apikey, 'Accept': 'application/json', }
-    data = {'categories': '14, 15', 'ip': ip, 'comment': '%s triggered Icarus honeypot on port %s. Check us out on github.' % (ip, port, )}
+    data = {'categories': '14, 15', 'ip': ip,
+            'comment': '%s triggered Icarus honeypot on port %s. Check us out on github.' % (ip, port,)}
     # this is the API. https://docs.abuseipdb.com/#report-endpoint
 
     if abuseip != "no":  # checking if abuseipdb is enabled. Disabled by default.
@@ -40,7 +64,6 @@ def report(ip, port):
 
 
 def prereport(addr, port):
-
     day_of_year = datetime.now().timetuple().tm_yday
     # If we already have the address but no attack today. Report.
     if addr in app.cfg.attackdb:
