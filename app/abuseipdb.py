@@ -2,6 +2,7 @@ import configparser  # https://docs.python.org/3/library/configparser.html
 import requests  # https://developers.virustotal.com/v2.0/reference#file-scan
 import socket
 import time
+import ipaddress
 from datetime import datetime
 import app.cfg
 
@@ -11,6 +12,22 @@ abuseip = config['IPDBAPI']['AbuseIPDB']
 apikey = config['IPDBAPI']['IPDBAPI']
 largfeedserver = config['LARGFEED']['Server']
 largfeedport = config['LARGFEED']['Port']
+
+
+def checkwhitelist(ipaddr):
+    # We wont add our own ips or select others.
+    register = 0
+    if ipaddr:
+        sipaddr = ipaddr.strip()
+        for subnet in app.cfg.whitelist:
+            if ipaddress.IPv4Address(sipaddr) not in ipaddress.IPv4Network(subnet):
+                register += 1
+            else:
+                # log2console("IP in whitelist: " + sipaddr)
+                pass
+        if register == len(app.cfg.whitelist):
+            # print(register)
+            return 1
 
 
 def abuseipdb(sessionpeer, mailfrom, mailto):
@@ -80,6 +97,16 @@ def prereport(addr, port):
 
 def largfeed():
     # very straight forward open socket and send bytes data.
+    # TODO API Key
+
+    whitelisturl = "http://" + largfeedserver + "/whitelist.txt"
+    wlu = requests.get(whitelisturl)
+    for whitelistline in wlu.text.split('\n'):
+        if whitelistline:
+            if str("#") in whitelistline:
+                pass
+            else:
+                app.cfg.whitelist.append(whitelistline)
 
     while True:
         try:
@@ -90,7 +117,10 @@ def largfeed():
                 if len(app.cfg.largfeedqueue) >= 1:
                     sock.connect((HOST, PORT))
                     addr = app.cfg.largfeedqueue.pop()
-                    sock.sendall(bytes(addr + "\n", "utf-8"))
+                    if checkwhitelist(addr):
+                        pass
+                    else:
+                        sock.sendall(bytes(addr + "\n", "utf-8"))
             time.sleep(5)
         except socket.timeout:
             time.sleep(60)
