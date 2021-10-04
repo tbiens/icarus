@@ -118,10 +118,10 @@ def largfeed():
 
                     addr = app.cfg.largfeedqueue.pop()
                     if checkwhitelist(addr):
-                        pass
-                    else:
                         sock.connect((HOST, PORT))
                         sock.sendall(bytes(addr + "\n", "utf-8"))
+                    else:
+                        pass
             time.sleep(5)
         except socket.timeout:
             time.sleep(60)
