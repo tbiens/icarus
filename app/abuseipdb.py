@@ -86,8 +86,12 @@ def prereport(addr, port):
     # If we already have the address but no attack today. Report.
     if addr in app.cfg.attackdb:
         if app.cfg.attackdb[addr] != day_of_year:
-            report(addr, port)
-            app.cfg.largfeedqueue.append(addr)
+            if checkwhitelist(addr):
+                report(addr, port)
+                app.cfg.largfeedqueue.append(addr)
+            else:
+                pass
+
     # If we don't have the address at all. Report.
     else:
         report(addr, port)
