@@ -17,12 +17,13 @@ def virustotalfile(filename):
     # This is just straight from virustotal link above
 
     attr = {"apikey": apikey}
-    files = {"file": open("downloads/" + filename, 'rb')}
-    viruspost = requests.post(url, data=attr, files=files)
-    # pretty much just the API
-    if virustotal != 'no': # virustotal disabled by default.
-        if apikey != "PUT API KEY HERE":
-            if viruspost.status_code == 200:
-                request = json.loads(viruspost.text)
-                # The code on the virustotal page is python2, this was a pain to figure out for python3
-                logging.warning(request["permalink"])
+    with open("downloads/" + filename, 'rb') as vtfile:
+        files = {"file": vtfile}
+        viruspost = requests.post(url, data=attr, files=files)
+        # pretty much just the API
+        if virustotal != 'no': # virustotal disabled by default.
+            if apikey != "PUT API KEY HERE":
+                if viruspost.status_code == 200:
+                    request = json.loads(viruspost.text)
+                    # The code on the virustotal page is python2, this was a pain to figure out for python3
+                    logging.warning(request["permalink"])

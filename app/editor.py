@@ -2,4 +2,4 @@ import click
 
 
 def editor():
-    message = click.edit(filename='./icarus.config')
+    click.edit(filename='./icarus.config')

@@ -21,6 +21,7 @@ def get_ip_address():
 
 
 IP = get_ip_address()
+app.cfg.ipaddress = IP
 # Found socket at https://docs.python.org/3/library/socket.html mostly just their code.
 
 config = configparser.ConfigParser()
@@ -46,8 +47,8 @@ udpports = config['PORTS']['udpports']
 aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
 
 
-def main(window):
-
+# pylint: disable=R0915
+def main():
     # Starting SMTP Service
     p2 = Process(name='smtp', target=startsmtp, daemon=True)
     p2.start()
@@ -118,7 +119,7 @@ def main(window):
         key = w.getch()
         if key == ord('q'):
             break
-        elif key == ord('r'):
+        if key == ord('r'):
             p1.terminate()
             p2.terminate()
             import os

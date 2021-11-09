@@ -28,9 +28,12 @@ def checkwhitelist(ipaddr):
         if register == len(app.cfg.whitelist):
             # print(register)
             return 1
+    return None
 
 
 def abuseipdb(sessionpeer, mailfrom, mailto):
+    del mailfrom  # unused var placeholder
+    del mailto  # unused var placeholder
     # using configparser to pull the apikey details for abuseipdb.
     headers = {'Key': apikey, 'Accept': 'application/json', }
     data = {'categories': '11, 15', 'ip': sessionpeer,
@@ -41,7 +44,7 @@ def abuseipdb(sessionpeer, mailfrom, mailto):
         url = "https://api.abuseipdb.com/api/v2/report"
 
         if apikey != "PUT API KEY HERE":
-            abusepost = requests.post(url, headers=headers, data=data)
+            requests.post(url, headers=headers, data=data)
 
 
 def report(ip, preport):
@@ -78,7 +81,7 @@ def report(ip, preport):
         url = "https://api.abuseipdb.com/api/v2/report"
 
         if apikey != "PUT API KEY HERE":
-            abusepost = requests.post(url, headers=headers, data=data)
+            requests.post(url, headers=headers, data=data)
 
 
 def prereport(addr, port):
@@ -114,15 +117,15 @@ def largfeed():
 
     while True:
         try:
-            HOST = largfeedserver
-            PORT = int(largfeedport)
+            host = largfeedserver
+            port = int(largfeedport)
 
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
                 if len(app.cfg.largfeedqueue) >= 1:
 
                     addr = app.cfg.largfeedqueue.pop()
                     if checkwhitelist(addr):
-                        sock.connect((HOST, PORT))
+                        sock.connect((host, port))
                         sock.sendall(bytes(addr + "\n", "utf-8"))
                     else:
                         pass
