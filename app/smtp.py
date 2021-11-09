@@ -5,7 +5,7 @@ from app.abuseipdb import abuseipdb
 from app.icarussyslog import syslogout
 from aiosmtpd.controller import Controller  # the controller that handles async smtp?
 
-
+# pylint: disable=R0801
 config = configparser.ConfigParser()
 config.read('icarus.config')
 if config['ADDRESSES']['IP'] == "auto":

@@ -14,7 +14,7 @@ import app.cfg
 
 
 # Found socket at https://docs.python.org/3/library/socket.html mostly just their code.
-
+# pylint: disable=R0801
 config = configparser.ConfigParser()
 config.read('icarus.config')
 if config['ADDRESSES']['IP'] == "auto":
@@ -38,7 +38,7 @@ udpports = config['PORTS']['udpports']
 aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
 
 
-# pylint: disable=R0915
+# pylint: disable=R0915, W0613
 def main(window):
     # Starting SMTP Service
     p2 = Process(name='smtp', target=startsmtp, daemon=True)
