@@ -39,7 +39,7 @@ aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
 
 
 # pylint: disable=R0915
-def main():
+def main(window):
     # Starting SMTP Service
     p2 = Process(name='smtp', target=startsmtp, daemon=True)
     p2.start()
