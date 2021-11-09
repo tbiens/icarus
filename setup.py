@@ -13,7 +13,6 @@ from app.abuseipdb import largfeed
 import app.cfg
 
 
-# Found socket at https://docs.python.org/3/library/socket.html mostly just their code.
 # pylint: disable=R0801
 config = configparser.ConfigParser()
 config.read('icarus.config')
