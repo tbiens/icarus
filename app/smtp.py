@@ -7,7 +7,7 @@ from app.icarussyslog import syslogout
 from aiosmtpd.controller import Controller  # the controller that handles async smtp?
 
 
-IP = app.cfg.ipaddress[0]
+# IP = app.cfg.ipaddress[0]
 # Found socket at https://docs.python.org/3/library/socket.html mostly just their code.
 
 
@@ -39,6 +39,6 @@ class smtphoney:
 
 
 def startsmtp():
-    controller = Controller(smtphoney(), hostname=IP, port=smtpport)
+    controller = Controller(smtphoney(), hostname=IP, port=int(smtpport))
     # It calls the class below as my handler, the hostname sets the ip, I set the SMTP port to 25 obviously
     controller.start()
