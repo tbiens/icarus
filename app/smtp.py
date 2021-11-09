@@ -1,9 +1,10 @@
-import configparser
+"""smtp module to accept attachments. only reports the first attachment to virustotal"""
 
+import configparser
+from aiosmtpd.controller import Controller  # the controller that handles async smtp?
 from app.memoryfile import inmemoryfile
 from app.abuseipdb import abuseipdb
 from app.icarussyslog import syslogout
-from aiosmtpd.controller import Controller  # the controller that handles async smtp?
 
 # pylint: disable=R0801
 config = configparser.ConfigParser()
@@ -15,18 +16,22 @@ else:
 smtpport = config['ADDRESSES']['SMTPPort']
 
 
-class smtphoney:
-    # pylint: disable=R0201, R0913
+class SMTPHoney:
+    """SMTP async class"""
+    # pylint: disable=R0201, R0913, C0103
     async def handle_RCPT(self, server, session, envelope, address, rcpt_options):
+        """async documentation"""
         del server  # unused placeholder var
         del rcpt_options  # unused placeholder var
-        abuseipdb(session.peer[0], envelope.mail_from, address)  # check abuseipdb.py for this function.
+        # check abuseipdb.py for this function.
+        abuseipdb(session.peer[0], envelope.mail_from, address)
         envelope.rcpt_tos.append(address)
         return '250 OK'
         # straight out of documentation
 
-    # pylint: disable=R0201
+    # pylint: disable=R0201, C0103
     async def handle_DATA(self, server, session, envelope):
+        """async documentation"""
         del server  # unused placeholder var
         inmemoryfile(envelope.content.decode('utf8', errors='replace'))  # A function I made in memoryfile.py
         syslogout("Attack: IP:" + session.peer[0])
@@ -34,6 +39,7 @@ class smtphoney:
 
 
 def startsmtp():
-    controller = Controller(smtphoney(), hostname=IP, port=int(smtpport))
+    """ async controller"""
+    controller = Controller(SMTPHoney(), hostname=IP, port=int(smtpport))
     # It calls the class below as my handler, the hostname sets the ip, I set the SMTP port to 25 obviously
     controller.start()

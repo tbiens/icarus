@@ -1,9 +1,13 @@
+"""
+Contains functions to report to abuseipdb api.
+"""
+
 import configparser  # https://docs.python.org/3/library/configparser.html
-import requests  # https://developers.virustotal.com/v2.0/reference#file-scan
 import socket
 import time
 import ipaddress
 from datetime import datetime
+import requests  # https://developers.virustotal.com/v2.0/reference#file-scan
 import app.cfg
 
 config = configparser.ConfigParser()
@@ -15,7 +19,7 @@ largfeedport = config['LARGFEED']['Port']
 
 
 def checkwhitelist(ipaddr):
-    # We wont add our own ips or select others.
+    """We wont add our own ips or select others."""
     register = 0
     if ipaddr:
         sipaddr = ipaddr.strip()
@@ -32,12 +36,13 @@ def checkwhitelist(ipaddr):
 
 
 def abuseipdb(sessionpeer, mailfrom, mailto):
+    """Function to send to abuseipdb"""
     del mailfrom  # unused var placeholder
     del mailto  # unused var placeholder
     # using configparser to pull the apikey details for abuseipdb.
     headers = {'Key': apikey, 'Accept': 'application/json', }
     data = {'categories': '11, 15', 'ip': sessionpeer,
-            'comment': '%s triggered Icarus Smtp honeypot. Check us out on github' % sessionpeer}
+            'comment': f'{sessionpeer} triggered Icarus Smtp honeypot. Check us out on github'}
     # this is the API. https://docs.abuseipdb.com/#report-endpoint
 
     if abuseip != "no":  # checking if abuseipdb is enabled. Disabled by default.
@@ -47,8 +52,8 @@ def abuseipdb(sessionpeer, mailfrom, mailto):
             requests.post(url, headers=headers, data=data)
 
 
-def report(ip, preport):
-    # Docker NAT reports wrong port.
+def report(ipaddr, preport):
+    """Function to send to abuseipdb. Docker NAT reports wrong port."""
     prenatport = preport.strip()
     natports = {
         "2021": "21",
@@ -73,8 +78,8 @@ def report(ip, preport):
 
     # using configparser to pull the apikey details for abuseipdb.
     headers = {'Key': apikey, 'Accept': 'application/json', }
-    data = {'categories': '14, 15', 'ip': ip,
-            'comment': '%s triggered Icarus honeypot on port %s. Check us out on github.' % (ip, port,)}
+    data = {'categories': '14, 15', 'ip': ipaddr,
+            'comment': f'{ipaddr} triggered Icarus honeypot on port {port}. Check us out on github.'}
     # this is the API. https://docs.abuseipdb.com/#report-endpoint
 
     if abuseip != "no":  # checking if abuseipdb is enabled. Disabled by default.
@@ -85,6 +90,7 @@ def report(ip, preport):
 
 
 def prereport(addr, port):
+    """Processing reports to ensure we arent reporting ips too often."""
     day_of_year = datetime.now().timetuple().tm_yday
     # If we already have the address but no attack today. Report.
     if addr in app.cfg.attackdb:
@@ -103,8 +109,8 @@ def prereport(addr, port):
 
 
 def largfeed():
-    # very straight forward open socket and send bytes data.
-    # TODO API Key
+    """very straight forward open socket and send bytes data. Largfeed takes it from there."""
+    # TODO API Key and crypto
 
     whitelisturl = "http://" + largfeedserver + "/whitelist.txt"
     wlu = requests.get(whitelisturl)

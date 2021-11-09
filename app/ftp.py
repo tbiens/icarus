@@ -1,3 +1,5 @@
+"""ftp protocol is meant to accept files and upload to virustotal"""
+
 import os
 import hashlib
 from pyftpdlib.handlers import FTPHandler
@@ -8,6 +10,7 @@ from app.abuseipdb import prereport
 
 
 class MyHandler(FTPHandler):
+    """Mainly the pyftpd library"""
 
     def on_connect(self):
         prereport(self.remote_ip, "21")
@@ -36,6 +39,7 @@ class MyHandler(FTPHandler):
 
 
 def ftpserver():
+    """The function that opens a port."""
     authorizer = DummyAuthorizer()
     # authorizer.add_user('user', '12345', homedir='./downloads', perm='elradfmwMT')
     authorizer.add_anonymous(homedir='./downloads', perm="adfw")

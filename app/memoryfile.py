@@ -1,3 +1,5 @@
+"""creates files that are stored entirely in memory"""
+
 import io  # https://docs.python.org/3/library/allos.html
 import os  # for os.path.isfile
 import hashlib  # https://docs.python.org/3/library/hashlib.html
@@ -5,18 +7,20 @@ from app.virustotal import virustotalfile  # Check out virustotal.py
 import app.cfg
 
 
-def lastattacker(ip):
+def lastattacker(ipaddr):
+    """keeps track of the last 5 unique attackers."""
     app.cfg.numattacks['num'] = app.cfg.numattacks['num'] + 1
     # Last 5 reports.
-    if ip in app.cfg.attackers:
+    if ipaddr in app.cfg.attackers:
         pass
     else:
         if len(app.cfg.attackers) > 4:
             del app.cfg.attackers[-1]
-        app.cfg.attackers.insert(0, ip)
+        app.cfg.attackers.insert(0, ipaddr)
 
 
 def inmemoryfile(filecontents):
+    """ io.Stringio is a file stored in memory."""
     memoryfile = io.StringIO()
     memoryfile.write(filecontents)
     # This stores the file in memory. We limit email size to 30MB or so.

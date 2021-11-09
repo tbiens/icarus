@@ -1,9 +1,12 @@
+"""dynamic tcp service"""
+
 import socketserver  # https://docs.python.org/3.5/library/socketserver.html
 from app.abuseipdb import prereport
 from app.memoryfile import lastattacker
 
 
 class MyTCPHandler(socketserver.BaseRequestHandler):
+    """ socketserver class"""
     def handle(self):
         # self.request is the TCP socket connected to the client
         # self.data = self.request.recv(1024).strip()
@@ -13,7 +16,7 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
 
 
 def runtcp(port):
-
+    """run the socket server service"""
     host = "0.0.0.0"
     server = socketserver.TCPServer((host, port), MyTCPHandler)
     server.allow_reuse_address = True
