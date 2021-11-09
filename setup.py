@@ -1,5 +1,4 @@
 import curses
-import socket
 import sys
 import configparser  # https://docs.python.org/3/library/configparser.html
 import aiosmtpd.smtp
@@ -14,18 +13,12 @@ from app.abuseipdb import largfeed
 import app.cfg
 
 
-def get_ip_address():
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    s.connect(("8.8.8.8", 80))
-    app.cfg.ipaddress.append(s.getsockname()[0])
-
-
 # Found socket at https://docs.python.org/3/library/socket.html mostly just their code.
 
 config = configparser.ConfigParser()
 config.read('icarus.config')
 if config['ADDRESSES']['IP'] == "auto":
-    IP = app.cfg.ipaddress[0]
+    IP = "0.0.0.0"
 else:
     IP = config['ADDRESSES']['IP']
 smtpport = config['ADDRESSES']['SMTPPort']

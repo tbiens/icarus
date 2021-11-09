@@ -1,20 +1,15 @@
 import configparser
 
-import app.cfg
 from app.memoryfile import inmemoryfile
 from app.abuseipdb import abuseipdb
 from app.icarussyslog import syslogout
 from aiosmtpd.controller import Controller  # the controller that handles async smtp?
 
 
-# IP = app.cfg.ipaddress[0]
-# Found socket at https://docs.python.org/3/library/socket.html mostly just their code.
-
-
 config = configparser.ConfigParser()
 config.read('icarus.config')
 if config['ADDRESSES']['IP'] == "auto":
-    IP = app.cfg.ipaddress[0]
+    IP = "0.0.0.0"
 else:
     IP = config['ADDRESSES']['IP']
 smtpport = config['ADDRESSES']['SMTPPort']
