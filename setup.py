@@ -3,7 +3,7 @@ import socket
 import sys
 import configparser  # https://docs.python.org/3/library/configparser.html
 import aiosmtpd.smtp
-from multiprocessing import Process, active_children
+from multiprocessing import Process
 # Below are my functions.
 from app.smtp import startsmtp
 from app.editor import editor
