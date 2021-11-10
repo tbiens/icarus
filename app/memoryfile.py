@@ -37,10 +37,13 @@ def inmemoryfile(filecontents):
         shahash = hashlib.sha256(attachment.encode()).hexdigest()
         # read() the file, then you need to convert it to bytes with encode, then hexdigest cleans up
         if os.path.isfile("./downloads/" + shahash):
-            print("Already have this attachment")  # checking if I have already received that file
+            print("Already have this attachment")
+            # checking if I have already received that file
         else:
-            with open("downloads/" + shahash, "w+", encoding="utf8") as filename:  # open sha256 named file
-                filename.write(attachment)  # Reading the memoryfile into the actual file being written to disk.
+            with open("downloads/" + shahash, "w+", encoding="utf8") as filename:
+                # open sha256 named file
+                filename.write(attachment)
+                # Reading the memoryfile into the actual file being written to disk.
             filename.close()  # closing is important.
             virustotalfile(shahash)  # Send the file to my virustotal script
             memoryfile.close()  # closing is important.

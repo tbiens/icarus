@@ -33,7 +33,8 @@ class SMTPHoney:
     async def handle_DATA(self, server, session, envelope):
         """async documentation"""
         del server  # unused placeholder var
-        inmemoryfile(envelope.content.decode('utf8', errors='replace'))  # A function I made in memoryfile.py
+        inmemoryfile(envelope.content.decode('utf8', errors='replace'))
+        # A function I made in memoryfile.py
         syslogout("Attack: IP:" + session.peer[0])
         return '250 Message accepted for delivery'
 
@@ -41,5 +42,5 @@ class SMTPHoney:
 def startsmtp():
     """ async controller"""
     controller = Controller(SMTPHoney(), hostname=IP, port=int(smtpport))
-    # It calls the class below as my handler, the hostname sets the ip, I set the SMTP port to 25 obviously
+    # It calls the class below as my handler.
     controller.start()
