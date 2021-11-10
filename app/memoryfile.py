@@ -33,9 +33,9 @@ def inmemoryfile(filecontents):
         # emails have a bunch of stuff in it, I'm splitting the attachment off.
         attachment = beforeboundary.split('--boundary')[0]
 
-        # there was a tiny bit of text after the attachment that was screwing up the sha256
+        # there was a tiny bit of text after the attachment
         shahash = hashlib.sha256(attachment.encode()).hexdigest()
-        # read() the file, then you need to convert it to bytes with encode, then hexdigest cleans up
+        # read() the file, then you need to convert it to bytes with encode
         if os.path.isfile("./downloads/" + shahash):
             print("Already have this attachment")
             # checking if I have already received that file
