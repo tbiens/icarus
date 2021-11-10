@@ -9,10 +9,6 @@ from app.icarussyslog import syslogout
 # pylint: disable=R0801
 config = configparser.ConfigParser()
 config.read('icarus.config')
-if config['ADDRESSES']['IP'] == "auto":
-    IP = "0.0.0.0"
-else:
-    IP = config['ADDRESSES']['IP']
 smtpport = config['ADDRESSES']['SMTPPort']
 
 
@@ -41,6 +37,6 @@ class SMTPHoney:
 
 def startsmtp():
     """ async controller"""
-    controller = Controller(SMTPHoney(), hostname=IP, port=int(smtpport))
+    controller = Controller(SMTPHoney(), hostname="0.0.0.0", port=int(smtpport))
     # It calls the class below as my handler.
     controller.start()

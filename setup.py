@@ -20,10 +20,6 @@ import app.cfg
 # pylint: disable=R0801
 config = configparser.ConfigParser()
 config.read('icarus.config')
-if config['ADDRESSES']['IP'] == "auto":
-    IP = "0.0.0.0"
-else:
-    IP = config['ADDRESSES']['IP']
 smtpport = config['ADDRESSES']['SMTPPort']
 abuseip = config['IPDBAPI']['AbuseIPDB']
 abuseapikey = config['IPDBAPI']['IPDBAPI']
