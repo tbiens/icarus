@@ -12,10 +12,10 @@ class MyUDPHandler(socketserver.BaseRequestHandler):
 
     def handle(self):
 
-        attackerip = self.client_address[0]
-        getport = self.server.server_address[1]
-        print(str(attackerip) + str(getport))
-        prereport(attackerip, getport)
+        attackerip = str(self.client_address[0])
+        getport = str(self.server.server_address[1])
+
+        prereport(str(attackerip), getport)
         lastattacker(attackerip)
 
 
