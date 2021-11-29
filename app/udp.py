@@ -14,6 +14,7 @@ class MyUDPHandler(socketserver.BaseRequestHandler):
 
         attackerip = self.client_address[0]
         getport = self.server.server_address[1]
+        print(str(attackerip) + str(getport))
         prereport(attackerip, getport)
         lastattacker(attackerip)
 
@@ -21,4 +22,5 @@ class MyUDPHandler(socketserver.BaseRequestHandler):
 def runudp(port):
 
     with socketserver.UDPServer(('0.0.0.0', port), MyUDPHandler) as server:
+        server.allow_reuse_address = True
         server.serve_forever()
