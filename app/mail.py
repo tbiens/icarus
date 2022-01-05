@@ -19,8 +19,15 @@ import datetime
 config = configparser.ConfigParser()
 config.read('icarus.config')
 enabled = config['MAIL']['Mail']
+org_name = config['MAIL']['Org_name']
+zone = config['MAIL']['Timezone']
+from_email = config['MAIL']['From_email']
+email_port = config['MAIL']['Mail_port']
+email_server = config['MAIL']['Mail_server']
+email_password = config['MAIL']['Server_password']
 
 def sendEmail(ipaddr, preport):
+    server = smtplib.SMTP(email_server, email_port)
     obj = IPWhois(ipaddr)
     emails = obj.lookup_whois()["nets"][0]["emails"]
 
@@ -51,4 +58,25 @@ def sendEmail(ipaddr, preport):
         "5900": "5900"
     }
     port = natports[prenatport]
-    
+    logs = "NOTICE: Detected a port scan from " + ipaddr + " to port " + port + " at " + timestamp
+    email_body = "Hello,\n\nWe have detected an portscan from an IP address on your computer network. Please review the following logs (which are in " + zone + "):\n\n" + logs + "\n\n\nThank you,\n\n" + org_name
+    subject = "Abuse Report: Unauthorized Port Scan"    
+
+    fromaddr = from_email
+    toaddr = abuse
+    msg = MIMEMultipart()
+    msg['From'] = fromaddr
+    msg['To'] = toaddr
+    msg['Subject'] = subject
+    msg.attach(MIMEText(email_body, 'plain'))
+
+    server.ehlo()
+    server.starttls()
+    server.ehlo()
+
+    server.login(from_email, email_password)
+
+    text = msg.as_string()
+    server.sendmail(fromaddr, toaddr, text)
+
+    print("Done, sent to " + abuse)
