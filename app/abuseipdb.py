@@ -112,8 +112,8 @@ def largfeed():
     """very straight forward open socket and send bytes data. Largfeed takes it from there."""
     # TODO API Key and crypto
 
-    whitelisturl = "http://" + largfeedserver + "/whitelist.txt"
-    wlu = requests.get(whitelisturl)
+    whitelisturl = "https://" + largfeedserver + "/whitelist.txt"
+    wlu = requests.get(whitelisturl, verify=False)
     for whitelistline in wlu.text.split('\n'):
         if whitelistline:
             if str("#") in whitelistline:
