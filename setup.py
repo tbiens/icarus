@@ -13,7 +13,7 @@ from app.editor import editor
 from app.udp import runudp
 from app.tcp import runtcp
 from app.ftp import ftpserver
-from app.abuseipdb import largfeed
+from app.abuseipdb import largfeed, httppost
 import app.cfg
 
 
@@ -31,6 +31,7 @@ syslogport = config['SYSLOG']['PORT']
 largfeedon = config['LARGFEED']['Largfeed']
 largfeedserver = config['LARGFEED']['Server']
 largfeedport = config['LARGFEED']['Port']
+httpposton = config['HTTPPOST']['Httppost']
 tcpports = config['PORTS']['tcpports']
 udpports = config['PORTS']['udpports']
 
@@ -48,10 +49,12 @@ def main(window):
     process1 = Process(name='Ftp', target=ftpserver, daemon=True)
     process1.start()
     # Largfeed Queue processor
-    if largfeedon != "no":
+    if largfeedon != "no" and httpposton == 'no':
         process3 = Process(name='largfeed', target=largfeed, daemon=True)
         process3.start()
-
+    if largfeedon == "no" and httpposton != 'no':
+        process3 = Process(name='httppost', target=httppost, daemon=True)
+        process3.start()
     # Dynamic low interaction port services.
 
     for tcpport in tcpports.replace(" ", "").split(','):

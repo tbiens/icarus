@@ -16,6 +16,8 @@ abuseip = config['IPDBAPI']['AbuseIPDB']
 apikey = config['IPDBAPI']['IPDBAPI']
 largfeedserver = config['LARGFEED']['Server']
 largfeedport = config['LARGFEED']['Port']
+httpposton = config['HTTPPOST']['Httppost']
+httpposturl = config['HTTPPOST']['url']
 
 
 def checkwhitelist(ipaddr):
@@ -136,6 +138,42 @@ def largfeed():
                     else:
                         pass
             time.sleep(5)
+        except socket.timeout:
+            time.sleep(60)
+
+        except socket.error:
+            time.sleep(60)
+
+def httppost():
+
+    #
+    # whitelisturl = "https://" + largfeedserver + "/whitelist.txt"
+    # wlu = requests.get(whitelisturl, verify=False)
+    # for whitelistline in wlu.text.split('\n'):
+    #     if whitelistline:
+    #         if str("#") in whitelistline:
+    #             pass
+    #         else:
+    #             app.cfg.whitelist.append(whitelistline)
+
+    while True:
+        try:
+            url = httpposturl
+
+            if len(app.cfg.largfeedqueue) >= 1:
+
+                addr = app.cfg.largfeedqueue.pop()
+                # if checkwhitelist(addr):
+                #     sock.connect((host, port))
+                #     sock.sendall(bytes(addr + "\n", "utf-8"))
+                # else:
+                #     pass
+                data = {"ip_address": addr, "reason": "Icarus reliable report"}
+                response = requests.post(url, data=data)
+                print(response.text)
+
+            time.sleep(5)
+
         except socket.timeout:
             time.sleep(60)
 
