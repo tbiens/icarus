@@ -170,7 +170,7 @@ def httppost():
                 #     pass
                 data = {"ip_address": addr, "reason": "Icarus reliable report"}
                 response = requests.post(url, data=data)
-                print(response.text)
+                # print(response.text)
 
             time.sleep(5)
 
