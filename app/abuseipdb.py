@@ -3,7 +3,6 @@ Contains functions to report to abuseipdb api.
 """
 
 import logging
-import configparser  # https://docs.python.org/3/library/configparser.html
 import socket
 import time
 import ipaddress
@@ -57,7 +56,8 @@ def report(ipaddr, preport):
         "2021": "21",
         "2022": "22",
         "2023": "23",
-        "2205": "25",
+        "2025": "25",
+        "2053": "53",
         "20110": "110",
         "20111": "111",
         "20135": "135",
