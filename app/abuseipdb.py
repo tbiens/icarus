@@ -76,6 +76,8 @@ def report(ipaddr, preport):
         "5600": "5600",
         "5900": "5900"
     }
+    if prenatport not in natports:
+        return
     port = natports[prenatport]
 
     # using configparser to pull the apikey details for abuseipdb.
@@ -163,11 +165,7 @@ def httppost():
             if len(app.cfg.largfeedqueue) >= 1:
 
                 addr = app.cfg.largfeedqueue.pop()
-                # if checkwhitelist(addr):
-                #     sock.connect((host, port))
-                #     sock.sendall(bytes(addr + "\n", "utf-8"))
-                # else:
-                #     pass
+
                 data = {"ip_address": addr, "reason": "Icarus reliable report"}
                 response = requests.post(url, data=data)
                 # print(response.text)

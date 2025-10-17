@@ -12,7 +12,7 @@ from app.smtp import startsmtp
 from app.editor import editor
 from app.udp import runudp
 from app.tcp import runtcp
-from app.ftp import ftpserver
+
 from app.abuseipdb import largfeed, httppost
 import app.cfg
 
@@ -45,9 +45,7 @@ def main(window):
     process2 = Process(name='smtp', target=startsmtp, daemon=True)
     process2.start()
     # startsmtp()
-    # Starting FTP Service
-    process1 = Process(name='Ftp', target=ftpserver, daemon=True)
-    process1.start()
+
     # Largfeed Queue processor
     if largfeedon != "no" and httpposton == 'no':
         process3 = Process(name='largfeed', target=largfeed, daemon=True)
@@ -114,7 +112,7 @@ def main(window):
         if key == ord('q'):
             break
         if key == ord('r'):
-            process1.terminate()
+
             process2.terminate()
             os.execv(sys.executable, ['python3'] + sys.argv)
             # Nice little thing that restarts a python script.
