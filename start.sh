@@ -20,6 +20,6 @@ tmux -c 'docker run -a stdin -a stdout -it \
 -p 135:20135/tcp -p 139:20139/tcp -p 143:20143/tcp \
 -p 161:20161/udp -p 445:20445/tcp -p 1433:1433/tcp \
 -p 1723:1723/tcp -p 3306:3306/tcp -p 3389:3389/tcp \
--p 5600:5600/udp -p 5900:5900/tcp -p 21:2021/tcp \
--p 25:2025/tcp -p 3389:3389/udp -p 111:20111/udp \
+-p 5600:5600/udp -p 5900:5900/tcp -p 21:2021/udp \
+-p 25:2025/udp -p 3389:3389/udp -p 111:20111/udp \
 -p 135:20135/udp  icarus'
