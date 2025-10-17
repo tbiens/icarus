@@ -1,14 +1,11 @@
-FROM python:3.8-buster
+FROM python:3.10-slim-bullseye
 
 RUN groupadd -r NOTROOT && useradd --no-log-init -r -g NOTROOT NOTROOT
 
 WORKDIR /icarus
 
-# Update aptitude with new repo
-RUN apt-get update
-
 # Install software
-RUN apt-get install -y python3-pip screen nano
+RUN apt-get update && apt-get install -y screen nano
 
 COPY requirements.txt .
 
