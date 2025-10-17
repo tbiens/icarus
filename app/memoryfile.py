@@ -1,5 +1,6 @@
 """creates files that are stored entirely in memory"""
 
+import logging
 import io  # https://docs.python.org/3/library/allos.html
 import os  # for os.path.isfile
 import hashlib  # https://docs.python.org/3/library/hashlib.html
@@ -40,10 +41,13 @@ def inmemoryfile(filecontents):
             print("Already have this attachment")
             # checking if I have already received that file
         else:
-            with open("downloads/" + shahash, "w+", encoding="utf8") as filename:
-                # open sha256 named file
-                filename.write(attachment)
-                # Reading the memoryfile into the actual file being written to disk.
-            filename.close()  # closing is important.
-            virustotalfile(shahash)  # Send the file to my virustotal script
-            memoryfile.close()  # closing is important.
+            try:
+                with open("downloads/" + shahash, "w+", encoding="utf8") as filename:
+                    # open sha256 named file
+                    filename.write(attachment)
+                    # Reading the memoryfile into the actual file being written to disk.
+                virustotalfile(shahash)  # Send the file to my virustotal script
+            except (IOError, OSError) as e:
+                logging.error(f"Could not write attachment to disk: {e}")
+            finally:
+                memoryfile.close()  # closing is important.

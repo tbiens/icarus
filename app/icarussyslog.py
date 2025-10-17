@@ -2,20 +2,13 @@
 
 import logging
 import logging.handlers
-import configparser  # https://docs.python.org/3/library/configparser.html
-
-
-config = configparser.ConfigParser()
-config.read('icarus.config')
-syslogenable = config['SYSLOG']['Syslog']
-syslogip = config['SYSLOG']['IP']
-syslogport = config['SYSLOG']['PORT']
+from app.config import config
 
 
 def syslogout(message):
     """ syslog function, not in use."""
-    if syslogenable != 'no':
-        syslog = logging.handlers.SysLogHandler(address=(syslogip,int(syslogport)))
+    if config.syslogenable != 'no':
+        syslog = logging.handlers.SysLogHandler(address=(config.syslogip,int(config.syslogport)))
         log = logging.getLogger(__name__)
         log.setLevel(logging.INFO)
         formatter = logging.Formatter('Icarus Honeypot: %(message)s')

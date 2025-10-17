@@ -3,7 +3,6 @@
 import os
 import curses
 import sys
-import configparser  # https://docs.python.org/3/library/configparser.html
 from multiprocessing import Process
 import aiosmtpd.smtp
 
@@ -18,51 +17,45 @@ import app.cfg
 
 
 # pylint: disable=R0801
-config = configparser.ConfigParser()
-config.read('icarus.config')
-smtpport = config['ADDRESSES']['SMTPPort']
-abuseip = config['IPDBAPI']['AbuseIPDB']
-abuseapikey = config['IPDBAPI']['IPDBAPI']
-vtapikey = config['APIKEY']['apikey']
-virustotal = config['APIKEY']['Virustotal']
-syslogenable = config['SYSLOG']['Syslog']
-syslogip = config['SYSLOG']['IP']
-syslogport = config['SYSLOG']['PORT']
-largfeedon = config['LARGFEED']['Largfeed']
-largfeedserver = config['LARGFEED']['Server']
-largfeedport = config['LARGFEED']['Port']
-httpposton = config['HTTPPOST']['Httppost']
-tcpports = config['PORTS']['tcpports']
-udpports = config['PORTS']['udpports']
+from app.config import config
 
 aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
 
 
 # pylint: disable=R0915, W0613
-def main(window):
-    """MAIN!"""
+def start_background_processes():
+    """Starts all the background processes."""
+    processes = []
     # Starting SMTP Service
     process2 = Process(name='smtp', target=startsmtp, daemon=True)
     process2.start()
+    processes.append(process2)
     # startsmtp()
 
     # Largfeed Queue processor
-    if largfeedon != "no" and httpposton == 'no':
+    if config.largfeedon != "no" and config.httpposton == 'no':
         process3 = Process(name='largfeed', target=largfeed, daemon=True)
         process3.start()
-    if largfeedon == "no" and httpposton != 'no':
+        processes.append(process3)
+    if config.largfeedon == "no" and config.httpposton != 'no':
         process3 = Process(name='httppost', target=httppost, daemon=True)
         process3.start()
+        processes.append(process3)
     # Dynamic low interaction port services.
 
-    for tcpport in tcpports.replace(" ", "").split(','):
+    for tcpport in config.tcpports.replace(" ", "").split(','):
         dyntcpprocess = Process(name='DynamicTCP ' + str(tcpport), target=runtcp, daemon=True, args=(int(tcpport),))
         dyntcpprocess.start()
+        processes.append(dyntcpprocess)
 
-    for udpport in udpports.replace(" ", "").split(','):
+    for udpport in config.udpports.replace(" ", "").split(','):
         dynudpprocess = Process(name='DynamicUDP ' + str(udpport), target=runudp, daemon=True, args=(int(udpport),))
         dynudpprocess.start()
+        processes.append(dynudpprocess)
+    return processes
 
+def handle_ui(window, processes):
+    """Handles the user interface."""
     while True:
         scurses = curses.initscr()
         curses.curs_set(0)
@@ -83,17 +76,17 @@ def main(window):
         # First number is vertical, 51 is horizontal
         cursewinder.addstr(0, 51, "Icarus.config")
         cursewinder.addstr(1, 51, "Virustotal:")
-        cursewinder.addstr(2, 51, "Enabled: " + virustotal)
-        cursewinder.addstr(3, 51, "APIKEY: " + vtapikey)
+        cursewinder.addstr(2, 51, "Enabled: " + config.virustotal)
+        cursewinder.addstr(3, 51, "APIKEY: " + config.vtapikey)
         cursewinder.addstr(5, 51, "AbuseIPDB:")
-        cursewinder.addstr(6, 51, "Enabled: " + abuseip)
-        cursewinder.addstr(7, 51, "APIKEY: " + abuseapikey)
+        cursewinder.addstr(6, 51, "Enabled: " + config.abuseip)
+        cursewinder.addstr(7, 51, "APIKEY: " + config.abuseapikey)
         cursewinder.addstr(9, 51, "Syslog:")
-        cursewinder.addstr(10, 51, "Enabled: " + syslogenable)
-        cursewinder.addstr(11, 51, "Syslog Server: " + syslogip + ":" + syslogport)
+        cursewinder.addstr(10, 51, "Enabled: " + config.syslogenable)
+        cursewinder.addstr(11, 51, "Syslog Server: " + config.syslogip + ":" + config.syslogport)
         cursewinder.addstr(13, 51, "LARGfeed:")
-        cursewinder.addstr(14, 51, "Enabled: " + largfeedon)
-        cursewinder.addstr(15, 51, "LARGfeed Server: " + largfeedserver + ":" + largfeedport)
+        cursewinder.addstr(14, 51, "Enabled: " + config.largfeedon)
+        cursewinder.addstr(15, 51, "LARGfeed Server: " + config.largfeedserver + ":" + config.largfeedport)
         cursewinder.addstr(17, 51, "Press P to change values.", curses.color_pair(2))
         cursewinder.addstr(18, 51, "Press R to restart.", curses.color_pair(3))
         cursewinder.addstr(19, 51, "Press Q to quit.", curses.color_pair(1))
@@ -112,14 +105,19 @@ def main(window):
         if key == ord('q'):
             break
         if key == ord('r'):
-
-            process2.terminate()
+            for p in processes:
+                p.terminate()
             os.execv(sys.executable, ['python3'] + sys.argv)
             # Nice little thing that restarts a python script.
         elif key == ord('p'):
             editor()  # from editor.py, opens your system editor.
             cursewinder.erase()
             cursewinder.refresh()
+
+def main(window):
+    """MAIN!"""
+    processes = start_background_processes()
+    handle_ui(window, processes)
 
 
 if __name__ == '__main__':

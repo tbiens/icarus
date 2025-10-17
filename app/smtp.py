@@ -1,15 +1,12 @@
 """smtp module to accept attachments. only reports the first attachment to virustotal"""
 
-import configparser
 from aiosmtpd.controller import Controller  # the controller that handles async smtp?
 from app.memoryfile import inmemoryfile
 from app.abuseipdb import abuseipdb
 from app.icarussyslog import syslogout
 
 # pylint: disable=R0801
-config = configparser.ConfigParser()
-config.read('icarus.config')
-smtpport = config['ADDRESSES']['SMTPPort']
+from app.config import config
 
 
 class SMTPHoney:
@@ -37,6 +34,6 @@ class SMTPHoney:
 
 def startsmtp():
     """ async controller"""
-    controller = Controller(SMTPHoney(), hostname="0.0.0.0", port=int(smtpport))
+    controller = Controller(SMTPHoney(), hostname="0.0.0.0", port=int(config.smtpport))
     # It calls the class below as my handler.
     controller.start()
