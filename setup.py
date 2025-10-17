@@ -7,7 +7,7 @@ from multiprocessing import Process
 import aiosmtpd.smtp
 
 # Below are my functions.
-from app.smtp import startsmtp
+
 from app.editor import editor
 from app.udp import runudp
 from app.tcp import runtcp
@@ -26,11 +26,7 @@ aiosmtpd.smtp.__ident__ = "Microsoft ESMTP MAIL Service"
 def start_background_processes():
     """Starts all the background processes."""
     processes = []
-    # Starting SMTP Service
-    process2 = Process(name='smtp', target=startsmtp, daemon=True)
-    process2.start()
-    processes.append(process2)
-    # startsmtp()
+
 
     # Largfeed Queue processor
     if config.largfeedon != "no" and config.httpposton == 'no':

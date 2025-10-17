@@ -5,7 +5,7 @@ class Config:
         self.config = configparser.ConfigParser()
         self.config.read('icarus.config')
 
-        self.smtpport = self.config['ADDRESSES']['SMTPPort']
+
         self.abuseip = self.config['IPDBAPI']['AbuseIPDB']
         self.abuseapikey = self.config['IPDBAPI']['IPDBAPI']
         self.vtapikey = self.config['APIKEY']['apikey']
